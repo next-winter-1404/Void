@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import localFont from 'next/font/local'
+
+
+const Yekan = localFont({
+   src:"../assets/font/iran-yekan/IRANYekanMedium.ttf",
+   style:"normal",
+})
 
 
 export const metadata: Metadata = {
@@ -14,11 +21,11 @@ export default function RootLayout({
 }>) {
   return (
 
-    <html lang="en" className={`h-full antialiased`} >
+    <html lang="en" style={{height:"full"}} className={Yekan.className} >
      
 
 
-      <body className="layout">
+      <body className="layout" >
 
         {children}
         

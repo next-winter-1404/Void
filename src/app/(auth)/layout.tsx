@@ -1,4 +1,4 @@
-import TestimonialSlider from "@/components/auth/TestimonialSlider"
+import TestimonialSlider from "@/components/auth/sliderContainer/TestimonialSlider"
 
 export default function authLayout({children}:Readonly<{children:React.ReactNode}>){
 

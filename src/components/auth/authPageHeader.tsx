@@ -34,7 +34,7 @@ export default function authPageHeader ({step,head,email}:stepProps) {
         <>
           <header className="my-2 w-full">
              <h1 className=" py-3"><Image alt="logo" src={PIZA} /></h1>
-             <h1 className="font-bold/700 text-[36px] mb-5">{head}</h1>
+             <h1 className="font-bold text-[36px] mb-5">{head}</h1>
             
              
 
