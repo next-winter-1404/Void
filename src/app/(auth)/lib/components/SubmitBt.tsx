@@ -8,7 +8,7 @@ interface submitType {
 export default function SubmitBt ({subLabel}:submitType) {
 
     return (
-    <button type="submit" className="bg-[#586CFF] p-3 px-33 rounded-[16px] text-[white] font-medium text-center">
+    <button type="submit" className="bg-[#586CFF] py-3 w-full rounded-[16px] text-[white] font-medium text-center">
      {subLabel}
     </button>
     )
