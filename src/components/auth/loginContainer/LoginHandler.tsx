@@ -1,20 +1,28 @@
 'use client'
+
+//components
 import SubmitButton from "@/components/common/SubmitBt";
-import GoogleBt from "@/components/auth/googleBt"
+import GoogleBt from "@/components/auth/googleBt";
+import Input from "@/components/common/input"
+
 import Link from "next/link"
+import {FormEvent,useActionState,useState} from "react"
+import {redirect} from "next/navigation";
 
-import {FormEvent,useState} from "react"
+//util/service
+import { loginHandler } from "@/util/service/authAction/action";
+//util/service(type)
+import type { exportResultF } from "@/util/service/authAction/action";
 
-import Input from "@/components/auth/input"
 
 export default function step1 () {
 
-  const stepHandler = (e: FormEvent) => {
-    e.preventDefault();
+    const result:exportResultF = {success:true,result:"",errors:{email:"",password:""}};
+    const [state,formAction,pending] = useActionState(loginHandler,result);
+    
 
-  };
- 
     return(
+
        <>
 
       <GoogleBt title="ورود به حساب کاربری با گوگل"/>
@@ -25,12 +33,12 @@ export default function step1 () {
          <div className="flex-1 h-px bg-gray-300"></div>
        </div>
 
-        <form onSubmit={stepHandler}   className="flex flex-wrap gap-5 ">
+        <form action={formAction}   className="flex flex-wrap gap-5 ">
 
           <Input type="email" name="email" placeHolder="ایمیل خود را وارد کنید:"
              label="ایمیل" icon="email"/>
 
-           <Input name="pass" type="password" id="pass" 
+           <Input name="password" type="password" id="pass" 
              placeHolder="رمز عبور خود را وارد کنید" icon="pass" 
               label="رمز عبور"
               /> 

@@ -1,39 +1,49 @@
 'use client'
-import SubmitButton from "@/components/common/SubmitBt";
-import GoogleBt from "@/components/auth/googleBt"
-import Link from "next/link"
 
+//components
+import SubmitButton from "@/components/common/SubmitBt";
+import GoogleBt from "@/components/auth/googleBt";
+import Input from "@/components/common/input"
+
+
+import Link from "next/link"
 import { redirect, useRouter,useSearchParams } from "next/navigation";
-import {FormEvent,useState} from "react"
+import {FormEvent,useActionState,useState,useEffect} from "react"
+
+//util
 import { updateQueryParams } from "@/util/helper/updateQueryParams";
 
-import Input from "@/components/auth/input"
-
+//util/service
+import { registerVerifyHandler} from "@/util/service/authAction/action";
+//util/service(type)
+import type { exportResultF } from "@/util/service/authAction/action";
 
 
 export default function step1 () {
 
- 
+     const [email,setEmail] = useState<string>("");
 
-  const [email,setEmail] = useState<string>("");
+    //  const router = useRouter();
+    // const searchParams = useSearchParams();
+     
+     const result:exportResultF = {success:true,result:"",errors:{email:""}};
+     const [state,formAction,pending] = useActionState(registerVerifyHandler,result);
 
-    const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const stepHandler = (e: FormEvent) => {
-    e.preventDefault();
-
-    const stepUrl = updateQueryParams(
-      searchParams,      
-      { step: "2" , email:email }      
-    );
-
-    router.push(stepUrl);
     
-  };
+    // const stepUrl = updateQueryParams(
+    //   searchParams,      
+    //   { step: "2" , email:email }      
+    //    );
 
+    //   router.push(stepUrl);
+    // }
+
+  console.log(state)
+    
+    
   
- 
+
     return(
        <>
 
@@ -45,10 +55,10 @@ export default function step1 () {
          <div className="flex-1 h-px bg-gray-300"></div>
        </div>
 
-        <form onSubmit={stepHandler}   className="flex flex-wrap gap-5 ">
+        <form action={formAction}   className="flex flex-wrap gap-5 ">
 
           <Input setEmail={setEmail} email={email}  type="email" name="email" placeHolder="ایمیل خود را وارد کنید:"
-             label="ایمیل" icon="email"/>
+             label="ایمیل" icon="email" />
 
        
           <SubmitButton subLabel="ارسال کد تایید"   />

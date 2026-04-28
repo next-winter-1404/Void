@@ -1,17 +1,19 @@
 "use client";
-import { refresh } from "next/cache";
+
 import { useEffect, useRef, useState, ClipboardEvent, KeyboardEvent, ChangeEvent } from "react";
 import Image from "next/image"
+
+//assets
 import Timer from "@/assets/ico/auth/timer-ico.png"
-interface OtpInputProps {
-  length?: number;
-  onComplete?: (code: string) => void;
-}
+
+//type
+import type {OtpInputProps} from "@/types/input-type";
 
 export default function OtpInput({ length = 5, onComplete }: OtpInputProps) {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""));
   const [timeLeft, setTimeLeft] = useState<number>(5);
   const inputsRef = useRef<HTMLInputElement[]>([]);
+
 
   useEffect(() => {
     if (timeLeft <= 0) return;

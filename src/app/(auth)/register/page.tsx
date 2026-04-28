@@ -23,12 +23,10 @@ export default async function  Login({searchParams}:searchItemsProps) {
    
    let currentStep = null;
    
-   let text = "برای ثبت نام در آلفا میتوانید با اکانت گوگل خود و یا با ارسال کد تایید به ایمیل خود اقدام کنید";
-
    switch(step) {
     case "1" : currentStep = <Step1/> ; break
-    case "2" : currentStep = <Step2/>, text = `کد تایید ارسال شده به ${email} را وارد کنید `; break
-    case "3" : currentStep = <Step3/>,text = "مشخصات خواسته زیر را پر کنید." ;break
+    case "2" : currentStep = <Step2/>; break
+    case "3" : currentStep = <Step3/> ;break
      default : currentStep = <Step1/> ;break
    }
    

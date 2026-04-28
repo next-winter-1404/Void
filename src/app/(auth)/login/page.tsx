@@ -7,23 +7,8 @@ import Link from "next/link";
 
 import AuthPageHeader from "@/components/auth/authPageHeader";
 
-interface searchItemsProps {
-    searchParams:Promise<{
-        page:string,
-        step:"1" | "2" | "3"
-    }>
-}
-
-export default async function  Login({searchParams}:searchItemsProps) {
+export default async function  Login() {
   
-   const {step} = await searchParams;
-   
-   let currentStep = null;
-   let email = "mosayebi@gmail.com"
-
-   let text = "برای ثبت نام در آلفا میتوانید با اکانت گوگل خود و یا با ارسال کد تایید به ایمیل خود اقدام کنید";
-
-   
        
     return (
                
@@ -33,8 +18,6 @@ export default async function  Login({searchParams}:searchItemsProps) {
 
 
            <AuthPageHeader head="ورود به پیزا" />
-
-           {currentStep}
 
              <LoginHandler/>
              

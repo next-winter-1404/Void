@@ -1,5 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
+
+//assets
 import PIZA from "@/assets/ico/PIZA.png";
 
 interface stepProps {

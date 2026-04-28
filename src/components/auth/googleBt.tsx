@@ -1,5 +1,8 @@
 'use client'
+
+//asssets
 import GoogleIco from "@/assets/ico/auth/google-ico.png"
+
 import Image from "next/image"
 
 interface titleProps {

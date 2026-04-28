@@ -1,6 +1,4 @@
 'use client'
-
-
 interface submitType {
     subLabel:string
 }

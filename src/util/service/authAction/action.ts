@@ -1,47 +1,72 @@
 "use server"
 
-import { cookies } from "next/headers"
-// import { createToken } from "@/app/lib/auth"
-import { redirect } from "next/navigation"
+import { redirect } from "next/navigation";
 
-// user
-const users = [
-  { id: "1", username: "user", password: "1234" },
-  { id: "2", username: "mersad", password: "2044" },
-]
+// yup (fail)
+// import {login, registerStep2, registerStep3} from "@/util/hooks/yupValidation";
 
-export async function loginAction(prevState: any, formData: FormData) {
-
-  const username = formData.get("username") as string
-  const password = formData.get("password") as string
-
- 
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  )
-
-  if (!user) {
-    return { message: "نام کاربری یا رمز اشتباه است" }
-  }
- 
-  // token
-  // const token = await createToken({ userId: user.id, username: user.username })
-   
-  // cookie
-  const cookieStore = await cookies()
-  // cookieStore.set("token", token, {
-  //   httpOnly: true,      
-  //   secure: true,       
-  //   maxAge: 60 * 60 * 24 * 7,  
-  //   path: "/",
-  // })
-
-  redirect("/home")
+export interface exportResultF {
+   success:boolean,
+   result?: string | null
+   errors?:{
+      email?:string | null,
+      phoneNumber?:string | null,
+      verifyCode?:string | null,
+      password?:string | null,
+      passwordRepeat?:string | null
+    }
 }
 
+export async function loginHandler(prevState:exportResultF ,formData:FormData):Promise<exportResultF>{
+  
+ 
+   const email = formData.get("email")
+   const password = formData.get("password")
+  
 
-export async function logoutAction() {
-  const cookieStore = await cookies()
-  cookieStore.delete("token")
-  redirect("/login")
+  
+    
+  
+  // console.log("email:",email,"password",password);
+
+  return {success:true,result:"شما وارد حساب شدید"}
+    
+
+}
+
+export async function registerVerifyHandler(prevState:exportResultF ,formData:FormData):Promise<exportResultF>{
+ 
+  
+   const email =formData.get("email")
+   const verifyCode = formData.get("verifyCode")
+   
+   console.log(email);
+
+   if(email) {
+     redirect(`/register?step=2&email=${formData.get("email")}`)
+    }
+    else{redirect(`/register?step=3`)};
+  
+  
+  //  return{success:true,result:"کد تایید به ایمیل شما ارسال شد"}
+  
+}
+
+export async function registerApplyHandler(prevState:exportResultF ,formData:FormData):Promise<exportResultF>{
+   
+    const data ={
+     phoneNumber : formData.get("phoneNumber"),
+     password : formData.get("password"),
+     passwordRepeat : formData.get("passwordRepeat")
+    }
+
+   if (data.password != data.passwordRepeat) return {success:false,errors:{passwordRepeat:"رمز عبور همخوانی ندارد"}}
+     
+   console.log("phone",data.phoneNumber,"password",data.password,"passswordRepeat",data.passwordRepeat);
+
+  
+   return {success:true, result:"ثبت نام با موفقیت انجام شد"}
+   
+   
+
 }
