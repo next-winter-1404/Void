@@ -1,4 +1,4 @@
-
+import type { ErrorType } from "@/util/hooks/zodValidation"
 export interface InputProps {
     name: string,
     type: "password" | "text" | "email",
@@ -8,7 +8,7 @@ export interface InputProps {
     label:string
     email?:string
     setEmail?:React.Dispatch<React.SetStateAction<string>> 
-    errors?:string | null
+    errors?:string
     
 }
 

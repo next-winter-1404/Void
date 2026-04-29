@@ -1,18 +1,15 @@
 
-import Step1 from "@/components/auth/registerContainer/step1";
-import Step2 from "@/components/auth/registerContainer/step2";
-import Step3 from "@/components/auth/registerContainer/step3";
+import VerifyEmail from "@/components/auth/registerContainer/verifyEmail";
+import VerifyCode from "@/components/auth/registerContainer/verifyCode";
+import RegisterFinal from "@/components/auth/registerContainer/registerFinal";
 
-import PIZA from "@/assets/ico/PIZA.png";
-import Image from "next/image";
-import Link from "next/link";
 
 import AuthPageHeader from "@/components/auth/authPageHeader";
 
 interface searchItemsProps {
     searchParams:Promise<{
         page:string,
-        step:"1" | "2" | "3"
+        step:"RverifyEmail" | "RverifyCode" | "register/final"
         email:string
     }>
 }
@@ -24,17 +21,15 @@ export default async function  Login({searchParams}:searchItemsProps) {
    let currentStep = null;
    
    switch(step) {
-    case "1" : currentStep = <Step1/> ; break
-    case "2" : currentStep = <Step2/>; break
-    case "3" : currentStep = <Step3/> ;break
-     default : currentStep = <Step1/> ;break
+    case "RverifyEmail" : currentStep = <VerifyEmail/> ; break
+    case "RverifyCode" : currentStep = <VerifyCode/>; break
+    case "register/final" : currentStep = <RegisterFinal/> ;break
+     default : currentStep = <VerifyEmail/> ;break
    }
    
        
     return (
-               
-        <div className=" w-[50%] max-md:w-[full] border  max-xl:w-full h-screen  flex flex-col items-center justify-center ">
-
+         <>      
          <div className="flex flex-col items-center gap-5 w-[430px] max-md:w-[80%] ">
 
 
@@ -43,7 +38,8 @@ export default async function  Login({searchParams}:searchItemsProps) {
            {currentStep}
 
            </div>
-        </div>
+
+        </>
       
 
     )

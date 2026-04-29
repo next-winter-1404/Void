@@ -3,22 +3,31 @@ import Link from "next/link"
 
 //assets
 import PIZA from "@/assets/ico/PIZA.png";
+import { NextURL } from "next/dist/server/web/next-url";
 
 interface stepProps {
-    step?: "1" | "2" | "3" ;
-    head : "ثبت نام در پیزا" | "ورود به پیزا"
+    step?: "RverifyEmail" | "RverifyCode" 
+    |"FverifyEmail" | "FverifyCode" | "resetPass" | "register/final";
+    head : "ثبت نام در پیزا" | "ورود به پیزا" | "تغییر رمز عبور"
     email?:string
 }
+
+
 
 export default function authPageHeader ({step,head,email}:stepProps) {
 
     const text:string[] =
-     ["برای ثبت نام در آلفا میتوانید با اکانت گوگل خود و یا با ارسال کد تایید به ایمیل خود اقدام کنید"
+     ["برای ثبت نام در  میتوانید با اکانت گوگل خود و یا با ارسال کد تایید به ایمیل خود اقدام کنید"
      ,
      "مشخصات خواسته شده را پر کنید"
      ,
-     "برای ورود به حساب کاربری آلفا میتوانید با اکانت گوگل خود و یا با ایمیل و رمزعبور خود اقدام کنید"
+     "برای ورود به حساب کاربری  میتوانید با اکانت گوگل خود و یا با ایمیل و رمزعبور خود اقدام کنید"
+     ,
+     "برای تغییر رمز عبور خود ایمیل حساب خود را وارد کنید"
+     ,
+     "رمز عبور جدید را وارد کنید"
     ]
+    
     
  
     return (
@@ -27,16 +36,21 @@ export default function authPageHeader ({step,head,email}:stepProps) {
              <h1 className=" py-3"><Image alt="logo" src={PIZA} /></h1>
              <h1 className="font-bold/700 text-[36px] mb-5">{head}</h1>
             
+             
+
              <p className=" text-[14px] font-medium text-[#767676]">
-                {
-                   step === "1" ? text[0] : 
-                   step === "2" ? <span>کد تایید ارسال شده به <span className="text-[blue]">{email}</span> را وارد کنید.</span> :
-                   step === "3" ? text[1] : text[2]
+                {  
+                   step === "RverifyEmail" ? text[0] : 
+                   step === "FverifyEmail" ? text[3] :
+                   step === "RverifyCode" || step === "FverifyCode"  ? <span>کد تایید ارسال شده به <span className="text-[blue]">{email}</span> را وارد کنید.</span> :
+                   step === "register/final" ? text[1] : 
+                   step === "resetPass" ?   text[4] : text[2]
                 }
                
                 <br/>
-                {step === "2" &&
-                <Link href="/" className="underline text-[blue]">برای تغییر جیمیل</Link>
+                {step === "RverifyCode" ?
+                <Link href="/register" className="underline text-[blue]">برای تغییر جیمیل</Link>
+                : step === "FverifyCode" && <Link href="/forgetPassword" className="underline text-[blue]">برای تغییر جیمیل</Link>
                 }
                  
               </p>

@@ -3,7 +3,7 @@
 //components
 import SubmitButton from "@/components/common/SubmitBt";
 import GoogleBt from "@/components/auth/googleBt";
-import Input from "@/components/common/input"
+import Input from "@/components/common/inputFeild/input"
 
 
 import Link from "next/link"
@@ -26,7 +26,7 @@ export default function step1 () {
     //  const router = useRouter();
     // const searchParams = useSearchParams();
      
-     const result:exportResultF = {success:true,result:"",errors:{email:""}};
+     const result:exportResultF = {success:true,result:""};
      const [state,formAction,pending] = useActionState(registerVerifyHandler,result);
 
 
@@ -55,19 +55,21 @@ export default function step1 () {
          <div className="flex-1 h-px bg-gray-300"></div>
        </div>
 
-        <form action={formAction}   className="flex flex-wrap gap-5 ">
+        <form action={formAction}   className="flex flex-col gap-5 w-full ">
 
           <Input setEmail={setEmail} email={email}  type="email" name="email" placeHolder="ایمیل خود را وارد کنید:"
-             label="ایمیل" icon="email" />
+             label="ایمیل" icon="email" errors={state?.errors?.email} />
 
        
           <SubmitButton subLabel="ارسال کد تایید"   />
 
+         <div className="flex flex-col text-[14px] gap-2 font-medium">
            <div className="flex flex-row m-auto">
             <p>حساب کاربری دارید؟</p>
            <Link href="/login" className="cursor-pointer text-[#9B0EE1] mr-2 underline"> ورود به حساب</Link>
           </div> 
-     
+         </div>
+         
         </form>
            
         </>

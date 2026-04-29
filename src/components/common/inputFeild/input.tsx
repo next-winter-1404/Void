@@ -4,7 +4,7 @@ import { redirect, useRouter,useSearchParams } from "next/navigation";
 import {FormEvent,useState} from "react"
 
 //components/common
-// import FormError from "./formError";
+import FormError from "./formError";
 
 
 //type
@@ -13,13 +13,13 @@ import type { InputProps } from "@/types/input-type";
 
 
 
-export default function passwordInput ({name,type,id,placeHolder,icon,label,email,setEmail}:InputProps) {
+export default function passwordInput ({name,type,id,placeHolder,icon,label,errors,email,setEmail}:InputProps) {
 
     const [show,setShow] = useState<boolean>(false);
 
     
     return (
-        <div className="w-full relative">
+        <div className=" relative">
         <label htmlFor={name} className="font-medium block mb-3">{label}</label>
         <input
            name={name}
@@ -37,7 +37,8 @@ export default function passwordInput ({name,type,id,placeHolder,icon,label,emai
              bg-no-repeat bg-[position:98%_55%]`}
           />
         
-         {/* <FormError/> */}
+         <FormError errors={errors} />
+         
           
          {type === "password" && 
          <button 
