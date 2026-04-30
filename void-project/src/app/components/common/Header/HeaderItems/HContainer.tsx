@@ -1,0 +1,14 @@
+import React, { FC, ReactNode } from 'react'
+
+interface IProps{
+    children: ReactNode;
+}
+const HContainer:FC<IProps> = ({children}) => {
+  return (
+    <div className=' px-16 py-6 fixed top-0 right-0 left-0 bg-transparent flex items-center justify-between z-50 backdrop-blur rounded' dir='ltr'>
+        {children}
+    </div>
+  )
+}
+
+export default HContainer
