@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import PIZA from '../../../../../public/components/header/PIZA.png'
-import trustme from '../../../../../public/components/footer/trustme.png'
+import PIZA from '@/app/assets/Images/components/header/PIZA.png'
+import trustme from '@/app/assets/Images/components/footer/trustme.png'
 import { footerData } from './FooterItemsDatas'
 
 const FooterComponent = () => {

@@ -2,12 +2,13 @@ import React from 'react'
 import Link from 'next/link'
 import HContainer from './HeaderItems/HContainer'
 import Image from 'next/image'
-import PIZA from '../../../../../public/components/header/PIZA.png'
+import PIZA from '@/app/assets/Images/components/header/PIZA.png'
+import Button1 from '../buttons/Button1'
 
 const HeaderComponent = () => {
   return (
     <HContainer>
-        <Link href="" className=' bg-blue-600 rounded-xl p-1.5 text-white font-bold top-1'>ثبت نام و ورود</Link>
+        <Button1 href='' label='ثبت نام و ورود'></Button1>
         <div className='flex gap-5 font-bold'>
             <Link href="" className=' hover:underline'>درباره ما</Link>
             <Link href="" className=' hover:underline'>مقالات</Link>
