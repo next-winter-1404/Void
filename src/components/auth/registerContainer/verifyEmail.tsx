@@ -14,36 +14,26 @@ import {FormEvent,useActionState,useState,useEffect} from "react"
 import { updateQueryParams } from "@/util/helper/updateQueryParams";
 
 //util/service
-import { registerVerifyHandler} from "@/util/service/authAction/action";
-//util/service(type)
-import type { exportResultF } from "@/util/service/authAction/action";
+import {register_Request} from "@/util/service/authAction/action";
+
+import { actionResult } from "@/util/service/authAction/actionResult";
 
 
-export default function step1 () {
+export default function verify_email () {
 
      const [email,setEmail] = useState<string>("");
 
-    //  const router = useRouter();
-    // const searchParams = useSearchParams();
      
-     const result:exportResultF = {success:true,result:""};
-     const [state,formAction,pending] = useActionState(registerVerifyHandler,result);
-
-
+     const [state,formAction,pending] = useActionState(register_Request,actionResult);
     
-    // const stepUrl = updateQueryParams(
-    //   searchParams,      
-    //   { step: "2" , email:email }      
-    //    );
+     if(state.success){
+       redirect(`/register?step=RverifyCode&email=${email}&tempUserId=${state.data.tempUserId}&verificationCode=${state.data.verificationCode}`)
+     }
 
-    //   router.push(stepUrl);
-    // }
-
-  console.log(state)
+     useEffect(()=>{
+        console.log(state);
+    },[state])
     
-    
-  
-
     return(
        <>
 
@@ -57,7 +47,7 @@ export default function step1 () {
 
         <form action={formAction}   className="flex flex-col gap-5 w-full ">
 
-          <Input setEmail={setEmail} email={email}  type="email" name="email" placeHolder="ایمیل خود را وارد کنید:"
+          <Input setEmail={setEmail} email={email}  type="text" name="email" placeHolder="ایمیل خود را وارد کنید:"
              label="ایمیل" icon="email" errors={state?.errors?.email} />
 
        

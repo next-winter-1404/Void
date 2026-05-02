@@ -6,24 +6,24 @@ import GoogleBt from "@/components/auth/googleBt";
 import Input from "@/components/common/inputFeild/input"
 
 import Link from "next/link"
-import {FormEvent,useActionState,useState} from "react"
+import {FormEvent,useActionState,useEffect,useState} from "react"
 import {redirect} from "next/navigation";
 
 //util/service
-import { loginHandler } from "@/util/service/authAction/action";
-//util/service(type)
-import type { exportResultF } from "@/util/service/authAction/action";
-import { email } from "zod";
+import { login_Handler} from "@/util/service/authAction/action";
+
+import { actionResult } from "@/util/service/authAction/actionResult";
 
 
 export default function step1 () {
 
-    const result:exportResultF = {success:true,result:""};
+    const [state,formAction,pending] = useActionState(login_Handler,actionResult);
+    
+    useEffect(()=>{
+        console.log(state);
+    },[state])
 
-    const [state,formAction,pending] = useActionState(loginHandler,result);
-      
-    console.log(state);
-
+  
     return(
 
        <>

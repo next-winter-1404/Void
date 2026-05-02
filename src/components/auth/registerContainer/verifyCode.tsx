@@ -12,31 +12,43 @@ import Link from "next/link"
 import { updateQueryParams } from "@/util/helper/updateQueryParams";
 
 //util/service
-import {registerVerifyHandler} from "@/util/service/authAction/action"
-//util/service(type)
-import type { exportResultF } from "@/util/service/authAction/action";
-import { keyof } from "zod";
+import {register_Verify} from "@/util/service/authAction/action";
 
-export default function step1 () {
-  
-       const router = useRouter();
-      const searchParams = useSearchParams();
+import { actionResult } from "@/util/service/authAction/actionResult";
 
-      const[code,setCode] = useState<string>("");
+
+
+export default function verify_Code () {
       
-     const result:exportResultF = {success:true,result:""};
-     const [state,formAction,pending] = useActionState(registerVerifyHandler,result);
+     const searchParams = useSearchParams();
+
+      const tempUserId = searchParams.get("tempUserId");
+       if(!tempUserId) return;
+      
+    const[code,setCode] = useState<string>("");
+      
+     const [state,formAction,pending] = useActionState(register_Verify,actionResult);
        
+    useEffect(()=>{
+       console.log(state);
+    },[state]) 
+    
+
+     if(state.success){
+       redirect(`/register?step=registerFinal&userId=${state.data.userId}`)
+     }
     
     return(
        <>
 
         <form action={formAction} className="flex flex-col gap-5 w-full ">
             
-            <input name="verifyCode" type="text" value={code} onChange={(e)=>e.target.value} className="absolute hidden"/>
+            
+            <input type="hidden" name="tempUserId"  value={tempUserId}/>
+            <input type="hidden" name="verifyCode"  value={code}/>
 
             <div className="flex justify-center w-full ">
-              <VerifyInput length={5} onComplete={setCode} />
+              <VerifyInput length={6} onComplete={setCode} />
             </div>
                         
           <SubmitButton subLabel="ارسال کد تایید"  />

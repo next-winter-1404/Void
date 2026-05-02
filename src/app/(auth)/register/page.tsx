@@ -9,7 +9,7 @@ import AuthPageHeader from "@/components/auth/authPageHeader";
 interface searchItemsProps {
     searchParams:Promise<{
         page:string,
-        step:"RverifyEmail" | "RverifyCode" | "register/final"
+        step:"RverifyEmail" | "RverifyCode" | "registerFinal"
         email:string
     }>
 }
@@ -23,7 +23,7 @@ export default async function  Login({searchParams}:searchItemsProps) {
    switch(step) {
     case "RverifyEmail" : currentStep = <VerifyEmail/> ; break
     case "RverifyCode" : currentStep = <VerifyCode/>; break
-    case "register/final" : currentStep = <RegisterFinal/> ;break
+    case "registerFinal" : currentStep = <RegisterFinal/> ;break
      default : currentStep = <VerifyEmail/> ;break
    }
    

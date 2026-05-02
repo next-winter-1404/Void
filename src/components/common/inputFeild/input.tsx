@@ -27,7 +27,6 @@ export default function passwordInput ({name,type,id,placeHolder,icon,label,erro
            id={id}
            value={email}
            onChange={(e)=> setEmail ? setEmail(e.target.value) : null}
-           required
            style={{
             backgroundImage:`url('/ico/auth/${icon}-ico.png')`
            }}

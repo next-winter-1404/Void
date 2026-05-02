@@ -11,20 +11,29 @@ import {FormEvent,useState,useActionState, useEffect} from "react"
 import { updateQueryParams } from "@/util/helper/updateQueryParams";
 
 //util/service
-import {forgetPassHandler} from "@/util/service/authAction/action"
+import {forgetPass_Verify} from "@/util/service/authAction/action"
 //util/service(type)
-import type { exportResultF } from "@/util/service/authAction/action";
+import { actionResult } from "@/util/service/authAction/actionResult";
 import { keyof } from "zod";
 
-export default function step1 () {
+export default function verifyCode() {
+  const searchParams = useSearchParams();
   
-       const router = useRouter();
-      const searchParams = useSearchParams();
-
+        const email = searchParams.get("email");
+         if(!email) return;
+        
       const[code,setCode] = useState<string>("");
+        
+       const [state,formAction,pending] = useActionState(forgetPass_Verify,actionResult);
+         
+      useEffect(()=>{
+         console.log(state);
+      },[state]) 
       
-     const result:exportResultF = {success:true,result:""};
-     const [state,formAction,pending] = useActionState(forgetPassHandler ,result);
+  
+       if(state.success){
+         redirect(`/forgetPassword?step=resetPass&email=${email}`)
+       }
        
     
     return(
@@ -32,10 +41,11 @@ export default function step1 () {
 
         <form action={formAction} className="flex flex-col gap-5 w-full ">
             
-            <input name="verifyCode" type="text" value={code} onChange={(e)=>e.target.value} className="absolute hidden"/>
+             <input type="hidden" name="email"  value={email}/>
+             <input type="hidden" name="verifyCode"  value={code}/>
 
             <div className="flex justify-center w-full ">
-              <VerifyInput length={5} onComplete={setCode} />
+              <VerifyInput length={6} onComplete={setCode} />
             </div>
                         
           <SubmitButton subLabel="تایید کد"  />

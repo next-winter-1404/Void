@@ -11,6 +11,7 @@ export async function middleware(req:NextRequest) {
     //     return "/register"
     // }
 
+    
     // if(req.nextUrl.pathname.startsWith("/forgetPassword")) {
     //     return NextResponse.redirect(new URL("/forgetPassword?step=FverifyEmail", req.url));
     // }

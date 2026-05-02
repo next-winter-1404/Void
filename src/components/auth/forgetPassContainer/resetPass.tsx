@@ -5,28 +5,40 @@ import SubmitButton from "@/components/common/SubmitBt";
 import Input from "@/components/common/inputFeild/input";
 import FormError from "@/components/common/inputFeild/formError";
 
-import {redirect} from "next/navigation";
-import { useState,useActionState } from "react";
+import {redirect,useSearchParams} from "next/navigation";
+import { useState,useActionState,useEffect } from "react";
 
 //util/service
-import { resetPassHandler } from "@/util/service/authAction/action";
+import { forgetPass_ResetPass } from "@/util/service/authAction/action";
 //util/service(type)
-import type { exportResultF } from "@/util/service/authAction/action";
+import { actionResult } from "@/util/service/authAction/actionResult";
 
 
-export default function step1 () {
+export default function resetPass () {
 
-   const result:exportResultF = {success:true,result:""};
-    const [state,formAction,pending] = useActionState(resetPassHandler ,result);
-    
-    console.log(state)
-
+      const searchParams = useSearchParams();
+      
+            const email = searchParams.get("email");
+             if(!email) return;
+  
+   
+      const [state,formAction,pending] = useActionState(forgetPass_ResetPass,actionResult);
+      
+          useEffect(()=>{
+            console.log(state);
+         },[state]) 
+         
+        if(state.success){
+          redirect("/login");
+        }
    
     return(
        <>
 
-        <form action={formAction} className="flex flex-col gap-5 w-full  ">
-
+        <form action={formAction} className="flex flex-col gap-5 w-full">
+            
+            <input type="hidden" name="email"  value={email}/>
+            
              <Input name="password" type="password" id="pass" 
              placeHolder="رمز عبور خود را وارد کنید" icon="pass" 
               label="رمز عبور" errors={state?.errors?.password}

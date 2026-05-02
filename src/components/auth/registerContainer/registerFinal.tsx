@@ -5,36 +5,46 @@ import SubmitButton from "@/components/common/SubmitBt";
 import Input from "@/components/common/inputFeild/input";
 import FormError from "@/components/common/inputFeild/formError";
 
-import {redirect} from "next/navigation";
-import { useState,useActionState } from "react";
+import {redirect,useSearchParams} from "next/navigation";
+import { useState,useActionState,useEffect } from "react";
 
 //util/service
-import { registerApplyHandler } from "@/util/service/authAction/action";
-//util/service(type)
-import type { exportResultF } from "@/util/service/authAction/action";
+import { register_completion} from "@/util/service/authAction/action";
+
+import { actionResult } from "@/util/service/authAction/actionResult";
 
 
-export default function step1 () {
+export default function register_complention () {
 
-   const result:exportResultF = {success:true,result:""};
-    const [state,formAction,pending] = useActionState(registerApplyHandler,result);
+    const searchParams = useSearchParams();
     
-    console.log(state)
+          const userId = searchParams.get("userId");
+           if(!userId) return;
 
+ 
+    const [state,formAction,pending] = useActionState(register_completion,actionResult);
+    
+        useEffect(()=>{
+          console.log(state);
+       },[state]) 
+       
+      if(state.success){
+        redirect("/login");
+      }
+   
    
     return(
        <>
 
         <form action={formAction} className="flex flex-col gap-5 w-full ">
 
+             <input type="hidden" name="userId"  value={userId}/>
+
             <label htmlFor="phoneNumber" className=" w-full font-medium ">شماره تماس</label>
              <input
               name="phoneNumber"
               type="tel"
-              pattern="[0-9]{10,11,30,33}"
-              maxLength={11}
               dir="rtl"
-              required
               placeholder="شماره تماس خود را وارد کنید" 
               className="border mb-2 border-[gray]/40 w-full py-3 outline-none rounded-[16px]  text-start pr-12 bg-[url('/ico/auth/phone-ico.png')] bg-no-repeat bg-[position:98%_55%]"
              />

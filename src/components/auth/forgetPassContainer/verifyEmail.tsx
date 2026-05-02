@@ -14,23 +14,25 @@ import {FormEvent,useActionState,useState,useEffect} from "react"
 import { updateQueryParams } from "@/util/helper/updateQueryParams";
 
 //util/service
-import { forgetPassHandler} from "@/util/service/authAction/action";
+import { forgetPass_Request} from "@/util/service/authAction/action";
 //util/service(type)
-import type { exportResultF } from "@/util/service/authAction/action";
+import { actionResult } from "@/util/service/authAction/actionResult";
 
 
-export default function step1 () {
+export default function verifyEmail () {
 
      const [email,setEmail] = useState<string>("");
+    
+         
+    const [state,formAction,pending] = useActionState(forgetPass_Request,actionResult);
+        
+      if(state.success){
+        redirect(`/forgetPassword?step=FverifyCode&email=${email}&resetCode=${state.data.resetCode}`)
+      }
 
-    //  const router = useRouter();
-    // const searchParams = useSearchParams();
-     
-     const result:exportResultF = {success:true,result:""};
-     const [state,formAction,pending] = useActionState(forgetPassHandler,result);
-
-
-  console.log(state)
+      useEffect(()=>{
+         console.log(state);
+     },[state])
     
     
   

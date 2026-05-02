@@ -3,116 +3,176 @@
 import { redirect } from "next/navigation";
 
 // zod 
-import {zodSchuma} from "@/util/hooks/zodValidation";
-import type { ErrorType } from "@/util/hooks/zodValidation";
+import {
+  loginZod,
+  verifyCodeZod,
+  verifyEmailZod,
+  resetPassZod,
+  finalRegisterZod} from "@/util/hooks/zodValidation";
 
-export interface exportResultF {
-   success:boolean,
-   result?: string | null
-   errors?: ErrorType
-     
+
+import type { action_result } from "@/types/action_Result";
+
+interface apiRes {
+  status:number,
+  message:string,
+  errors:[],
+  name:string,
+  details:object
 }
 
-export async function loginHandler(prevState:any ,formData:FormData):Promise<any>{
+
+import { api } from "../api";
+import { handleAsyncAction } from "../api/handleAsync";
+
+import { apiClient } from "../api/apiClient";
+import { Token } from "../api/token";
+
+export async function login_Handler(prevState:action_result ,formData:FormData):Promise<action_result>{
   
- const data = {
+const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
 
-   email : formData.get("email"),
-   password : formData.get("password")
-
- }
-
- const result = zodSchuma.safeParse(data)
-    
-  if(!result.success){
-    return {success:false,errors:result.error.flatten().fieldErrors,}
+  const result = loginZod.safeParse(data);
+  if (!result.success) {
+   
+    return {
+      errors:result.error.flatten().fieldErrors,
+    };
   }
 
+  const response = await handleAsyncAction(api.auth.login(data));
   
-    
-  
-  // console.log("email:",email,"password",password);
+   if(response.data?.accessToken){
+       
+      Token.set(response.data?.accessToken);
+      apiClient.setToken(response.data?.accessToken);
 
-  return {success:true,result:"شما وارد حساب شدید"}
-    
+      console.log("token set!!!!!!!!!!!!!!!!!!1")
+
+   }
+
+  return response
 
 }
 
-export async function registerVerifyHandler(prevState:exportResultF ,formData:FormData):Promise<exportResultF>{
+
+/////////// register
+
+export async function register_Request(prevState:action_result ,formData:FormData):Promise<action_result>{
  
-  
-   const email =formData.get("email")
-   const verifyCode = formData.get("verifyCode")
-   
-   console.log(email);
+  const data = {
+    email : formData.get("email") as string,
 
-   if(email) {
-     redirect(`/register?step=RverifyCode&email=${formData.get("email")}`)
-    }
-    else{redirect(`/register?step=register/final`)};
-  
-  
-  //  return{success:true,result:"کد تایید به ایمیل شما ارسال شد"}
-  
+  }
+   
+   const result = verifyEmailZod.safeParse(data);
+  if (!result.success) {
+    return {
+      errors:result.error.flatten().fieldErrors,
+    };
+  }
+
+     return await handleAsyncAction(api.auth.register(data));
+
 }
 
-export async function registerApplyHandler(prevState:exportResultF ,formData:FormData):Promise<any>{
+export async function register_Verify(prevState:action_result ,formData:FormData):Promise<action_result>{
+ 
+  const tmpUserId = formData.get("tempUserId") ; // need to create input`s
+
+  const data = {
+    tempUserId : Number(tmpUserId),
+    verificationCode :formData.get("verifyCode") as string
+    
+  }
+  
+  return await handleAsyncAction(api.auth.verifyEmail(data));
+
+  
+
+}
+
+
+
+export async function register_completion(prevState:any ,formData:FormData):Promise<any>{
    
+    const userId = formData.get("userId");
+    
     const data ={
-     phoneNumber : formData.get("phoneNumber"),
-     password : formData.get("password"),
-     passwordRepeat : formData.get("passwordRepeat")
+     userId : Number(userId),
+     phoneNumber : formData.get("phoneNumber") as string,
+     password : formData.get("password") as string,
+     passwordRepeat : formData.get("passwordRepeat") as string
     }
 
-   const result = zodSchuma.safeParse(data)
+   const result = finalRegisterZod.safeParse(data)
    
-   
- 
-
      if(!result.success){
-       console.log("www")
        return {success:false,errors:result.error.flatten().fieldErrors,}
       
-     }else{
-           redirect("/login")
      }
 
-
-  //  return {success:true, result:"ثبت نام با موفقیت انجام شد"}
-   
+     return await handleAsyncAction(api.auth.complete_registration(data));
+    
 }
 
 
+//////// forgetpassword
 
-export async function  forgetPassHandler (prevState:any,formData:FormData):Promise<any>{
+export async function  forgetPass_Request (prevState:any,formData:FormData):Promise<any>{
 
-  const email =formData.get("email")
-   const verifyCode = formData.get("verifyCode")
+  const data = {
+    email : formData.get("email") as string
+  }
    
-   console.log(email);
+   const result = verifyEmailZod.safeParse(data);
+  if (!result.success) {
+    return {
+      errors:result.error.flatten().fieldErrors,
+    };
+  }
 
-   if(email) {
-     redirect(`/forgetPassword?step=FverifyCode&email=${formData.get("email")}`)
-    }
-    else{redirect(`/forgetPassword?step=resetPass`)};
+
+   return await handleAsyncAction(api.auth.forgotPasswordRequest(data));
+
   
    
 }
 
-export async function resetPassHandler(prevState:exportResultF ,formData:FormData):Promise<any>{
+export async function forgetPass_Verify(prevState:any ,formData:FormData):Promise<any>{
    
-    const data ={
-     password : formData.get("password"),
-     passwordRepeat : formData.get("passwordRepeat")
-    }
-
-   const result = zodSchuma.safeParse(data)
-   
-  if(!result.success){
-    return {success:false,errors:result.error.flatten().fieldErrors,}
+    const data = {
+     email:formData.get("email") as string, 
+     code:formData.get("verifyCode") as string
   }
   
-   return {success:true, result:"تغییر رمز عبور ما موفقیت انجام شد"}
+  return await handleAsyncAction(api.auth.forgetPasswordVerify(data));
+  
+   
+}
+
+export async function forgetPass_ResetPass(prevState:any ,formData:FormData):Promise<any>{
+   
+    const data ={
+     email:formData.get("email") as string, 
+     password : String(formData.get("password")),
+     passwordRepeat : String(formData.get("passwordRepeat"))
+    }
+    
+    console.log(data);
+
+   const result = resetPassZod.safeParse(data)
+   
+     if(!result.success){
+       return {success:false,errors:result.error.flatten().fieldErrors,}
+      
+     }
+
+  return await handleAsyncAction(api.auth.resetPassword(data));
+
    
    
 }

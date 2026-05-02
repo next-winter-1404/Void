@@ -7,7 +7,7 @@ import { NextURL } from "next/dist/server/web/next-url";
 
 interface stepProps {
     step?: "RverifyEmail" | "RverifyCode" 
-    |"FverifyEmail" | "FverifyCode" | "resetPass" | "register/final";
+    |"FverifyEmail" | "FverifyCode" | "resetPass" | "registerFinal";
     head : "ثبت نام در پیزا" | "ورود به پیزا" | "تغییر رمز عبور"
     email?:string
 }
@@ -43,7 +43,7 @@ export default function authPageHeader ({step,head,email}:stepProps) {
                    step === "RverifyEmail" ? text[0] : 
                    step === "FverifyEmail" ? text[3] :
                    step === "RverifyCode" || step === "FverifyCode"  ? <span>کد تایید ارسال شده به <span className="text-[blue]">{email}</span> را وارد کنید.</span> :
-                   step === "register/final" ? text[1] : 
+                   step === "registerFinal" ? text[1] : 
                    step === "resetPass" ?   text[4] : text[2]
                 }
                

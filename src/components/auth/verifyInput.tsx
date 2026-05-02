@@ -9,7 +9,7 @@ import Timer from "@/assets/ico/auth/timer-ico.png"
 //type
 import type {OtpInputProps} from "@/types/input-type";
 
-export default function OtpInput({ length = 5, onComplete }: OtpInputProps) {
+export default function OtpInput({ length = 6, onComplete }: OtpInputProps) {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""));
   const [timeLeft, setTimeLeft] = useState<number>(5);
   const inputsRef = useRef<HTMLInputElement[]>([]);
