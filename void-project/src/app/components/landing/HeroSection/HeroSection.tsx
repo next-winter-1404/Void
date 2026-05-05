@@ -13,7 +13,7 @@ const HeroSection = () => {
             <div className='w-fit'><Button1 href='' label='رهن و اجاره ملک'/></div>
         </div>
         <div className='rounded-[32px] overflow-hidden w-full max-w-md h-[360px] md:h-[420px] flex items-end'>
-        <Image src={hero} alt='cool' height={500} width={400} className='w-full h-auto object-contain'></Image>
+        <Image src={hero} alt='cool' height={500} width={400} className='w-full h-auto object-contain md:block hidden'></Image>
         </div>
     </div>
   )

@@ -2,6 +2,10 @@ import React from 'react'
 import LocationCard from '../../common/Cards/LocationCard'
 import { locationInfo } from '@/app/types/LocationCard/LocationCardtype'
 import savadkooh from '@/app/assets/Images/components/LocationCard/savadkooh.png'
+import sari from '@/app/assets/Images/components/LocationCard/sari.png'
+
+import tehran from '@/app/assets/Images/components/LocationCard/tehran.png'
+
 
 const mockLocation:locationInfo[] = [
     {
@@ -13,31 +17,31 @@ const mockLocation:locationInfo[] = [
 {
     id: "2",
     title: "تهران",
-    image: savadkooh,
+    image: tehran,
     count: 50,
 },
 {
     id: "3",
     title: "ساری",
-    image: savadkooh,
+    image: sari,
     count: 50,
 },
 {
     id: "4",
-    title: "ساری",
+    title: "سوادکوه",
     image: savadkooh,
     count: 50,
 },
 {
     id: "5",
-    title: "ساری",
-    image: savadkooh,
+    title: "تهران",
+    image: tehran,
     count: 50,
 },
 {
     id: "6",
     title: "ساری",
-    image: savadkooh,
+    image: sari,
     count: 50,
 },
 ];
@@ -50,8 +54,9 @@ const BestLocation = () => {
             <p className='font-bold text-2xl md:text-3xl '>محبوب‌ترین مقاصد این ماه</p>
         </div>
         <div className='flex flex-row justify-between flex-wrap gap-5'>
-          {mockLocation.map((locationInfo) => (
-    <LocationCard key={locationInfo.id} {...locationInfo} />
+            
+          {mockLocation.map((locationInfo, index) => (
+   <div  className={index >= 3 ? "hidden md:block" : ""} key={locationInfo.id}> <LocationCard   {...locationInfo}  /></div>
   ))}
         </div>
     </div>

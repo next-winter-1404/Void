@@ -8,8 +8,10 @@ import Button1 from '../buttons/Button1'
 const HeaderComponent = () => {
   return (
     <HContainer>
-        <Button1 href='' label='ثبت نام و ورود'></Button1>
-        <div className='flex gap-5 font-bold'>
+        <div className=''>
+          <Button1 href='' label='ثبت نام و ورود'></Button1>
+        </div>
+        <div className='hidden gap-5 font-bold md:flex'>
             <Link href="" className=' hover:underline'>درباره ما</Link>
             <Link href="" className=' hover:underline'>مقالات</Link>
             <Link href="" className=' hover:underline'>خانه</Link>

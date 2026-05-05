@@ -3,9 +3,29 @@ export type HouseCard = {
   id: string
   title: string
   location: string
-  price: number
+
+
+  isDicounted:boolean
+  oldPrice?: number
+  discountPrice?:number
+  discountPercent?:number
+
   image: string
-  beds: number
-  baths: number
-  parking: number
+  
+  showBeds:boolean
+  beds?: number
+
+  showBath:boolean
+  baths?: number
+  
+  showParking:boolean
+  parking?: number
+
+  showYard?:boolean
+  yard?:string
+
+  showPeople:boolean
+  people?:number
+
+  
 }

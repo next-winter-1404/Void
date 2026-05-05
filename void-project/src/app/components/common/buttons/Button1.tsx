@@ -10,10 +10,15 @@ const Button1:FC<ButtonProps> = ({href,label,className}) => {
     <Link
       href={href}
       className={`
-        inline-block px-6 py-3 rounded-lg
-        bg-blue-600 text-white
-        hover:bg-blue-700 transition
-        text-sm font-medium
+        inline-block px-4 py-2 rounded-3xl
+        bg-gradient-to-r from-[#5A6FF0] to-[#4E6AF3]
+        text-white
+        text-lg font-semibold
+        shadow-lg shadow-blue-500/30
+        hover:shadow-blue-500/50
+        hover:scale-105
+        active:scale-95
+        transition-all duration-300
         ${className || ""}
       `}
     >
