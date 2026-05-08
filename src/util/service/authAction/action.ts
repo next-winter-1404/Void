@@ -26,7 +26,7 @@ import { api } from "../api";
 import { handleAsyncAction } from "../api/handleAsync";
 
 import { apiClient } from "../api/apiClient";
-import { Token } from "../api/token";
+import { setToken } from "../api/token";
 
 export async function login_Handler(prevState:action_result ,formData:FormData):Promise<action_result>{
   
@@ -45,14 +45,12 @@ const data = {
 
   const response = await handleAsyncAction(api.auth.login(data));
   
-   if(response.data?.accessToken){
-       
-      Token.set(response.data?.accessToken);
-      apiClient.setToken(response.data?.accessToken);
+   if (response.data?.accessToken) {
+  await setToken(response.data.accessToken);
+  await apiClient.setToken(response.data.accessToken);
 
-      console.log("token set!!!!!!!!!!!!!!!!!!1")
-
-   }
+  console.log("token set!!!!!!!!!!!!!!!!!!!");
+}
 
   return response
 

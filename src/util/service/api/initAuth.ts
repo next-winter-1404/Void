@@ -1,8 +1,8 @@
-import { Token } from "./token";
+import { getToken } from "./token";
 import { apiClient } from "./apiClient";
 
-export function initAuth() {
-  const token = Token.get();
+export async function initAuth() {
+  const token = await getToken(); 
 
   if (token) {
     apiClient.setToken(token);

@@ -1,15 +1,29 @@
+import { cookies } from "next/headers";
 
-const TOKEN_KEY = "auth_token";
+export async function setToken(token: string) {
+  const cookieStore = await cookies();
 
-export const Token = {
-  set(token: string) {
-    document.cookie = `${TOKEN_KEY}=${token}; path=/; max-age=86400; SameSite=Strict; Secure`;
-  },
+  cookieStore.set("auth_token", token, {
+    maxAge: 86400,
+    path: "/",
+    sameSite: "strict",
+    secure: true
+  });
+}
 
-  get(): string | null {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${TOKEN_KEY}=`);
-    if (parts.length === 2) return parts.pop()?.split(";").shift() || null;
-    return null;
-  }
-};
+export async function getToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get("auth_token")?.value || null;
+}
+
+
+export async function removeToken() {
+  const cookieStore = await cookies();
+
+  cookieStore.set("auth_token", "", {
+    path: "/",
+    maxAge: 0,          
+    sameSite: "strict",
+    secure: true
+  });
+}
