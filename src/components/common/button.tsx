@@ -14,7 +14,7 @@ const Button1:FC<ButtonProps> = ({label,className,setShowFilter,showFilter}) => 
     <button
      onClick={()=>setShowFilter(!showFilter)}
       className={`
-        relative
+        relative whitespace-nowrap
         inline-block px-4 py-2 rounded-[16px]
         bg-gradient-to-r from-[#5A6FF0] to-[#4E6AF3]
         text-white
