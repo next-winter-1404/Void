@@ -10,20 +10,33 @@ import Image from "next/image";
 
 import MapIco2 from "@/assets/ico/detailPage/Map2-ico.png"
 
+import { handleAsyncAction } from "@/util/service/api/handleAsync";
+import { api } from "@/util/service/api";
 
+interface searchProps {
+    params:{
+    id :string
+    }
+}
 
-export default function DetailPage(){
+export  default async function DetailPage({params}:searchProps){
 
     const images = [
-    '/images/detailPage/gallery/gallery-Img1.png',
-    '/images/detailPage/gallery/gallery-Img2.png',
-    '/images/detailPage/gallery/gallery-Img3.png',
-    '/images/detailPage/gallery/gallery-Img4.png',
-    '/images/detailPage/gallery/gallery-Img5.png',
-    '/images/detailPage/gallery/gallery-Img6.png',
-    '/images/detailPage/gallery/gallery-Img7.png',
+    '/image/detailPage/gallery/gallery-Img1.png',
+    '/image/detailPage/gallery/gallery-Img2.png',
+    '/image/detailPage/gallery/gallery-Img3.png',
+    '/image/detailPage/gallery/gallery-Img4.png',
+    '/image/detailPage/gallery/gallery-Img5.png',
+    '/image/detailPage/gallery/gallery-Img6.png',
+    '/image/detailPage/gallery/gallery-Img7.png',
     
   ];
+  
+
+   const theHouse = await handleAsyncAction(api.houseDetail.houseDetail(Number(params.id)));
+
+   console.log("housessss",theHouse?.data);
+   console.log("id",params.id);
 
     return(
         <>

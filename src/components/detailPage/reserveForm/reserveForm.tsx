@@ -39,10 +39,10 @@ export default function reserveForm (){
 
            <div className="flex flex-row gap-10 justify-between w-full ">
 
-            <InputField name="PersonCount" label="تعداد نفرات" type="string" id="checkInDate"
+            <InputField name="PersonCount" label="تعداد نفرات" type="text" id="checkInDate"
             placeHolder="وارد کنید"  />
 
-           <InputField name="discountCode" label="کد تخفیف" type="string" id="checkInDate"
+           <InputField name="discountCode" label="کد تخفیف" type="text" id="checkInDate"
             placeHolder="وارد کنید"  />
 
            </div>   
