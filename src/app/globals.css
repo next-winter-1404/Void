@@ -21,3 +21,10 @@ html, body {
   box-sizing: border-box;
   border:1px solid black;
 }
+
+/* @media screen and (max-width:600px){
+
+  .content {
+    width: 99%;
+  }
+} */

@@ -4,13 +4,20 @@ import {useState,useEffect} from "react"
 import FilterButton from "@/components/common/button"
 import DropDownMenu from "./dropDownMenu"
 import PriceRange from "./priceRange"
-
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import type {dropDownItems} from "./dropDownMenu";
+
+import { QueryMapper } from "@/util/helper/queryMapper"
+
 
 
 export default function filterModal() {
     
     const [showFilter,setShowFilter] = useState<boolean>(false);
+
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
 
     const [showCategory, setShowCategory] = useState<boolean>(false);
@@ -21,19 +28,19 @@ export default function filterModal() {
    
     
     const category:dropDownItems[] = [
-        {id:1,name:"ویلایی"},
-        {id:2,name:"آپارتمانی"}
+        {id:1,name:"ویلایی",query:"villa"},
+        {id:2,name:"آپارتمانی",query:"apartment"},        
     ]
 
     const Location:dropDownItems[] = [
-        {id:1,name:"تهران"},
-        {id:2,name:"مازندران"}
+        {id:1,name:"تهران",query:"تهران"},
+        {id:2,name:"مازندران",query:"مازندران"},
+        {id:3,name:"ساری",query:"ساری"}
     ]
 
     const Sorting:dropDownItems[] = [
-        {id:1,name:"گران ترین"},
-        {id:2,name:"ارزان ترین"},
-        {id:3,name:"محبوب ترین"}
+        {id:1,name:"گران ترین",query:"price",query2:"DESC"},
+        {id:2,name:"ارزان ترین",query:"price",query2:"ASC"},
     ]
 
      const [filters, setFilters] = useState({
@@ -42,10 +49,25 @@ export default function filterModal() {
             sort:"",
             priceRange:[0,1000000000]
         });
+
        
-        // useEffect(()=>{
-        //    console.log("filter",filters);
-        // },[filters])
+    useEffect(() => {
+  const params = new URLSearchParams(searchParams.toString());
+
+    const cat = QueryMapper.map(filters.category, "propertyType", category);
+    const loc = QueryMapper.map(filters.location, "location", Location);
+    const srt = QueryMapper.map(filters.sort, "sort", Sorting);
+    // const prc = String(filters.priceRange[1]);
+
+    cat.propertyType ? params.set("propertyType",cat.propertyType) : params.delete("propertyType");
+    loc.location ? params.set("location",loc.location) : params.delete("location");
+    srt.sort ? params.set("sort", srt.sort) : params.delete("sort");
+    srt.order ? params.set("order", srt.order) : params.delete("order");
+    // prc ? params.set("maxPrice",prc) : params.delete("maxPrice");
+    router.push(`${pathname}?${params.toString()}`);
+  }, [filters]); 
+
+
        
     
         const handleCategoryChange = (name:string) => {
@@ -75,7 +97,7 @@ export default function filterModal() {
         <>   
         <FilterButton showFilter={showFilter} setShowFilter={setShowFilter} label=" فیلتر ها"/>
 
-         <div className={`w-[280px] max-xl:w-[230px]  absolute top-[60px] max-xl:right-[100px] max-xl:top-[320px]  rounded-[16px]
+         <div className={`w-[280px] max-xl:w-[230px]  absolute top-[60px] z-[10] rounded-[16px]
           ${showFilter ? "block":"hidden"}`}>
         <div className="shadow-md shadow-purple-200 w-full bg-white rounded-[20px] py-[10px] flex flex-col items-center gap-1">
 

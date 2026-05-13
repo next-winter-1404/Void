@@ -4,6 +4,8 @@ import {useEffect, useState} from "react"
 export interface dropDownItems {
     id:number,
     name:string,
+    query:string,
+    query2?:string,
     created_at?:string,
     updated_at?:string
 }

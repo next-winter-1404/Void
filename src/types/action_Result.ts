@@ -1,8 +1,8 @@
 
-interface Response {
+export interface Response{
    success?:boolean,
    status?:number,
-   data?: any ,
+   data?:any ,
    message?:string,
    errors?:any
 }
