@@ -8,7 +8,7 @@ export default function ({children,}: Readonly<{ children: React.ReactNode }>) {
          <>
         
       
-          <main dir="rtl" className="content">
+          <main  className="content">
             
           {children}
           </main>

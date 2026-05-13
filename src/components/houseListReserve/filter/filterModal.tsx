@@ -9,7 +9,7 @@ import type {dropDownItems} from "./dropDownMenu";
 
 import { QueryMapper } from "@/util/helper/queryMapper"
 
-
+import { useCallback } from "react"
 
 export default function filterModal() {
     
@@ -24,7 +24,7 @@ export default function filterModal() {
     const [showLocation, setShowLocation] = useState<boolean>(false);
     const [showSort, setShowSort] = useState<boolean>(false);
 
-    const [value, setValue] = useState<number[]>([0, 100000000]);
+    const [value, setValue] = useState<number[]>([0, 10000000000]);
    
     
     const category:dropDownItems[] = [
@@ -47,7 +47,7 @@ export default function filterModal() {
             category: "",
             location:"",
             sort:"",
-            priceRange:[0,1000000000]
+            priceRange:[0,10000000000]
         });
 
        
@@ -57,19 +57,19 @@ export default function filterModal() {
     const cat = QueryMapper.map(filters.category, "propertyType", category);
     const loc = QueryMapper.map(filters.location, "location", Location);
     const srt = QueryMapper.map(filters.sort, "sort", Sorting);
-    // const prc = String(filters.priceRange[1]);
+    const prc = String(filters.priceRange[1]);
 
     cat.propertyType ? params.set("propertyType",cat.propertyType) : params.delete("propertyType");
     loc.location ? params.set("location",loc.location) : params.delete("location");
     srt.sort ? params.set("sort", srt.sort) : params.delete("sort");
     srt.order ? params.set("order", srt.order) : params.delete("order");
-    // prc ? params.set("maxPrice",prc) : params.delete("maxPrice");
+     prc ? params.set("maxPrice",prc) :  params.delete("maxPrice");
+     prc == "10000000000" && params.delete("maxPrice");
     router.push(`${pathname}?${params.toString()}`);
   }, [filters]); 
 
 
        
-    
         const handleCategoryChange = (name:string) => {
             const newItems = filters.category === name ? '' : name;
             setFilters({ ...filters, category: newItems });
@@ -85,13 +85,22 @@ export default function filterModal() {
             setFilters({ ...filters, sort: newItems });
         };
 
-        const handleValueChange = (event:Event,newValue:number | number[]) => {
-        setValue(newValue as number[]);
-        setFilters({ ...filters, priceRange: value });
-    };
-       
+       const handleValueChange = useCallback((event:Event,newValue: number[]) => {
+          setValue(newValue);
+        }, []);
+               
+        useEffect(() => {
+        const timer = setTimeout(() => {
+          setFilters(prev => ({
+            ...prev,
+            priceRange: value
+          }));
+        }, 500);
+      
+        return () => clearTimeout(timer);
+      }, [value]);
     
-   
+    //   console.log("price",filters.priceRange[1])
 
     return (
         <>   

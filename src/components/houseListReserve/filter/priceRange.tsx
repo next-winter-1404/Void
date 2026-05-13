@@ -8,7 +8,7 @@ import { toPersianFormat } from '@/util/helper/persianFormat';
 interface priceRangeProps{
     value:number[],
     setValue:React.Dispatch<React.SetStateAction<number[]>>,
-    handleValueChange:(event:Event,newValue:number | number[])=>void
+    handleValueChange:(event:Event,newValue:number[])=>void
 }
 
 export default function PriceRange({value,setValue,handleValueChange}:priceRangeProps) {
@@ -24,8 +24,8 @@ export default function PriceRange({value,setValue,handleValueChange}:priceRange
         onChange={handleValueChange}
         valueLabelDisplay="auto"
         min={0}
-        max={100000000}
-        step={100000}
+        max={10000000000}
+        step={1000000}
         sx={{
           color: '#7575FE', 
           '& .MuiSlider-thumb': {

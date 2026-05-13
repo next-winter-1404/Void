@@ -101,7 +101,7 @@ isFavorite
             </div>}
           </div>
 
-          <div  className="pt-1 py-2 flex flex-row items-center justify-between max-md:text-[15px] text-sm whitespace-nowrap">
+          <div dir="ltr" className="pt-1 py-2 flex flex-row items-center justify-between max-md:text-[15px] text-sm whitespace-nowrap">
             {discounted_price ? (
               <>
               <div className=' text-white text-[12px] max-md:text-[15px] px-2 py-1 bg-red-600 rounded-[16px]'>{toPersianFormat(discount)}%</div>
