@@ -9,7 +9,12 @@ import { useActionState, useEffect } from "react";
 
 import Reserve_Handler from "@/util/service/reserveAction/action";
 
-export default function reserveForm (){
+interface priceProps {
+     price:number,
+     discounted_price:number
+}
+
+export default function reserveForm ({price,discounted_price}:priceProps){
 
      const result = "";
     const [state,formAction,pending] = useActionState(Reserve_Handler,result);
@@ -18,6 +23,7 @@ export default function reserveForm (){
        console.log(state);
     },[state])
    
+    const discount = Math.floor(((price - discounted_price)/price)*100);
 
 
     return(
@@ -51,7 +57,7 @@ export default function reserveForm (){
                 <div className="w-[45%]">
                     <span className="text-[16px] font-bold">قیمت</span>
                     <div className="flex flex-row w-full   items-center whitespace-nowrap  text-[20px]">
-                        <Price price={1500000} discount={15} />
+                        <Price price={price} discount={discount} />
                         
                     </div>
                 </div>

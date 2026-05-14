@@ -38,7 +38,7 @@ people,}) => {
           alt={title}
           width={400}
           height={250}
-          className="w-full h-52 object-cover"
+          className="w-full h-52 object-cover rounded-[16px]"
         />
 
         <div className="p-4 space-y-3 text-right">

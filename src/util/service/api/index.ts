@@ -8,3 +8,5 @@ export const api = {
   auth: AuthAPI(client),
   houseDetail:HouseDetailAPI(client)
 };
+
+
