@@ -21,7 +21,12 @@ export const HouseAPI = (client:ApiClient)=> ({
   },
 
   houseLocation:()=>{
-     return client.get("/api/locations?page=1&limit=10&order=ASC")
+     return client.get("/api/locations")
+  },
+
+  theHouseLocation:(id:number)=>{
+     return client.get(`/api/locations/${id}`)
   }
+
   
 })

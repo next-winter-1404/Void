@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo,useEffect,useState,useRef } from "react";
 import dynamic from "next/dynamic";
 import "@neshan-maps-platform/mapbox-gl/dist/NeshanMapboxGl.css";
 import "@/assets/style/neshanStyle.css";
@@ -24,6 +24,10 @@ type House = {
 
 type Props = {
   houses?: House[];
+  loc?:{
+    latLoc:number,
+    lngLoc:number
+  }
 };
 
 const NeshanMapComponent = dynamic(
@@ -34,7 +38,29 @@ const NeshanMapComponent = dynamic(
   { ssr: false }
 );
 
-export default function NeshanMap({ houses = [] }: Props) {
+export default function NeshanMap({ houses = [],loc }: Props) {
+   
+  const mapRef = useRef<any>(null);
+  console.log("wwwdw",loc);
+ const [mapInstance, setMapInstance] = useState<any>(null);
+
+  // useEffect(() => {
+  //   if (mapInstance && loc && loc.latLoc && loc.lngLoc) {
+  //     mapInstance.flyTo([Number(loc.lngLoc), Number(loc.latLoc)], 15);
+  //     console.log("wfgggggggg")
+  //   }
+     
+  // }, [loc, mapInstance]);
+
+  useEffect(() => {
+  if (mapRef.current && loc) {
+    mapRef.current.flyTo({
+      center: [Number(loc?.lngLoc) ? Number(loc?.lngLoc) :51.389,Number(loc?.latLoc) ? Number(loc?.latLoc) : 35.6892],
+      zoom: 12,
+    });
+  }
+}, [loc]);
+
 
   const validHouses = useMemo(() => {
     return houses.filter((house) => {
@@ -74,13 +100,15 @@ export default function NeshanMap({ houses = [] }: Props) {
         options={{
           mapKey: apiKey,
           mapType: "neshanVector",
-          center: [51.389, 35.6892],
+          center:  [Number(loc?.lngLoc) ? Number(loc?.lngLoc) :51.389,Number(loc?.latLoc) ? Number(loc?.latLoc) : 35.6892],
           zoom: 12,
         }}
+
         mapSetter={(map: any) => {
+          mapRef.current = map;
   import("@neshan-maps-platform/mapbox-gl").then((lib) => {
     const nmp = lib.default;
-
+     
     validHouses.forEach((house) => {
       const lat = house.location?.lat ?? house.lat;
       const lng = house.location?.lng ?? house.lng;
@@ -174,7 +202,9 @@ export default function NeshanMap({ houses = [] }: Props) {
       marker.setPopup(popup);
     });
   });
-}}
+   setMapInstance(map)
+}
+}
 
         style={{ width: "100%", height: "650px",borderRadius:"16px" }}
       />

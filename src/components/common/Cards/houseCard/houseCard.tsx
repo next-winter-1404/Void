@@ -1,4 +1,4 @@
-
+'use client'
 import type { houseCardProps } from "@/types/houseCard-type/houseCard-Type"
 import Link from "next/link"
 import Image from "next/image"
@@ -9,6 +9,10 @@ import bath from '@/assets/Images/common/HouseCard/bath.png'
 import hayat from '@/assets/Images/common/HouseCard/hayatdarad.png'
 import persons from '@/assets/Images/common/HouseCard/persons.png'
 import { toPersianFormat } from "@/util/helper/persianFormat"
+import { redirect } from "next/navigation"
+
+import { useRouter,useSearchParams } from "next/navigation";
+import {useState} from "react";
 
 
 export default function HouseCard ({
@@ -39,31 +43,46 @@ favoriteId,
 isFavorite
 }:houseCardProps) {
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    // const [query,setQuery] = useState<number>(0);
+      
+         const handleSearch = (id:number) => {
+          const houseId = String(id);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("houseid",houseId);
+        router.push(`?${params.toString()}`)
+        }
+
   const Price = Number(price);
   const DisCountPrice = Number(discounted_price);
 
-
   const discount = Math.floor(((Price-DisCountPrice)/Price)*100);
+
 
     return (
     <div>
-        <div  className="
+        <div className="
         bg-white rounded-[16px] border border-zinc-300
         hover:shadow-lg transition
          cursor-pointer
          w-[300px] max-md:w-[350px]
         flex flex-col items-center
-        px-2  
+        px-2   relative
       ">
         
-        <Image
+        <Image onClick={()=> redirect(`/detailPage/${id}`)}
           src="/image/Home-pic.png"
           alt="ww"
           width={280}
           height={150}
           className="object-cover w-full h-[150px] max-md:h-[250px] rounded-[16px] mt-2"
         />
-  
+
+        <span onClick={()=> handleSearch(id)}
+        style={{backgroundImage:"url('/ico/common/location-ico.png')"}}
+         className="absolute right-[15px] top-[125px] bg-cover  h-7 w-11"></span>
+        
 
         <div className="text-right w-full flex flex-col gap-2">
 
@@ -71,8 +90,8 @@ isFavorite
             {title}
           </h3>
 
-          <div className="text-sm text-gray-500 flex flex-row gap-2 justify-end">
-           <Image src={locations} alt='loc bede' height={20} width={20}/> {address}
+          <div className="text-sm text-gray-500 flex flex-row gap-2 justify-start">
+           <Image src={locations} className="h-5 w-5" alt='loc bede' height={20} width={20}/> {address}
           </div>
 
           <div className="flex flex-row items-center whitespace-nowrap justify-between max-md:text-[15px] text-sm border-zinc-300 border-t pt-1">
@@ -118,8 +137,9 @@ isFavorite
               
               </>
             ) : (
-              <div className="font-bold text-[15px] max-md:text-[15px] text-black">
-                {price} <span className="text-sm font-normal">تومان</span>
+              <div className="font-bold text-[15px] w-full max-md:text-[15px]
+               text-black flex flex-row justify-end gap-1 items-center">
+               <span className="text-sm font-normal">تومان</span> {toPersianFormat(price)} 
               </div>
             )}
           </div>

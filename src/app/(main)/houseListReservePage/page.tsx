@@ -15,12 +15,23 @@ interface HouseSearchParams {
   sort?: string;
   order?: string;
   maxPrice?:string
-  search?:string
+  search?:string;
+  houseid?:string
 };
 
 interface filterParams {
   searchParams:HouseSearchParams
 }
+
+ type House = {
+   id: number;
+   title: string;
+   price: number;
+   oldPrice:number,
+   lat: number;
+   lng: number;
+   image: string;
+};
 
 import type { houseCardProps } from "@/types/houseCard-type/houseCard-Type";
 
@@ -29,7 +40,7 @@ export default async function houseList_reservePage ({searchParams}:filterParams
 
    const resolvedSearchParams = await searchParams;
 
-  const { propertyType, location, sort, order,maxPrice,search } = resolvedSearchParams;
+  const { propertyType, location, sort, order,maxPrice,search,houseid } = resolvedSearchParams;
 
    const query = {
     propertyType,
@@ -37,33 +48,50 @@ export default async function houseList_reservePage ({searchParams}:filterParams
     sort:sort ? sort : "last_updated",
     order:order ? order : "DESC",
     maxPrice ,
-    limit:8,
+    limit:100,
     search
   };
   
   
-
+  //houselist
   const houseData = await handleAsyncAction(api.house.ReservationHouseList(query));
-   const houses = houseData?.data?.houses;
+   const houses = houseData?.data?.houses || [];
 
+   //houselocationList
    const houseLocation = await handleAsyncAction(api.house.houseLocation());
+     const houseLoc = houseLocation?.data?.data || [];
 
-   const houseL = houseLocation?.data?.data;
+   const houseDataMap = Object.fromEntries(
+      houseLoc.map((loc:any) => [loc.id, loc])
+   )
 
-   type House = {
-  id: number;
-  title: string;
-  price: number;
-  lat: number;
-  lng: number;
-  image: string;
-};
+const mergedData:House[] = houses.map((hs:any) => ({
+  id: hs.id,
+  title: hs.title ? hs.title : "بدون عنوان",
+  address: hs.address ? hs.title : "نامشخص",
+  price:hs.price,
+  oldPrice:hs.discounted_price,
+  image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg",
+  lat: Number(houseDataMap[hs.id]?.lat),
+  lng: Number(houseDataMap[hs.id]?.lng)
+}))
 
-   const houseDetailLcation = [
-       {id:1,oldPrice:2000000,name:"ویلا مرصاد",price:1000000,lat:35.6892,lng:51.389,image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg"},
-       {id:2,oldPrice:2000000,name:"ویلا تقی",address:"تهران،زعفرانیه",price:1000000,lat:35.6991,lng:51.389,image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg"},
-       {id:3,oldPrice:2000000,name:"ویلا نقی",address:"تهران،زعفرانیه",price:1000000,lat:35.6,lng:51.389,image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg"}
-   ]
+//  console.log("mergedData",mergedData);
+//  console.log("houseData",houseData);
+//  console.log("location",houseLocation);
+
+ const theHouseLoc = await handleAsyncAction(api.house.theHouseLocation(Number(houseid)));
+ const theHouse_loc = theHouseLoc?.data
+  
+  console.log("ewe",theHouse_loc);
+  
+
+  //  const houseDetailLcation = [
+  //      {id:1,oldPrice:2000000,name:"ویلا مرصاد",price:1000000,lat:35.6892,lng:51.389,image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg"},
+  //      {id:2,oldPrice:2000000,name:"ویلا تقی",address:"تهران،زعفرانیه",price:1000000,lat:35.6991,lng:51.389,image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg"},
+  //      {id:3,oldPrice:2000000,name:"ویلا نقی",address:"تهران،زعفرانیه",price:1000000,lat:35.6,lng:51.389,image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg"}
+  //  ]
+
   //  console.log("hhhhhooh",houseL);
     return(
          <div  className="w-full h-full flex flex-row">
@@ -71,7 +99,7 @@ export default async function houseList_reservePage ({searchParams}:filterParams
              {/*map*/}
            <div className="w-[50%] max-xl:hidden">
             
-              <NeshanMap houses={houseDetailLcation}/>
+              <NeshanMap houses={mergedData} loc={{latLoc:Number(theHouse_loc?.lat),lngLoc:Number(theHouse_loc?.lng)}}/>
                
             </div>
 
@@ -85,8 +113,10 @@ export default async function houseList_reservePage ({searchParams}:filterParams
              {/*houseList*/}
              <div dir="ltr"  className=" w-full mx-auto">
                 <ReservationHouseList houseData={houses}/>
+
              </div>
 
+              
 
           </div>
 

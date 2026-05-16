@@ -1,7 +1,12 @@
 'use client'
 import HouseCard from "@/components/common/Cards/houseCard/houseCard";
 import type { houseCardProps } from "@/types/houseCard-type/houseCard-Type";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
+
+import PaginationPage from "@/components/common/paginationPage/paginationPage";
+
+
+
 
 interface HouseDataProps {
      houseData:houseCardProps[]
@@ -12,12 +17,16 @@ export default function ResHouse_List ({houseData}:HouseDataProps) {
   // useEffect(()=>{
   //   console.log("house",houseData);
   // },[houseData])
+    
+  
+  
+  const [currentItems,setCurrentItems] = useState<any[]>([]);
  
   const houses = Array.isArray(houseData) ? houseData : [];
 
     return(
         <div dir="rtl" className="w-full h-[600px] flex flex-row flex-wrap gap-3 justify-center overflow-y-scroll">
-          {houses.map((prop)=>(
+          {currentItems.map((prop)=>(
             <HouseCard
               key={prop.id}
               id={prop.id}
@@ -47,6 +56,8 @@ export default function ResHouse_List ({houseData}:HouseDataProps) {
               isFavorite={prop.isFavorite}
              />
           ))}
+
+          <PaginationPage productInArray={houses} itemsPerPage={10} setCurrentItems={setCurrentItems}/>
           
         </div>
     )
