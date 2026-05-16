@@ -14,14 +14,14 @@ export default function Price({ price, discount = 0, currency = "تومان" }: 
   return (
     <div className="flex items-center gap-3">
 
-      <div className="flex items-center gap-2 text-[20px]">
+      <div className="flex items-center gap-2 text-[20px] max-md:text-[12px]">
 
       
         {hasDiscount && (
           <span className="text-gray-400 line-through">
             {toPersianFormat(price)} {currency}
           </span>
-        )}/
+        )}
 
         <span className="text-black font-bold text-base">
           {toPersianFormat(finalPrice)} {currency}

@@ -6,7 +6,7 @@ import ArrowUpLeft from "@/assets/ico/detailPage/arrow-move-up-left.png"
 import CommentForm from "./commentForm";
 
 import PaginationPage from "@/components/common/paginationPage/paginationPage";
-
+import { isoToPersianDate } from "@/util/helper/persionFormat";
 
 interface commentReply {
      id:number,
@@ -94,7 +94,7 @@ const toggleReplies = (commentId: number) => {
                            <span className="w-full font-medium h-[50%]">
                             {`${comment.user.firstName +" "+comment.user.lastName}`}
                             </span> 
-                           <span className="w-full h-[50%]">{comment.created_at}</span> 
+                           <span className="w-full h-[50%]">{isoToPersianDate(comment.created_at)}</span> 
                         </div>
                     </div>
 
@@ -131,7 +131,7 @@ const toggleReplies = (commentId: number) => {
                                 <span className="w-full font-medium h-[50%]">
                                  {`${comment.parent_comment.user.firstName +" "+comment.parent_comment.user.lastName}`}
                                  </span> 
-                                <span className="w-full h-[50%]">{comment.parent_comment.created_at}</span> 
+                                <span className="w-full h-[50%]">{isoToPersianDate(comment.parent_comment.created_at)}</span> 
                              </div>
                          </div>
      

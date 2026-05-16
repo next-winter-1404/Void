@@ -1,6 +1,6 @@
 
 import DescriptionHome from "@/components/detailPage/describeHomeReserve/descriptionHome";
-// import DescribeHomeRent from "@/components/detailPage/describeHomeRent/descriptionHomeRent";
+import DescribeHomeRent from "@/components/detailPage/describeHomeRent/descriptionHomeRent";
 import Gallery from "@/components/detailPage/gallery";
 import SameHomeSection from "@/components/detailPage/sameHomeSection/sameHome";
 import ReserveForm from "@/components/detailPage/reserveForm/reserveForm";
@@ -33,11 +33,36 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
   const resolved = await props.params;
   const houseID = Number(resolved.houseId);
   
-
+   //housedetail
    const theHouse = await handleAsyncAction(api.houseDetail.houseDetail(houseID));
-    const theHouseDetail = theHouse.data
+   const theHouseDetail = theHouse.data
    console.log("housessss",theHouse?.data);
 
+
+   const transactionType = theHouse?.data?.transaction_type
+   let descriptionHomeType = null;
+
+   switch(transactionType){
+     case "reservation":descriptionHomeType =<DescriptionHome   houseDetail={theHouseDetail}/>;break
+     case "rental":descriptionHomeType = <DescribeHomeRent   houseDetail={theHouseDetail}/>;break
+     case "mortgage" : descriptionHomeType = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
+     case "direct purchase" : descriptionHomeType  = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
+     default : descriptionHomeType =<DescriptionHome  houseDetail={theHouseDetail}/>
+   }
+    
+   //sameHouse
+    // const houseTag = theHouse?.data?.tags;
+    const query = {
+     limit : 3, 
+     housetransactionType : theHouse?.data?.transactionType,
+     houselocation : theHouse?.data?.location
+    }
+
+    const sameHouse = await handleAsyncAction(api.houseDetail.sameHouse(query));
+    const sameHouseData = sameHouse?.data?.houses
+    console.log("sameHouse",sameHouse);
+
+   //thehouseComment
    const theHouseComment = await handleAsyncAction(api.houseDetail.houseComments(houseID));
   //  console.log("houseComment",theHouseComment)
  
@@ -71,13 +96,13 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
 
             {/*description & comment */}
             <div  className=" p-2 h-full w-[55%] max-md:w-full">
-              <DescriptionHome 
-                houseDetail={theHouseDetail}
-               />
+              {descriptionHomeType}
 
-               <ReserveForm price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
+               {transactionType === "reservation" &&
+                <ReserveForm price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
+                }
 
-               <CommentBox comments={theHouseComment.data.comments}/>
+               <CommentBox comments={theHouseComment?.data?.comments}/>
               
             </div>
              
@@ -88,7 +113,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
          {/*sameHomeSection*/}
           <div className=" w-full h-[30%] py-5">
             
-            <SameHomeSection/>
+            <SameHomeSection houseData={ sameHouseData}/>
 
           </div>
 

@@ -19,7 +19,4 @@ export  default async function Reserve_Handler (prevState:any,formData:FormData)
          discountCode:formData.get("discountCode") as string
     }
 
-    return {
-         data
-    }
 }

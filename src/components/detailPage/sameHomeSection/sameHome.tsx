@@ -1,70 +1,14 @@
 'use client'
-import React from 'react'
-import Button1 from '../../common/buttons/Button1'
-import HouseCards from '../../common/Cards_Armin/HouseCards'
-import { HouseCard } from '@/types/HouseCard/HouseCard'
-import khoone from '@/assets/Images/components/HouseCard/khoone.png'
-const mockHouses: HouseCard[] = [
-  {
-    id: "1",
-    title: "آپارتمان لوکس زعفرانیه",
-    location: "تهران، زعفرانیه",
-    oldPrice: 15000000,
-    image: khoone,
-    isDicounted:false,
-    discountPrice:3000000,
-    discountPercent:15,
-    showBeds:true,
-    beds: 3,
-    showBath:true,
-    baths: 2,
-    showParking:true,
-    parking: 1,
-    showYard: true,
-    yard:"حیاط دار"
-  },
-  {
-    id: "2",
-    title: "آپارتمان لوکس زعفرانیه",
-    location: "تهران، زعفرانیه",
-    oldPrice: 15000000,
-    image: khoone,
-    isDicounted:false,
-    discountPrice:3000000,
-    discountPercent:15,
-    showBeds:true,
-    beds: 3,
-    showBath:true,
-    baths: 2,
-    showParking:true,
-    parking: 1,
-    showYard: true,
-    yard:"حیاط دار"
-  },
-  {
-    id: "3",
-    title: "آپارتمان لوکس زعفرانیه",
-    location: "تهران، زعفرانیه",
-    oldPrice: 15000000,
-    image: khoone,
-    isDicounted:false,
-    discountPrice:3000000,
-    discountPercent:15,
-    showBeds:true,
-    beds: 3,
-    showBath:true,
-    baths: 2,
-    showParking:true,
-    parking: 1,
-    showYard: true,
-    yard:"حیاط دار"
-  },
-]
+import HouseCard from "@/components/common/Cards/samehouseCard/houseCard";
+import type { houseCardProps } from '@/types/HouseCard-type/houseCard-type';
 
+interface HouseDataProps {
+     houseData:houseCardProps[]
+}
 
+const sameHouseList = ({houseData}:HouseDataProps) => {
 
-const HotSales = () => {
-
+  const houses = Array.isArray(houseData) ? houseData : [];
   
   return (
     <div className='flex flex-col gap-10'>
@@ -72,13 +16,16 @@ const HotSales = () => {
             <h2 className='md:text-3xl text-2xl font-bold'>آگهی های مشابه</h2>
            
         </header>
-        <div className='flex flex-col md:flex-row justify-between gap-5 '>
-          {mockHouses.map((HouseCard) =>(
-            <HouseCards key={HouseCard.id} {...HouseCard}/>
+        <div className='flex  max-md:flex-col flex-row justify-evenly  gap-5 '>
+          {houses.map((prop) =>(
+            <HouseCard
+              className={"max-md:w-[100%]"}
+              key={prop.id} {...prop}
+             />
           ))}
         </div>
     </div>
   )
 }
 
-export default HotSales
+export default sameHouseList

@@ -2,21 +2,8 @@
 import Image from 'next/image';
 import HomeImg from "@/assets/Images/detailPage/Home-ico.png";
 import { toPersianFormat } from '@/util/helper/persionFormat';
+import type { houseDetailProps } from '@/types/houseDetailType/houseDetail-type';
 
-interface houseDetailProps{
-  houseDetail:{
-   capacity:number,
-   bathrooms:number,
-   parking:number,
-   rooms:number,
-   photos:string[],
-   price:number,
-   discounted_price:number,
-   tags:"apartment" | "villa" | "house";
-   rate:number,
-   caption:string,
-  }
-}
 
 export default function DescribeHome ({
   houseDetail
@@ -24,7 +11,7 @@ export default function DescribeHome ({
     
   let buildingType = null;
 
-   switch(houseDetail.tags){
+   switch(houseDetail?.tags){
       case "apartment":buildingType="آپارتمان";break
       case "villa":buildingType="ویلا";break
       case "house":buildingType="ساختمان";break
@@ -38,7 +25,7 @@ export default function DescribeHome ({
              <h1 className=' w-full text-start font-bold text-[18px]'>{`چرا این ${buildingType} را انتخاب کنیم؟`}</h1>
 
              <p className=''>
-                {houseDetail.caption}
+                {houseDetail?.caption}
              </p>
 
              <Image width={300} height={300} className='w-full h-[300px] rounded-[16px]' alt='homeImage' src={HomeImg}/>
@@ -61,14 +48,14 @@ export default function DescribeHome ({
               <div className='flex flex-wrap w-[400px]  gap-2'>
                  
                 <h1 className='w-full text-start font-bold text-[15px]'> امکانات هتل</h1>
-                <div className='w-full flex flex-row items-center justify-start gap-2 font-medium text-[14px] whitespace-nowrap' >
-                    {houseDetail.rooms ? <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>تعداد اتاق  {toPersianFormat(houseDetail.rooms)}</span>
+                <div className='w-full flex flex-row max-lg:flex-wrap items-center justify-start gap-2 font-medium text-[14px] whitespace-nowrap' >
+                    {houseDetail?.rooms ? <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>تعداد اتاق  {toPersianFormat(houseDetail.rooms)}</span>
                     :<span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>اتاق ندارد</span> }
-                    {houseDetail.bathrooms ? <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>تعداد حمام{toPersianFormat(houseDetail.bathrooms)}</span>
+                    {houseDetail?.bathrooms ? <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>تعداد حمام{toPersianFormat(houseDetail.bathrooms)}</span>
                     :<span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>حمام ندارد</span>}
-                    {houseDetail.parking ? <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>تعداد پارکینگ{toPersianFormat(houseDetail.parking)}</span>
+                    {houseDetail?.parking ? <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>تعداد پارکینگ{toPersianFormat(houseDetail.parking)}</span>
                     :<span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>پارکینگ ندارد</span> }
-                    {houseDetail.capacity && <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>ظرفیت {toPersianFormat(houseDetail.capacity)}</span>}                  
+                    {houseDetail?.capacity && <span className='outline outline-[#E9E9E9] rounded-[20px] px-4 py-2'>ظرفیت {toPersianFormat(houseDetail.capacity)}</span>}                  
                 </div>
               </div>
 

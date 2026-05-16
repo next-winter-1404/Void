@@ -53,7 +53,7 @@ export default function reserveForm ({price,discounted_price}:priceProps){
 
            </div>   
 
-            <div className="w-full flex flex-row justify-between ">
+            <div className="w-full  flex min-mdflex-row max-lg:flex-col  justify-between ">
                 <div className="w-[45%]">
                     <span className="text-[16px] font-bold">قیمت</span>
                     <div className="flex flex-row w-full   items-center whitespace-nowrap  text-[20px]">
@@ -61,7 +61,7 @@ export default function reserveForm ({price,discounted_price}:priceProps){
                         
                     </div>
                 </div>
-                <div className="w-[30%] flex flex-row items-center justify-end gap-2 ">
+                <div className="w-[30%] flex flex-row items-center justify-end max-lg:justify-start gap-2 ">
                     <button style={{backgroundImage:"url('/ico/share.png')"}} className="w-10 h-10 bg-[length:100%_100%]"></button>
                     <button style={{backgroundImage:"url('/ico/link.png')"}}  className="w-10 h-10 bg-[length:100%_100%]"></button>
                 </div>
