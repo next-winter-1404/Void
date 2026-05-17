@@ -26,7 +26,7 @@ export default function ResHouse_List ({houseData}:HouseDataProps) {
 
     return(
         <div dir="rtl" className="w-full h-[600px] flex flex-row flex-wrap gap-3 justify-center overflow-y-scroll">
-          {currentItems.map((prop)=>(
+          {currentItems.length > 0 ? currentItems.map((prop)=>(
             <HouseCard
               key={prop.id}
               id={prop.id}
@@ -55,7 +55,11 @@ export default function ResHouse_List ({houseData}:HouseDataProps) {
               favoriteId={prop.favoriteId}
               isFavorite={prop.isFavorite}
              />
-          ))}
+          )):
+            <div className="w-full h-[500px] text-[20px] flex flex-col items-center">
+               <h1 className="font-semibold m-auto">محصولی یافت نشد</h1>
+            </div> 
+          }
 
           <PaginationPage productInArray={houses} itemsPerPage={10} setCurrentItems={setCurrentItems}/>
           
