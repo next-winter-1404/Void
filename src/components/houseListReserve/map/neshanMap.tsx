@@ -143,7 +143,7 @@ export default function NeshanMap({ houses = [],loc }: Props) {
            <div>
             <div style="display:flex;justify-content:between">
             <span style="font-size: 15px ;font-weight: 700;width:140px;overflow:hidden">${name}</span>
-             <a href="/house/${house.id}" style="
+             <a href="/detailPage/${house.id}" style="
               font-size: 14px;
               color: #c7d2fe;
               text-decoration: none;

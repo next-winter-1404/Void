@@ -4,15 +4,34 @@ import type { houseCardProps } from "@/types/houseCard-type/houseCard-Type";
 import { useEffect,useState } from "react";
 
 import PaginationPage from "@/components/common/paginationPage/paginationPage";
+import NeshanMap from "../map/neshanMap";
 
-
+type House = {
+  id?: string | number;
+  name?:string,
+  address?:string,
+  image?:string
+  oldPrice?:number,
+  price?:number
+  lat?: number;
+  lng?: number;
+  location?: {
+    lat?: number;
+    lng?: number;
+  };
+};
 
 
 interface HouseDataProps {
      houseData:houseCardProps[]
+     houses?: House[];
+  loc?:{
+    latLoc:number,
+    lngLoc:number
+  }
 }
 
-export default function ResHouse_List ({houseData}:HouseDataProps) {
+export default function ResHouse_List ({houseData,loc,houses}:HouseDataProps) {
 
   // useEffect(()=>{
   //   console.log("house",houseData);
@@ -21,11 +40,20 @@ export default function ResHouse_List ({houseData}:HouseDataProps) {
   
   
   const [currentItems,setCurrentItems] = useState<any[]>([]);
+  const [showMap,setShowMap] = useState<boolean>(false);
  
-  const houses = Array.isArray(houseData) ? houseData : [];
+  const housess = Array.isArray(houseData) ? houseData : [];
 
     return(
-        <div dir="rtl" className="w-full h-[600px] flex flex-row flex-wrap gap-3 justify-center overflow-y-scroll">
+
+       
+
+        <div dir="rtl" className="w-full h-[600px] flex flex-row flex-wrap gap-3 justify-center min-xl:overflow-y-scroll relative">
+         
+          <button onClick={()=>setShowMap(!showMap) }
+           className="px-5 py-2 text-[20px] bg-[black] text-[white] rounded-[20px] hidden max-xl:block 
+             fixed right-[50px] bottom-[50px] z-[10] ">نقشه</button>
+
           {currentItems.length > 0 ? currentItems.map((prop)=>(
             <HouseCard
               key={prop.id}
@@ -60,8 +88,12 @@ export default function ResHouse_List ({houseData}:HouseDataProps) {
                <h1 className="font-semibold m-auto">محصولی یافت نشد</h1>
             </div> 
           }
+          
+          <div className={`w-[80%] bottom-[0] right-[10%]   ${showMap ? "h-[500px] fixed" : " h-[0] hidden"}`}>
+             <NeshanMap houses={houses} loc={loc}/>
+          </div>
 
-          <PaginationPage productInArray={houses} itemsPerPage={10} setCurrentItems={setCurrentItems}/>
+          <PaginationPage productInArray={housess} itemsPerPage={10} setCurrentItems={setCurrentItems}/>
           
         </div>
     )

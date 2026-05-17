@@ -112,7 +112,7 @@ const mergedData:House[] = houses.map((hs:any) => ({
 
              {/*houseList*/}
              <div dir="ltr"  className=" w-full mx-auto">
-                <ReservationHouseList houseData={houses}/>
+                <ReservationHouseList houses={mergedData} loc={{latLoc:Number(theHouse_loc?.lat),lngLoc:Number(theHouse_loc?.lng)}} houseData={houses}/>
 
              </div>
 
