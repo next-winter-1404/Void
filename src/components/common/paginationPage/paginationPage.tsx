@@ -1,6 +1,6 @@
 'use client'
-import { toPersianFormat } from "@/util/helper/persionFormat";
-import {useState,useEffect} from "react"
+import { toPersianFormat } from "@/util/helper/persianFormat";
+import {useState,useEffect, useMemo} from "react"
 
 interface paginationProps {
     productInArray:any[],
@@ -13,22 +13,27 @@ export default function paginationPage ({productInArray,itemsPerPage,setCurrentI
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
- 
-  const currentItems =
-    Array.isArray(productInArray) && productInArray.length > 0
+  
+  const currentItems = useMemo(()=>{
+   const indexOfLastItem = currentPage * itemsPerPage;
+   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+   
+   return Array.isArray(productInArray) && productInArray.length > 0
       ? productInArray.slice(indexOfFirstItem, indexOfLastItem)
       : [];
+    
+  },[productInArray,currentPage]);
+    
    
     useEffect(()=>{
        setCurrentItems(currentItems);
-      //  console.log('currentItems',currentItems)
-      //  console.log("product",productInArray)
-    },[currentPage])  
+    },[currentPage,productInArray,setCurrentItems]) 
 
+    useEffect(()=>{
+       setCurrentPage(1);
+    },[productInArray])
     
+  
   
   const totalPages =
     Array.isArray(productInArray) && productInArray.length > 0

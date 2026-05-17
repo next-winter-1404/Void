@@ -23,8 +23,6 @@ export default function RootLayout({
 
     <html lang="en" style={{height:"full"}} className={Yekan.className} >
      
-
-
       <body className="layout" >
 
         {children}

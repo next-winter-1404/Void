@@ -9,7 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^9.0.1",
     "@neshan-maps-platform/mapbox-gl-react": "^1.0.6",
+    "leaflet": "^1.9.4",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-date-object": "^2.1.9",
