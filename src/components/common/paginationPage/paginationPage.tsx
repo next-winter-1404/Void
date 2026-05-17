@@ -13,20 +13,22 @@ export default function paginationPage ({productInArray,itemsPerPage,setCurrentI
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
- 
-  const currentItems =
-    Array.isArray(productInArray) && productInArray.length > 0
+   const currentItems = useMemo(()=>{
+   const indexOfLastItem = currentPage * itemsPerPage;
+   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+   
+   return Array.isArray(productInArray) && productInArray.length > 0
       ? productInArray.slice(indexOfFirstItem, indexOfLastItem)
       : [];
+    
+  },[productInArray,currentPage]);
+    
    
     useEffect(()=>{
        setCurrentItems(currentItems);
-      //  console.log('currentItems',currentItems)
-      //  console.log("product",productInArray)
-    },[currentPage])  
+       setCurrentPage(1);
+    },[currentPage,productInArray,setCurrentItems]) 
 
     
   
