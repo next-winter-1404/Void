@@ -27,9 +27,11 @@ export default function paginationPage ({productInArray,itemsPerPage,setCurrentI
    
     useEffect(()=>{
        setCurrentItems(currentItems);
-       setCurrentPage(1);
     },[currentPage,productInArray,setCurrentItems]) 
 
+    useEffect(()=>{
+       setCurrentPage(1);
+    },[productInArray])
     
   
   const totalPages =
