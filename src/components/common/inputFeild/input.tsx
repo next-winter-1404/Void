@@ -19,7 +19,7 @@ export default function passwordInput ({name,type,id,placeHolder,icon,label,erro
 
     
     return (
-        <div className=" relative">
+        <div className=" relative w-full">
         <label htmlFor={name} className="font-medium block mb-3">{label}</label>
         <input
            name={name}

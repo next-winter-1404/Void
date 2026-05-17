@@ -18,6 +18,6 @@ html, body {
   max-width: 1300px;
   margin: 0 auto;
   padding: 5px;
-  box-sizing: border-box;
-  border:1px solid black;
+  /* box-sizing: border-box; */
+  /* border:1px solid black; */
 }
