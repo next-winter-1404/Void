@@ -68,7 +68,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
  
     return(
         <>
-          <div className="w-full  flex flex-col">
+          <div dir="rtl" className="w-full  flex flex-col">
 
           {/*headerContent */}
           <div className="w-full h-[10%]">
