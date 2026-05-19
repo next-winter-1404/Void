@@ -1,3 +1,3 @@
-import { initAuth } from "./initAuth";
+// import { initAuth } from "./initAuth";
 
-initAuth();
+// initAuth();

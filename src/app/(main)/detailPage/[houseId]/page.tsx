@@ -11,7 +11,7 @@ import Image from "next/image";
 import MapIco2 from "@/assets/ico/detailPage/Map2-ico.png"
 
 import { handleAsyncAction } from "@/util/service/api/handleAsync";
-import { api } from "@/util/service/api";
+import { Api } from "@/util/service/api";
 
 interface SearchProps {
   params: {
@@ -33,10 +33,13 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
   const resolved = await props.params;
   const houseID = Number(resolved.houseId);
   
+
+  const api = await Api();
+
    //housedetail
    const theHouse = await handleAsyncAction(api.houseDetail.houseDetail(houseID));
    const theHouseDetail = theHouse.data
-   console.log("housessss",theHouse?.data);
+  //  console.log("housessss",theHouse?.data);
 
 
    const transactionType = theHouse?.data?.transaction_type
@@ -60,7 +63,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
 
     const sameHouse = await handleAsyncAction(api.houseDetail.sameHouse(query));
     const sameHouseData = sameHouse?.data?.houses
-    console.log("sameHouse",sameHouse);
+    // console.log("sameHouse",sameHouse);
 
    //thehouseComment
    const theHouseComment = await handleAsyncAction(api.houseDetail.houseComments(houseID));

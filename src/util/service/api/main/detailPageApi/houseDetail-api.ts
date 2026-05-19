@@ -1,4 +1,5 @@
-import {ApiClient, apiClient} from "@/util/service/api/apiClient";
+import {ApiClient} from "@/util/service/api/apiClient";
+import { initAuth } from "../../initAuth";
 
 export const HouseDetailAPI = (client:ApiClient)=> ({
    
@@ -37,8 +38,9 @@ export const HouseDetailAPI = (client:ApiClient)=> ({
      return client.get(`/api/comments?house_id=${houseId}&limit=4&order=ASC&sort=created_at`);
   },
 
-  commentHandler:(content:string,houseId:number)=> {
-    return client.post(`/api/houses/${houseId}/comments`,content)
+  commentHandler:(data:{house_id:number,title:string,caption:string,rating:number,parent_comment_id?:number | null})=> {
+     
+    return client.post(`/api/comments`,data)
   }
 
 

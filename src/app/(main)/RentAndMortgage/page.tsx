@@ -5,24 +5,27 @@ import { handleAsyncAction } from '@/util/service/api/handleAsync';
 import FilterButton from '@/components/RentAndMortagageComps/FilterButton';
 
 import SortButtons from '@/components/RentAndMortagageComps/SortButtons';
-import { api } from '@/util/service/api';
+import { Api } from '@/util/service/api';
 
 const RentAndMortgage = async () => {
 
-  const housesRes = await handleAsyncAction(api.houseListmortRent.mortgateRentHouse({
-    
+  const query = {
     sort: "price",
     order: "DESC",
     page: 1,
     limit: 10
-  }));
+  }
 
-  console.log(JSON.stringify(housesRes, null, 2));
+  const api = await Api();
+
+  const housesRes = await handleAsyncAction(api.houseListmortRent.mortgateRentHouse(query));
+
+  // console.log(JSON.stringify(housesRes, null, 2));
 
   const houses = housesRes?.data?.houses || [];
 
   return (
-    <main className='flex flex-col gap-10'>
+    <main dir='rtl' className='flex flex-col gap-10'>
 
       <h2 className='font-bold text-2xl md:text-3xl'>
         رهن و اجاره آپارتمان

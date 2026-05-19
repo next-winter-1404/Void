@@ -2,7 +2,8 @@ import FilterButton from "@/components/common/button";
 import FilterModal from "@/components/houseListReserve/filter/filterModal";
 import SearchModal from "@/components/common/searchBox/searchModal";
 import { handleAsyncAction } from "@/util/service/api/handleAsync";
-import { api } from "@/util/service/api";
+import { Api } from "@/util/service/api";
+
 
 import NeshanMap from "@/components/houseListReserve/map/neshanMap";
 
@@ -33,7 +34,6 @@ interface filterParams {
    image: string;
 };
 
-import type { houseCardProps } from "@/types/houseCard-type/houseCard-type";
 
 
 export default async function houseList_reservePage ({searchParams}:filterParams) {
@@ -52,7 +52,8 @@ export default async function houseList_reservePage ({searchParams}:filterParams
     search
   };
   
-  
+  const api = await Api();
+
   //houselist
   const houseData = await handleAsyncAction(api.house.ReservationHouseList(query));
    const houses = houseData?.data?.houses || [];

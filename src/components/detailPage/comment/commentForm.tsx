@@ -2,7 +2,7 @@
 import SubmitBt from "@/components/common/SubmitBt";
 import comment_Handler from "@/util/service/commentAction/action";
 import { useParams } from "next/navigation";
-import { useActionState } from "react";
+import { useActionState,useEffect } from "react";
 import { success } from "zod";
 
 
@@ -12,6 +12,10 @@ export default function commentForm(){
 
     const result = {success:false}
     const[state,formAction,pending] = useActionState(comment_Handler,result);
+
+    useEffect(()=>{
+         console.log("comment response",state)
+    },[state])
 
     return(
         <>

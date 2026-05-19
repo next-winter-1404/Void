@@ -1,5 +1,5 @@
 
-import type { houseCardProps } from "@/types/houseCard-type/houseCard-type"
+import type { houseCardProps } from "@/types/houseCard-type/houseCard-Type"
 import Link from "next/link"
 import Image from "next/image"
 import bed from '@/assets/Images/common/HouseCard/bed.png'
@@ -39,7 +39,6 @@ caption,
 bookings,
 favoriteId,
 isFavorite,
-className
 }:houseCardProps) {
 
   const Price = Number(price);
@@ -54,7 +53,7 @@ className
         bg-white rounded-[16px] border border-zinc-300
         hover:shadow-lg transition
          cursor-pointer
-         w-[400px] ${className} 
+         w-[400px] 
         flex flex-col items-center
         p-3  
         `}
@@ -123,8 +122,9 @@ className
               
               </>
             ) : (
-              <div className="font-bold text-[15px] max-md:text-[15px] text-black">
-                {price} <span className="text-sm font-normal">تومان</span>
+              <div className="font-bold text-[15px] w-full max-md:text-[15px]
+               text-black flex flex-row justify-end gap-1 items-center">
+               <span className="text-sm font-normal">تومان</span> {toPersianFormat(price)} 
               </div>
             )}
           </div>

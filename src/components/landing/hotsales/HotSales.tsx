@@ -3,7 +3,7 @@ import Button1 from '../../common/buttons/Button1'
 import HouseCards from '../../common/Cards/HouseCards'
 import { HouseCard } from '@/types/HouseCard/HouseCard'
 import placeholder from '@/assets/Images/components/HouseCard/placeholder.png'
-import {api} from "@/util/service/api"
+import {Api} from "@/util/service/api"
 import { handleAsyncAction } from '@/util/service/api/handleAsync'
 import { HousesApiType } from '@/types/HouseCard/HouseApiType'
 // const mockHouses: HouseCard[] = [
@@ -62,16 +62,20 @@ import { HousesApiType } from '@/types/HouseCard/HouseApiType'
 //     yard: "حیاط دار"
 //   },
 // ]
-const housesRes = await handleAsyncAction(api.houseListmortRent.mortgateRentHouse({
-    
-    // transactionType: "rental",
-    sort: "price",
+
+const query = {
+   sort: "price",
     order: "DESC",
     page: 1,
-    limit: 3
-  }));
+    limit: 3,
+    transactionType:"rental"
+}
 
-  console.log(JSON.stringify(housesRes, null, 2));
+const api = await Api();
+
+const housesRes = await handleAsyncAction(api.houseListmortRent.mortgateRentHouse(query));
+
+  // console.log(JSON.stringify(housesRes, null, 2));
 
   const houses = housesRes?.data?.houses || [];
 type Props = {
@@ -89,7 +93,7 @@ const HotSales = () => {
           خرید و فروش های داغ این هفته
         </h2>
 
-        <Button1 href="" label="مشاهده همه" />
+        <Button1 href="/RentAndMortgage" label="مشاهده همه" />
 
       </header>
 

@@ -5,7 +5,7 @@ import { HouseCard } from '@/types/HouseCard/HouseCard'
 import placeholder from '@/assets/Images/components/HouseCard/placeholder.png'
 import Timer from '@/components/common/counter/counter';
 import { HousesApiType } from '@/types/HouseCard/HouseApiType'
-import {api} from "@/util/service/api"
+import {Api} from "@/util/service/api"
 import { handleAsyncAction } from '@/util/service/api/handleAsync'
 // const mockHouses: HouseCard[] = [
 //   {
@@ -69,16 +69,18 @@ import { handleAsyncAction } from '@/util/service/api/handleAsync'
 //     people: 5,
 //   },
 // ]
-const housesRes = await handleAsyncAction(api.houseListmortRent.mortgateRentHouse({
-    
-    // transactionType: "rental",
-    sort: "price",
+
+const query = {
+   sort: "price",
     order: "DESC",
     page: 1,
     limit: 3
-  }));
+}
+const api = await Api();
 
-  console.log(JSON.stringify(housesRes, null, 2));
+const housesRes = await handleAsyncAction(api.houseListmortRent.mortgateRentHouse(query));
+
+  // console.log(JSON.stringify(housesRes, null, 2));
 
   const houses = housesRes?.data?.houses || [];
 type Props = {
@@ -104,7 +106,7 @@ const DiscountedHouses = () => {
         </div>
 
         <div className="hidden md:flex">
-          <Button1 href="" label="نمایش همه" />
+          <Button1 href="/houseListReservePage" label="نمایش همه" />
         </div>
 
       </div>
@@ -121,7 +123,7 @@ const DiscountedHouses = () => {
       </div>
 
       <div className="flex md:hidden justify-center mt-2">
-        <Button1 href="" label="نمایش همه" />
+        <Button1 href="/houseListReservePage" label="نمایش همه" />
       </div>
 
     </div>

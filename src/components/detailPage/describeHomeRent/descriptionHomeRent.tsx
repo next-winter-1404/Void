@@ -6,14 +6,16 @@ import { toPersianFormat } from '@/util/helper/persionFormat';
 import type { houseDetailProps } from '@/types/houseDetailType/houseDetail-type';
 
 import NeshanMap from '../map/neshanMap';
-import {api} from "@/util/service/api"
+import {Api} from "@/util/service/api"
 import { handleAsyncAction } from '@/util/service/api/handleAsync';
 
 
 export default async function DescribeHome ({houseDetail}:houseDetailProps){
 
+  const api = await Api();
+
    //thehouseLcoation
-   
+
    const theHouseLocation = await handleAsyncAction(api.houseDetail.houseLocation(houseDetail?.id));
     
    const theHouse_Location = theHouseLocation?.data

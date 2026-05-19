@@ -27,20 +27,16 @@ export class ApiClient {
   private baseUrl: string;
   private token?: string;
 
-  constructor(baseUrl: string) {
+  constructor(baseUrl: string,token?:string) {
     this.baseUrl = baseUrl;
-  }
-
-  setToken(token: string) {
     this.token = token;
   }
 
-
-
+  
   private async request<T>(
     method: string,
     url: string,
-    body?: unknown
+    body?: unknown,
   ): Promise<T> {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
@@ -58,7 +54,7 @@ export class ApiClient {
       cache: "no-store",
     });
 
-    
+    console.log("headrs",headers);
    const contentType = res.headers.get("content-type") || "";
 
 let data: any = null;
@@ -88,8 +84,8 @@ return data;
 
   }
 
-  get<T>(url: string) {
-    return this.request<T>("GET", url);
+  get<T>(url: string,token?:string) {
+    return this.request<T>("GET", url,token);
   }
 
   post<T>(url: string, body?: unknown) {
@@ -105,6 +101,6 @@ return data;
   }
 }
 
-export const apiClient = new ApiClient("http://next.genzuni.website");
+// export const apiClient = new ApiClient("http://next.genzuni.website");
 
 

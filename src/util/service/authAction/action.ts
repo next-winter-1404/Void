@@ -22,11 +22,13 @@ interface apiRes {
 }
 
 
-import { api } from "../api";
+import { Api } from "../api";
 import { handleAsyncAction } from "../api/handleAsync";
 
-import { apiClient } from "../api/apiClient";
+import { ApiClient } from "../api/apiClient";
 import { setToken } from "../api/token";
+
+
 
 export async function login_Handler(prevState:action_result ,formData:FormData):Promise<action_result>{
   
@@ -43,14 +45,14 @@ const data = {
     };
   }
 
+  const api = await Api();
+
   const response = await handleAsyncAction(api.auth.login(data));
   
    if (response.data?.accessToken) {
-  await setToken(response.data.accessToken);
-  await apiClient.setToken(response.data.accessToken);
-
-  console.log("token set!!!!!!!!!!!!!!!!!!!");
-}
+   await setToken(response.data.accessToken);
+  console.log("token set in cookies!");
+  }
 
   return response
 
@@ -73,6 +75,8 @@ export async function register_Request(prevState:action_result ,formData:FormDat
     };
   }
 
+  const api = await Api();
+
      return await handleAsyncAction(api.auth.register(data));
 
 }
@@ -86,6 +90,8 @@ export async function register_Verify(prevState:action_result ,formData:FormData
     verificationCode :formData.get("verifyCode") as string
     
   }
+
+  const api = await Api();
   
   return await handleAsyncAction(api.auth.verifyEmail(data));
 
@@ -113,6 +119,8 @@ export async function register_completion(prevState:any ,formData:FormData):Prom
       
      }
 
+     const api = await Api();
+
      return await handleAsyncAction(api.auth.complete_registration(data));
     
 }
@@ -132,7 +140,8 @@ export async function  forgetPass_Request (prevState:any,formData:FormData):Prom
       errors:result.error.flatten().fieldErrors,
     };
   }
-
+     
+  const api = await Api();
 
    return await handleAsyncAction(api.auth.forgotPasswordRequest(data));
 
@@ -147,6 +156,8 @@ export async function forgetPass_Verify(prevState:any ,formData:FormData):Promis
      code:formData.get("verifyCode") as string
   }
   
+    const api = await Api();
+
   return await handleAsyncAction(api.auth.forgetPasswordVerify(data));
   
    
@@ -168,6 +179,8 @@ export async function forgetPass_ResetPass(prevState:any ,formData:FormData):Pro
        return {success:false,errors:result.error.flatten().fieldErrors,}
       
      }
+
+     const api = await Api();
 
   return await handleAsyncAction(api.auth.resetPassword(data));
 

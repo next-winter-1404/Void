@@ -5,6 +5,7 @@ export async function handleAsyncAction<T = any>(
   actionPromise: Promise<T>
 ): Promise<action_result> {
   try {
+
     const response = await actionPromise;
     
     const status = (response as any)?.status || 200;

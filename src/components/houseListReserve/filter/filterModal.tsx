@@ -106,7 +106,7 @@ export default function filterModal() {
         <>   
         <FilterButton showFilter={showFilter} setShowFilter={setShowFilter} label=" فیلتر ها"/>
 
-         <div className={`w-[280px] max-xl:w-[230px]  absolute top-[60px] z-[10] rounded-[16px]
+         <div className={`w-[280px] max-xl:w-[230px]  absolute top-[150px] z-[10] rounded-[16px]
           ${showFilter ? "block":"hidden"}`}>
         <div className="shadow-md shadow-purple-200 w-full bg-white rounded-[20px] py-[10px] flex flex-col items-center gap-1">
 

@@ -16,7 +16,7 @@ type Props = {
 const HouseCards: FC<Props> = ({ house }) => {
 
   return (
-    <Link href={`/products/${house.id}`}>
+    <Link href={`/detailPage/${house.id}`}>
 
       <div className=" bg-white rounded-3xl border border-zinc-300  hover:shadow-lg transition overflow-hidden cursor-pointer p-3 ">
 

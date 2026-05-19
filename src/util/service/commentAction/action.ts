@@ -1,17 +1,21 @@
 "use server"
-import { api } from "../api"
-import { handleAsyncAction } from "../api/handleAsync"
+import {Api} from "../api"
+import { handleAsyncAction } from "../api/handleAsync";
 
-import type { action_result } from "@/types/action_Result";
 
-export default async function comment_Handler (prevState:any,formData:FormData):Promise<action_result> {
+export default async function comment_Handler (prevState:any,formData:FormData):Promise<any> {
   
-   const content = formData.get("content") as string;
-   const houseId = Number(formData.get("houseId"));
+   const data ={
+      house_id: Number(formData.get("houseId")),
+      title:formData.get("content") as string,
+      caption:formData.get("content") as string,
+      rating:5,
+      parent_comment_id:null
+   }
 
-   console.log("content",content,"houseId",houseId);
-     
-   const response = await handleAsyncAction(api.houseDetail.commentHandler(content,houseId));
+   const api = await Api();
+   
+   const response = await handleAsyncAction(api.houseDetail.commentHandler(data));
 
    return response;
 
