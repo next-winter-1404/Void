@@ -13,6 +13,7 @@ import { register_completion} from "@/util/service/authAction/action";
 
 import { actionResult } from "@/util/service/authAction/actionResult";
 
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 export default function register_complention () {
 
@@ -24,9 +25,10 @@ export default function register_complention () {
  
     const [state,formAction,pending] = useActionState(register_completion,actionResult);
     
-        useEffect(()=>{
-          console.log(state);
-       },[state]) 
+       useEffect(()=>{
+                console.log("response",state)
+                 if(state?.status) toast_errorHandling(Number(state.status));
+           },[state])
        
       if(state.success){
         redirect("/login");

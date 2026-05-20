@@ -19,11 +19,13 @@ export async function getToken() {
 
 export async function removeToken() {
   const cookieStore = await cookies();
+  
+  cookieStore.delete("auth_token");
 
-  cookieStore.set("auth_token", "", {
-    path: "/",
-    maxAge: 0,          
-    sameSite: "strict",
-    secure: true
-  });
+  // cookieStore.set("auth_token", "", {
+  //   path: "/",
+  //   maxAge: 0,          
+  //   sameSite: "strict",
+  //   secure: true
+  // });
 }

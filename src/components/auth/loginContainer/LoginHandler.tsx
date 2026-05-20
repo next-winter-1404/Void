@@ -7,21 +7,25 @@ import Input from "@/components/common/inputFeild/input"
 
 import Link from "next/link"
 import {FormEvent,useActionState,useEffect,useState} from "react"
-import {redirect} from "next/navigation";
+import {redirect,useRouter} from "next/navigation";
 
 //util/service
 import { login_Handler} from "@/util/service/authAction/action";
 
 import { actionResult } from "@/util/service/authAction/actionResult";
 
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 export default function step1 () {
 
+
     const [state,formAction,pending] = useActionState(login_Handler,actionResult);
     
-    useEffect(()=>{
-        console.log(state);
-    },[state])
+   useEffect(()=>{
+            console.log("response",state)
+             if(state?.status) toast_errorHandling(Number(state.status));
+       },[state])
+    
 
   
     return(

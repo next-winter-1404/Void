@@ -1,6 +1,5 @@
 "use server"
 
-import { redirect } from "next/navigation";
 
 // zod 
 import {
@@ -10,7 +9,7 @@ import {
   resetPassZod,
   finalRegisterZod} from "@/util/hooks/zodValidation";
 
-
+import { redirect } from "next/navigation";
 import type { action_result } from "@/types/action_Result";
 
 interface apiRes {
@@ -51,7 +50,9 @@ const data = {
   
    if (response.data?.accessToken) {
    await setToken(response.data.accessToken);
-  console.log("token set in cookies!");
+    console.log("token set in cookies!");
+  redirect("/home");
+    
   }
 
   return response

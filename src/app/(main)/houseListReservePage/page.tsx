@@ -56,7 +56,8 @@ export default async function houseList_reservePage ({searchParams}:filterParams
 
   //houselist
   const houseData = await handleAsyncAction(api.house.ReservationHouseList(query));
-   const houses = houseData?.data?.houses || [];
+   const housess = houseData?.data?.houses || [];
+   const houses = housess.filter( (el:any) => el.transaction_type === "reservation");
 
    //houselocationList
    const houseLocation = await handleAsyncAction(api.house.houseLocation());

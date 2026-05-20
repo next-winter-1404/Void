@@ -16,7 +16,7 @@ import {register_Verify} from "@/util/service/authAction/action";
 
 import { actionResult } from "@/util/service/authAction/actionResult";
 
-
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 export default function verify_Code () {
       
@@ -29,9 +29,10 @@ export default function verify_Code () {
       
      const [state,formAction,pending] = useActionState(register_Verify,actionResult);
        
-    useEffect(()=>{
-       console.log(state);
-    },[state]) 
+   useEffect(()=>{
+            console.log("response",state)
+             if(state?.status) toast_errorHandling(Number(state.status));
+       },[state])
     
 
      if(state.success){

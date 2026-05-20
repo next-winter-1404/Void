@@ -38,7 +38,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
 
    //housedetail
    const theHouse = await handleAsyncAction(api.houseDetail.houseDetail(houseID));
-   const theHouseDetail = theHouse.data
+   const theHouseDetail = theHouse?.data
   //  console.log("housessss",theHouse?.data);
 
 
@@ -50,6 +50,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
      case "rental":descriptionHomeType = <DescribeHomeRent   houseDetail={theHouseDetail}/>;break
      case "mortgage" : descriptionHomeType = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
      case "direct purchase" : descriptionHomeType  = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
+     case "sell" : descriptionHomeType  = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
      default : descriptionHomeType =<DescriptionHome  houseDetail={theHouseDetail}/>
    }
     
@@ -102,7 +103,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
               {descriptionHomeType}
 
                {transactionType === "reservation" &&
-                <ReserveForm price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
+                <ReserveForm houseId={theHouseDetail?.id} price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
                 }
 
                <CommentBox comments={theHouseComment?.data?.comments}/>

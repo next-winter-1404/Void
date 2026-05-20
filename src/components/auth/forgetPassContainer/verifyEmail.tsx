@@ -18,6 +18,7 @@ import { forgetPass_Request} from "@/util/service/authAction/action";
 //util/service(type)
 import { actionResult } from "@/util/service/authAction/actionResult";
 
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 export default function verifyEmail () {
 
@@ -30,9 +31,10 @@ export default function verifyEmail () {
         redirect(`/forgetPassword?step=FverifyCode&email=${email}&resetCode=${state.data.resetCode}`)
       }
 
-      useEffect(()=>{
-         console.log(state);
-     },[state])
+     useEffect(()=>{
+              console.log(" response",state)
+               if(state?.status) toast_errorHandling(Number(state.status));
+         },[state])
     
     
   

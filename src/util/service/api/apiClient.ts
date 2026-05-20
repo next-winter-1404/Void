@@ -54,7 +54,6 @@ export class ApiClient {
       cache: "no-store",
     });
 
-    console.log("headrs",headers);
    const contentType = res.headers.get("content-type") || "";
 
 let data: any = null;
@@ -84,8 +83,8 @@ return data;
 
   }
 
-  get<T>(url: string,token?:string) {
-    return this.request<T>("GET", url,token);
+  get<T>(url: string) {
+    return this.request<T>("GET", url);
   }
 
   post<T>(url: string, body?: unknown) {

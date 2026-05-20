@@ -16,6 +16,8 @@ import {forgetPass_Verify} from "@/util/service/authAction/action"
 import { actionResult } from "@/util/service/authAction/actionResult";
 import { keyof } from "zod";
 
+import toast_errorHandling from "@/util/hooks/errorHandling";
+
 export default function verifyCode() {
   const searchParams = useSearchParams();
   
@@ -27,8 +29,9 @@ export default function verifyCode() {
        const [state,formAction,pending] = useActionState(forgetPass_Verify,actionResult);
          
       useEffect(()=>{
-         console.log(state);
-      },[state]) 
+               console.log(" response",state)
+                if(state?.status) toast_errorHandling(Number(state.status));
+          },[state]) 
       
   
        if(state.success){

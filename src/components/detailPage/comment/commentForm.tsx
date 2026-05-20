@@ -3,7 +3,8 @@ import SubmitBt from "@/components/common/SubmitBt";
 import comment_Handler from "@/util/service/commentAction/action";
 import { useParams } from "next/navigation";
 import { useActionState,useEffect } from "react";
-import { success } from "zod";
+
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 
 export default function commentForm(){
@@ -14,8 +15,11 @@ export default function commentForm(){
     const[state,formAction,pending] = useActionState(comment_Handler,result);
 
     useEffect(()=>{
-         console.log("comment response",state)
+         console.log("response",state)
+          if(state?.status) toast_errorHandling(Number(state.status));
     },[state])
+     
+
 
     return(
         <>

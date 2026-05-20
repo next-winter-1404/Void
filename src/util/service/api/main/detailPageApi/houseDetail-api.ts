@@ -1,5 +1,6 @@
+import { ReserveBody } from "@/types/reserveType/reserve-type";
 import {ApiClient} from "@/util/service/api/apiClient";
-import { initAuth } from "../../initAuth";
+import { availableMemory } from "process";
 
 export const HouseDetailAPI = (client:ApiClient)=> ({
    
@@ -31,9 +32,11 @@ export const HouseDetailAPI = (client:ApiClient)=> ({
   return client.get(url); 
   },
 
+  //comment
   houseComments:(houseId:number)=>{
      return client.get(`/api/houses/${houseId}/comments`);
   },
+
    Comments:(houseId:number)=>{
      return client.get(`/api/comments?house_id=${houseId}&limit=4&order=ASC&sort=created_at`);
   },
@@ -41,8 +44,15 @@ export const HouseDetailAPI = (client:ApiClient)=> ({
   commentHandler:(data:{house_id:number,title:string,caption:string,rating:number,parent_comment_id?:number | null})=> {
      
     return client.post(`/api/comments`,data)
-  }
+  },
 
+  HouseAvailability:(id:number,startDate:string,endDate:string)=>{
+      return client.get(`/api/houses/${id}/availability?startDate=${startDate}&endDate=${endDate}`);
+  },
+
+  ReserveHouseHandler : (data:ReserveBody)=>{
+    return client.post("/api/bookings",data)
+  }
 
   
 })

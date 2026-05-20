@@ -7,21 +7,26 @@ import Price from "@/components/common/PriceComponent/Price";
 import { useActionState, useEffect } from "react";
 
 
-import Reserve_Handler from "@/util/service/reserveAction/action";
+import availability_House from "@/util/service/reserveAction/availableReserve";
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 interface priceProps {
+     houseId:number,
      price:number,
      discounted_price:number
 }
 
-export default function reserveForm ({price,discounted_price}:priceProps){
+export default function reserveForm ({houseId,price,discounted_price}:priceProps){
 
-     const result = "";
-    const [state,formAction,pending] = useActionState(Reserve_Handler,result);
+     const result = {success:false,};
+    const [state,formAction,pending] = useActionState(availability_House,result);
    
     useEffect(()=>{
-       console.log(state);
-    },[state])
+      console.log(" response",state)
+       if(state?.status) toast_errorHandling(Number(state.status));
+     },[state])
+    
+
    
     const discount = Math.floor(((price - discounted_price)/price)*100);
 
@@ -41,7 +46,7 @@ export default function reserveForm ({price,discounted_price}:priceProps){
 
              <InputDate name="checkOut" label="تاریخ خروج"/>
             </div>   
-
+            <input type="hidden" name="houseId" id="houseId" value={houseId} />
 
            <div className="flex flex-row gap-10 justify-between w-full ">
 
