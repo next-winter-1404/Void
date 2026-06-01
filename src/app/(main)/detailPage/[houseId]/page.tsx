@@ -117,7 +117,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
          {/*sameHomeSection*/}
           <div className=" w-full h-[30%] py-5">
             
-            <SameHomeSection houseData={ sameHouseData}/>
+            {/* <SameHomeSection houseData={ sameHouseData}/> */}
 
           </div>
 

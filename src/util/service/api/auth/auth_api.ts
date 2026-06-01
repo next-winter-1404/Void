@@ -2,6 +2,8 @@ import { ApiClient } from "../apiClient";
 
 export const AuthAPI = (client: ApiClient) => ({
 
+  theUserInfo:(id:number)=> client.get(`/api/users/${id}`),
+
   login: (data: { email: string; password: string }) =>
     client.post("/api/auth/login", data),
 

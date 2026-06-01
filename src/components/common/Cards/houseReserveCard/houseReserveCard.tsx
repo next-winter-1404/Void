@@ -1,5 +1,5 @@
 'use client'
-import type { houseCardProps } from "@/types/houseCardType/houseCard-Type"
+import type { houseCardReserveProps } from "@/types/houseCardType/houseCard-Type"
 import Link from "next/link"
 import Image from "next/image"
 import bed from '@/assets/Images/common/HouseCard/bed.png'
@@ -14,6 +14,7 @@ import { redirect } from "next/navigation"
 import { useRouter,useSearchParams } from "next/navigation";
 import {useState} from "react";
 
+import { isoToPersianDate } from "@/util/helper/persionFormat"
 
 export default function HouseCard ({
 id,
@@ -40,20 +41,12 @@ sellerName,
 caption,
 bookings,
 favoriteId,
-isFavorite
-}:houseCardProps) {
+isFavorite,
+checkInDate,
+checkOutDate
+}:houseCardReserveProps) {
 
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    // const [query,setQuery] = useState<number>(0);
-      
-         const handleSearch = (id:number) => {
-          const houseId = String(id);
-        const params = new URLSearchParams(searchParams.toString());
-        params.set("houseid",houseId);
-        router.push(`?${params.toString()}`)
-        }
-
+    
   const Price = Number(price);
   const DisCountPrice = Number(discounted_price);
 
@@ -63,26 +56,18 @@ isFavorite
     return (
     <div>
         <div className="
-        bg-white rounded-[16px] border border-zinc-300
-        hover:shadow-lg transition
-         cursor-pointer
-         w-[300px] max-md:w-[350px]
+        w-[80%] mx-auto
         flex flex-col items-center
         px-2   relative
       ">
         
-        <Image onClick={()=> redirect(`/detailPage/${id}`)}
+        <Image 
           src="/image/Home-pic.png"
           alt="ww"
           width={280}
           height={150}
-          className="object-cover w-full h-[150px] max-md:h-[250px] rounded-[16px] mt-2"
+          className="object-cover w-full h-[300px]  rounded-[16px] mt-2"
         />
-
-        <span onClick={()=> handleSearch(id)}
-        style={{backgroundImage:"url('/ico/common/location-ico.png')"}}
-         className="absolute right-[15px] top-[125px] bg-cover  h-7 w-11"></span>
-        
 
         <div className="text-right w-full flex flex-col gap-2">
 
@@ -96,7 +81,7 @@ isFavorite
 
           <div className="flex flex-row items-center whitespace-nowrap justify-between max-md:text-[15px] text-sm border-zinc-300 border-t pt-1">
             {room &&
-            <div className='flex flex-row items-center border-l px-1  border-zinc-300' dir='ltr'>
+            <div className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(room)} خواب <Image src={bed} alt='bed' height={20} width={20}/>
             </div>}
             {bathrooms &&
@@ -105,7 +90,7 @@ isFavorite
             </div>}
             
             {yard_type &&
-            <div className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
+            <div className='flex flex-row items-center border-l px-1  border-zinc-300' dir='ltr'>
               {toPersianFormat(yard_type)} <Image src={hayat} alt='bed' height={20} width={20}/>
             </div>}
 
@@ -115,12 +100,28 @@ isFavorite
             </div>}
             
             {capacity &&
-            <div  className='flex flex-row items-center border-l border-zinc-300' dir='ltr'>
+            <div  className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(capacity)} نفر<Image src={persons} alt='park' height={20} width={20}/>
             </div>}
           </div>
 
+           <div className="flex flex-col gap-2  text-[13px] p-2">
+              <div className=" text-[gray]/90 flex flex-row items-center justify-between">
+              <span>تاریخ ورود:</span>
+                <span>{isoToPersianDate(checkInDate)}</span>
+                
+              </div>
+
+              <div className=" text-[gray]/90  flex flex-row items-center justify-between">
+              <span>تاریخ خروج:</span>
+                <span>{isoToPersianDate(checkOutDate)}</span>
+                
+              </div>
+
+            </div>
+
           <div dir="ltr" className="pt-1 py-2 flex flex-row items-center justify-between max-md:text-[15px] text-sm whitespace-nowrap">
+           
             {discounted_price ? (
               <>
               <div className=' text-white text-[12px] max-md:text-[15px] px-2 py-1 bg-red-600 rounded-[16px]'>{toPersianFormat(discount)}%</div>
@@ -144,7 +145,9 @@ isFavorite
             )}
           </div>
         </div>
+        <button onClick={()=>redirect(`/houseListReservePage`)} className="bg-[#586CFF] py-3 w-full rounded-[16px] text-[white] font-medium text-center">تغییر خانه</button>
       </div>
+      
     </div>
   )
 }

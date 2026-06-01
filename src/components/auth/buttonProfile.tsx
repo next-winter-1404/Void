@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation"
 import {useActionState, useState,useEffect} from "react";
 import logout_handler from "@/util/service/authAction/logoutAction";
+import toast_errorHandling from "@/util/hooks/errorHandling";
 interface buttonProfileProps {
     removeTok:()=>void
 }
@@ -21,7 +22,12 @@ export default function buttonProfile () {
 
     useEffect(()=>{
         console.log(state);
+            
     },[state])
+    
+    const logoutNotif =()=>{
+      toast_errorHandling(Number(200),"از حساب خود خارج شدید😒")
+    } 
 
     return(
         <>
@@ -31,7 +37,7 @@ export default function buttonProfile () {
         <form action={formAction}>  
           <ul className={`rounded-[16px] p-3 bg-[white]  cursor-pointer outline outline-[#E9E9E9] shadow-md top-[80px] text-right z-10 left-[5%] ${show ? "fixed" : "hidden"}`}>
                <li className="font-medium  hover:border-b ">داشبورد</li>
-               <button type="submit"  className="font-medium  hover:border-b ">خروح از حساب</button>
+               <button type="submit" onClick={logoutNotif}  className="font-medium  hover:border-b ">خروج از حساب</button>
           </ul>
         </form>
        </> 

@@ -1,9 +1,13 @@
 "use client"
 
+import dynamic from 'next/dynamic'
+
+const  PriceRange = dynamic(() => import("./priceRange"), { ssr: false })
+
 import {useState,useEffect} from "react"
 import FilterButton from "@/components/common/button"
 import DropDownMenu from "./dropDownMenu"
-import PriceRange from "./priceRange"
+// import PriceRange from "./priceRange"
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import type {dropDownItems} from "./dropDownMenu";
 

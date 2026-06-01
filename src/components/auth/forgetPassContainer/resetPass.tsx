@@ -27,7 +27,7 @@ export default function resetPass () {
       
          useEffect(()=>{
           console.log(" response",state)
-           if(state?.status) toast_errorHandling(Number(state.status));
+           if(state?.status) toast_errorHandling(Number(state.status),"رمز عبور با موفقیت تغییر کرد👌");
         },[state])
          
         if(state.success){

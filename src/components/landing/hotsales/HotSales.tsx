@@ -66,7 +66,6 @@ import { HousesApiType } from '@/types/HouseCard/HouseApiType'
 const query = {
    sort: "price",
     order: "DESC",
-    page: 1,
     limit: 3,
     transactionType:"rental"
 }

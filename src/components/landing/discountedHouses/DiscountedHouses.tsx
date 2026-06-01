@@ -71,10 +71,10 @@ import { handleAsyncAction } from '@/util/service/api/handleAsync'
 // ]
 
 const query = {
-   sort: "price",
+    sort: "price",
     order: "DESC",
-    page: 1,
-    limit: 3
+    limit: 3,
+    
 }
 const api = await Api();
 

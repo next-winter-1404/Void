@@ -8,7 +8,7 @@ import Button1 from '../buttons/Button1'
 
 
 
-import ButtonProfile from '../buttons/buttonProfile'
+import ButtonProfile from '../../auth/buttonProfile'
 
 interface Props {
   token:string | null,

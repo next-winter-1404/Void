@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local'
 
+
+
 import { Toaster } from "react-hot-toast"
 
 const Yekan = localFont({
@@ -27,6 +29,7 @@ export default function RootLayout({
       <body className="layout" >
 
         {children}
+
 
         <Toaster 
           position="top-right"

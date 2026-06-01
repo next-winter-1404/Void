@@ -1,9 +1,13 @@
 import { match } from "assert";
 import { NextRequest, NextResponse } from "next/server";
+import {getToken} from "@/util/service/api/token"
 
 export async function middleware(req:NextRequest) {
-    const token = req.cookies.get("token");
-
+    const token = await getToken();
+    
+    if(!token && req.nextUrl.pathname.startsWith("/reserving")){
+        return NextResponse.redirect(new URL("/home", req.url));
+    }
 
     // if(req.nextUrl.pathname.startsWith("/forgetPassword")){
     //      return "/forgetPassword"
@@ -30,5 +34,5 @@ export async function middleware(req:NextRequest) {
 }
 
 export const config = {
-    matcher : ["/forgetPassword/","/register/"]
+    matcher : ["/forgetPassword/","/register/","/reserving/contactWithSeller"]
 }

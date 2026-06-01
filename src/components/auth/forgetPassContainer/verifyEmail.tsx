@@ -33,7 +33,7 @@ export default function verifyEmail () {
 
      useEffect(()=>{
               console.log(" response",state)
-               if(state?.status) toast_errorHandling(Number(state.status));
+               if(state?.status) toast_errorHandling(Number(state.status),"کد تایید ارسال شد📩");
          },[state])
     
     

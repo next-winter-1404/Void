@@ -25,8 +25,9 @@ import { Api } from "../api";
 import { handleAsyncAction } from "../api/handleAsync";
 
 import { ApiClient } from "../api/apiClient";
-import { setToken } from "../api/token";
+import { getUserInfo, setToken } from "../api/token";
 
+import jwt from "@/util/hooks/jwt";
 
 
 export async function login_Handler(prevState:action_result ,formData:FormData):Promise<action_result>{
@@ -47,13 +48,16 @@ const data = {
   const api = await Api();
 
   const response = await handleAsyncAction(api.auth.login(data));
-  
+   
+
+
    if (response.data?.accessToken) {
-   await setToken(response.data.accessToken);
+    const userInfo = await  jwt(response.data?.accessToken);
+   await setToken(response.data.accessToken,userInfo);
     console.log("token set in cookies!");
-  redirect("/home");
-    
   }
+
+ 
 
   return response
 
