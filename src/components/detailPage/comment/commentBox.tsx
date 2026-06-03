@@ -6,7 +6,7 @@ import ArrowUpLeft from "@/assets/ico/detailPage/arrow-move-up-left.png"
 import CommentForm from "./commentForm";
 
 import PaginationPage from "@/components/common/paginationPage/paginationPage";
-import { isoToPersianDate } from "@/util/helper/persionFormat";
+import { isoToPersianDate } from "@/util/helper/persianFormat";
 
 interface commentReply {
      id:number,

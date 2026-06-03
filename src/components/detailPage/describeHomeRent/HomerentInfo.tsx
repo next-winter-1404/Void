@@ -1,7 +1,7 @@
 import Price from "@/components/common/PriceComponent/Price";
 import Avater from "@/assets/ico/avatar.png";
 import SubmitBt from '@/components/common/SubmitBt';
-import { isoToPersianDate } from "@/util/helper/persionFormat";
+import { isoToPersianDate } from "@/util/helper/persianFormat";
 
 import Image from "next/image"
 

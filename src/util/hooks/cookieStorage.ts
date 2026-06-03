@@ -8,7 +8,7 @@ export async function setForm (data:ReserveBody) {
  const Data = JSON.stringify(data);
 
     cookieStore.set("reserve_data",Data,{
-       maxAge: 60 * 10,
+       maxAge: 60 * 60,
        path: "/",
        sameSite: "strict",
        secure: true
@@ -26,7 +26,7 @@ export async function setDate ({ReserveDate}:any) {
  const Data = JSON.stringify(ReserveDate);
 
     cookieStore.set("reserve_date",Data,{
-       maxAge: 60 * 10,
+       maxAge: 60 * 60,
        path: "/",
        sameSite: "strict",
        secure: false

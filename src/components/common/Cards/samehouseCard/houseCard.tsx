@@ -8,7 +8,7 @@ import parkings from '@/assets/Images/common/HouseCard/parking.png'
 import bath from '@/assets/Images/common/HouseCard/bath.png'
 import hayat from '@/assets/Images/common/HouseCard/hayatdarad.png'
 import persons from '@/assets/Images/common/HouseCard/persons.png'
-import { toPersianFormat } from "@/util/helper/persionFormat"
+import { toPersianFormat } from "@/util/helper/persianFormat"
 import { redirect } from "next/navigation"
 
 

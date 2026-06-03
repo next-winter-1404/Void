@@ -14,7 +14,7 @@ import { redirect } from "next/navigation"
 import { useRouter,useSearchParams } from "next/navigation";
 import {useState} from "react";
 
-import { isoToPersianDate } from "@/util/helper/persionFormat"
+import { isoToPersianDate } from "@/util/helper/persianFormat"
 
 export default function HouseCard ({
 id,

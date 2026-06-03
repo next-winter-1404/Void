@@ -5,6 +5,8 @@ import { getUserInfo } from "@/util/service/api/token";
 import SubmitUserInfo from "@/components/reservePage/submitUserInfo";
 import StepBar from "@/components/reservePage/stepBar";
 
+import FinishReserve from "@/components/reservePage/finishReserve/HotelReservePage"
+
 export default async function reservePage (props: { params: Promise<{ step: string}>,searchParams:Promise<{houseId:string}> }){
 
   
@@ -29,7 +31,7 @@ export default async function reservePage (props: { params: Promise<{ step: stri
 
     switch (Step){
         case "submit_Info":currentStep= <SubmitUserInfo houseDetail={theHouse.data}/>;break
-        case "purchasing":currentStep=null ;break
+        case "purchasing":currentStep=<FinishReserve/> ;break
         default : "submit_Info" ;currentStep= <SubmitUserInfo houseDetail={theHouse.data}/>
     }
 

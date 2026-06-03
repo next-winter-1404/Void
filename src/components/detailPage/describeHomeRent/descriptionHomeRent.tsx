@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import HomeImg from "@/assets/Images/detailPage/Home-ico.png";
 import HomeRentInfo from './HomerentInfo';
-import { toPersianFormat } from '@/util/helper/persionFormat';
+import { toPersianFormat } from '@/util/helper/persianFormat';
 import type { houseDetailProps } from '@/types/houseDetailType/houseDetail-type';
 
 import NeshanMap from '../map/neshanMap';

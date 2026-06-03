@@ -1,4 +1,4 @@
-import { toPersianFormat } from "@/util/helper/persionFormat";
+import { toPersianFormat } from "@/util/helper/persianFormat";
 
 type PriceProps = {
   price: number;      

@@ -57,7 +57,7 @@ isFavorite
   const Price = Number(price);
   const DisCountPrice = Number(discounted_price);
 
-  const discount = Math.floor(((Price-DisCountPrice)/Price)*100);
+  const discount = Math.round(((Price-DisCountPrice)/Price)*100);
 
 
     return (
