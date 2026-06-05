@@ -27,37 +27,6 @@ export interface houseCardProps{
 
 }
 
-export interface houseCardReserveProps{
-   id:number,
-   title:string,
-   address:string,
-   photos:string[],
-   rate:number,
-   discounted_price:number,
-   price:number,
-   tags:string,
-   last_updated:string,
-   capacity:number,
-   location:string
-   categories:string,
-   bathrooms:number,
-   parking:number,
-   room:number,
-   yard_type:null,
-   num_comments:number,
-   discount_id:null,
-   transaction_type:"mortgage" | "rental" | "reservation" | "direct purchase",
-   sellerId:number,
-   sellerName:string,
-   caption:string,
-   bookings:number,
-   favoriteId:null,
-   isFavorite:boolean,
-   checkInDate:string,
-   checkOutDate:string
-
-}
-
 // "id": 6,
 //       "title": "اپارتمان مدرن ایتالیایی",
 //       "address": "ساری سلمان فارسی",
