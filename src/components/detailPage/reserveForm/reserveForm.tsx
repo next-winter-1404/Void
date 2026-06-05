@@ -28,7 +28,11 @@ export default function reserveForm ({houseId,price,discounted_price}:priceProps
     
 
    
+<<<<<<< HEAD
     const discount = Math.floor(((price - discounted_price)/price)*100);
+=======
+    const discount = Math.ceil(((price - discounted_price)/price)*100);
+>>>>>>> mersad
 
 
     return(

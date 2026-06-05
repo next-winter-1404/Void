@@ -23,7 +23,12 @@ export default function step1 () {
     
    useEffect(()=>{
             console.log("response",state)
+<<<<<<< HEAD
              if(state?.status) toast_errorHandling(Number(state.status));
+=======
+             if(state?.status) toast_errorHandling(Number(state.status),"شما با موفقیت وارد حساب خود شدید✅");
+             if(state?.status == 200) setTimeout(()=>redirect("/home"),3000);
+>>>>>>> mersad
        },[state])
     
 

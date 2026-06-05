@@ -66,7 +66,10 @@ import { HousesApiType } from '@/types/HouseCard/HouseApiType'
 const query = {
    sort: "price",
     order: "DESC",
+<<<<<<< HEAD
     page: 1,
+=======
+>>>>>>> mersad
     limit: 3,
     transactionType:"rental"
 }

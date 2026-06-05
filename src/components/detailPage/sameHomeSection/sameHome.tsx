@@ -1,6 +1,10 @@
 'use client'
 import HouseCard from "@/components/common/Cards/samehouseCard/houseCard";
+<<<<<<< HEAD
 import type { houseCardProps } from '@/types/houseCard-type/houseCard-type';
+=======
+import type { houseCardProps } from '@/types/houseCardType/houseCard-Type';
+>>>>>>> mersad
 
 interface HouseDataProps {
      houseData:houseCardProps[]
@@ -19,8 +23,13 @@ const sameHouseList = ({houseData}:HouseDataProps) => {
         <div className='flex  max-md:flex-col flex-row justify-evenly  gap-5 '>
           {houses.map((prop) =>(
             <HouseCard
+<<<<<<< HEAD
               className={"max-md:w-[100%]"}
               key={prop.id} {...prop}
+=======
+              // className={"max-md:w-[100%]"}
+              key={prop?.id} {...prop}
+>>>>>>> mersad
              />
           ))}
         </div>

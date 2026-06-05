@@ -5,7 +5,11 @@ import dynamic from "next/dynamic";
 import "@neshan-maps-platform/mapbox-gl/dist/NeshanMapboxGl.css";
 import "@/assets/style/neshanStyle.css";
 
+<<<<<<< HEAD
 import { toPersianFormat } from "@/util/helper/persionFormat";
+=======
+import { toPersianFormat } from "@/util/helper/persianFormat";
+>>>>>>> mersad
 
 type House = {
   id?: string | number;

@@ -2,7 +2,11 @@
 import Image from 'next/image';
 import HomeImg from "@/assets/Images/detailPage/Home-ico.png";
 import HomeRentInfo from './HomerentInfo';
+<<<<<<< HEAD
 import { toPersianFormat } from '@/util/helper/persionFormat';
+=======
+import { toPersianFormat } from '@/util/helper/persianFormat';
+>>>>>>> mersad
 import type { houseDetailProps } from '@/types/houseDetailType/houseDetail-type';
 
 import NeshanMap from '../map/neshanMap';

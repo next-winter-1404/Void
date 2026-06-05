@@ -34,7 +34,11 @@ export default function CustomDateInput({name,label}:InputDateProps) {
             <div
               onClick={openCalendar}
               style={{
+<<<<<<< HEAD
                width: 325,
+=======
+               width: 250,
+>>>>>>> mersad
                 height: 50,
                 borderRadius: 16,
                 border: "1px solid #d3d3d3",

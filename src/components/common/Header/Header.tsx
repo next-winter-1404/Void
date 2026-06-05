@@ -8,7 +8,11 @@ import Button1 from '../buttons/Button1'
 
 
 
+<<<<<<< HEAD
 import ButtonProfile from '../buttons/buttonProfile'
+=======
+import ButtonProfile from '../../auth/buttonProfile'
+>>>>>>> mersad
 
 interface Props {
   token:string | null,

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { toPersianFormat } from "@/util/helper/persionFormat";
+=======
+import { toPersianFormat } from "@/util/helper/persianFormat";
+>>>>>>> mersad
 
 type PriceProps = {
   price: number;      

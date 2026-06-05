@@ -1,5 +1,5 @@
 'use client'
-import type { houseCardProps } from "@/types/houseCardType/houseCard-Type"
+import type { houseCardProps } from "@/types/houseCardtype/houseCard-Type"
 import Link from "next/link"
 import Image from "next/image"
 import bed from '@/assets/Images/common/HouseCard/bed.png'
@@ -57,7 +57,11 @@ isFavorite
   const Price = Number(price);
   const DisCountPrice = Number(discounted_price);
 
+<<<<<<< HEAD
   const discount = Math.floor(((Price-DisCountPrice)/Price)*100);
+=======
+  const discount = Math.round(((Price-DisCountPrice)/Price)*100);
+>>>>>>> mersad
 
 
     return (
@@ -96,26 +100,46 @@ isFavorite
 
           <div className="flex flex-row items-center whitespace-nowrap justify-between max-md:text-[15px] text-sm border-zinc-300 border-t pt-1">
             {room &&
+<<<<<<< HEAD
             <div className='flex flex-row items-center border-r border-zinc-300' dir='ltr'>
               {toPersianFormat(room)} خواب <Image src={bed} alt='bed' height={20} width={20}/>
             </div>}
             {bathrooms &&
             <div  className='flex flex-row items-center  border-r border-zinc-300' dir='ltr'>
+=======
+            <div className='flex flex-row items-center border-l px-1  border-zinc-300' dir='ltr'>
+              {toPersianFormat(room)} خواب <Image src={bed} alt='bed' height={20} width={20}/>
+            </div>}
+            {bathrooms &&
+            <div  className='flex flex-row items-center  border-l px-1 border-zinc-300' dir='ltr'>
+>>>>>>> mersad
               {toPersianFormat(bathrooms)} حمام<Image src={bath} alt='bebat' height={20} width={20}/>
             </div>}
             
             {yard_type &&
+<<<<<<< HEAD
             <div className='flex flex-row items-center border-r  border-zinc-300' dir='ltr'>
+=======
+            <div className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
+>>>>>>> mersad
               {toPersianFormat(yard_type)} <Image src={hayat} alt='bed' height={20} width={20}/>
             </div>}
 
             {parking &&
+<<<<<<< HEAD
             <div  className='flex flex-row items-center border-r border-zinc-300' dir='ltr'>
+=======
+            <div  className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
+>>>>>>> mersad
               {toPersianFormat(parking)} پارکینگ<Image src={parkings} alt='park' height={20} width={20}/>
             </div>}
             
             {capacity &&
+<<<<<<< HEAD
             <div  className='flex flex-row items-center border-r border-zinc-300' dir='ltr'>
+=======
+            <div  className='flex flex-row items-center border-l border-zinc-300' dir='ltr'>
+>>>>>>> mersad
               {toPersianFormat(capacity)} نفر<Image src={persons} alt='park' height={20} width={20}/>
             </div>}
           </div>

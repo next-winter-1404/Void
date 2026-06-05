@@ -30,7 +30,11 @@ export default function verifyCode() {
          
       useEffect(()=>{
                console.log(" response",state)
+<<<<<<< HEAD
                 if(state?.status) toast_errorHandling(Number(state.status));
+=======
+                if(state?.status) toast_errorHandling(Number(state.status),"کد تایید شد😊");
+>>>>>>> mersad
           },[state]) 
       
   
