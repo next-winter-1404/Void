@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local'
+import { ThemeProvider } from "@/components/darkmode/theme-Provider"
 
 
 
@@ -24,11 +25,19 @@ export default function RootLayout({
 }>) {
   return (
 
-    <html lang="en" style={{height:"full"}} className={Yekan.className} >
+    <html lang="en" suppressHydrationWarning style={{height:"full"}} className={Yekan.className} >
      
       <body className="layout" >
 
+        {/* <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          > */}
         {children}
+
+        {/* </ThemeProvider> */}
 
 
         <Toaster 

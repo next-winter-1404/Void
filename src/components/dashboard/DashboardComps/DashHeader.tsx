@@ -19,7 +19,8 @@ export default function DashHeader() {
   const title = pageTitles[pathname] || 'داشبورد'; 
 
   return (
-    <header className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-2xl shadow-sm w-full ">
+    
+    <header className="flex items-center justify-between p-2 bg-white border border-gray-200 rounded-2xl h-[50px] shadow-sm w-full max-xl:w-[95%] ">
       
       
       <div className="flex items-center gap-2 font-bold text-lg">
@@ -31,7 +32,7 @@ export default function DashHeader() {
       <div className="flex items-center gap-4" dir='ltr'>
         
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 max-lg:hidden">
           <div className="text-right">
             <p className="text-sm font-semibold">سبحان عرب خزائلی</p>
             <p className="text-xs text-gray-400">فروشنده</p>

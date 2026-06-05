@@ -1,16 +1,33 @@
-import React from 'react'
-import Dashsidebar from '@/components/DashboardComps/Dashsidebar'
-import DashHeader from '@/components/DashboardComps/DashHeader'
+import Dashsidebar from '@/components/dashboard/DashboardComps/Dashsidebar'
+import DashHeader from '@/components/dashboard/DashboardComps/DashHeader'
+
+import BurgerBt from '@/components/dashboard/DashboardComps/burgarBt'
+import { SidebarProvider } from "@/components/dashboard/DashboardComps/burgerButtonState/sidebarContext";
+
 export default function DashLayout({children}:Readonly<{children:React.ReactNode}>){
 
     return(
-        <div className='flex bg-zinc-200 gap-10 min-h-screen ' dir='rtl'>
+      <SidebarProvider>
+        <div  className='flex flex-row bg-[#ECECEC] gap-3 p-3' dir='rtl'>
+
+            
+           {/* <div className=' w-[16%] h-full'> */}
           <Dashsidebar />
-          <main dir="rtl" className=" flex-1 flex flex-col p-6 overflow-y-auto">
+          {/* </div> */}
+
+          <main dir="rtl" className="w-[84%] max-xl:w-full flex flex-col gap-2">
+            <div className='flex flex-row gap-3 h-[60px]'>
+            <BurgerBt/>
             <DashHeader />
-          {children}
+            </div>
+
+            <div className='min-h-screen'>
+            {children}
+            </div>
+            
           </main>
         </div>
+        </SidebarProvider>
     )
 
 }
