@@ -1,3 +1,4 @@
+
 import { cookies } from "next/headers";
 
 interface userProps{
@@ -14,14 +15,14 @@ export async function setToken(token: string,user_info:userProps) {
   const cookieStore = await cookies();
 
   cookieStore.set("auth_token", token, {
-    maxAge: 60 * 60,
+    maxAge: 60 * 60 * 24,
     path: "/",
     sameSite: "strict",
     secure: true
   });
 
   cookieStore.set("user_info",JSON.stringify(user_info),{
-     maxAge: 60 * 60,
+     maxAge: 60 * 60 * 24,
     path: "/",
     sameSite: "strict",
     secure: true

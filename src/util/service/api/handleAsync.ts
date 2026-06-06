@@ -1,5 +1,7 @@
+"use server"
 import type { action_result } from "@/types/action_Result";
 import toast_errorHandling from "@/util/hooks/errorHandling";
+import { redirect } from "next/navigation";
 
 export async function handleAsyncAction<T = any>(
   actionPromise: Promise<T>
@@ -20,7 +22,7 @@ export async function handleAsyncAction<T = any>(
    
 
   } catch (error: any) {
-
+      if(error?.status === 401) redirect("/login");
     return {
       success: false,
       status: error.status || 500,

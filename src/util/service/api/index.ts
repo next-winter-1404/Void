@@ -5,6 +5,7 @@ import { AuthAPI } from "./auth/auth_api";
 import { HouseAPI } from "./main/houseApi/house_api";
 import { HouseDetailAPI } from "./main/detailPageApi/houseDetail-api";
 import { HouseMortgateRentListAPI } from "./main/RentAndMortgageApi/houseApi";
+import { profileApi } from "./dashboard/profile";
 import { getToken } from "./token";
 
 export  async function Api() {
@@ -20,6 +21,7 @@ export  async function Api() {
     house: HouseAPI(client),
     houseDetail: HouseDetailAPI(client),
     houseListmortRent: HouseMortgateRentListAPI(client),
+    profile: profileApi(client),
   };
 }
 

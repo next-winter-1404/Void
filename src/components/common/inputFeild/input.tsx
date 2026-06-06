@@ -13,7 +13,7 @@ import type { InputProps } from "@/types/input-type";
 
 
 
-export default function passwordInput ({name,type,id,placeHolder,icon,label,errors,email,setEmail}:InputProps) {
+export default function passwordInput ({name,InputValueDefault,type,id,placeHolder,icon,label,errors,email,setEmail}:InputProps) {
 
     const [show,setShow] = useState<boolean>(false);
 
@@ -25,6 +25,7 @@ export default function passwordInput ({name,type,id,placeHolder,icon,label,erro
            name={name}
            type={show == true ? "text" : type}
            id={id}
+           defaultValue={InputValueDefault}
            value={email}
            onChange={(e)=> setEmail ? setEmail(e.target.value) : null}
            style={{

@@ -1,38 +1,99 @@
-
+"use client"
 import SubmitBt from "@/components/common/SubmitBt"
 import TitleCaption, { stepProps } from "./titleCaptionComp"
 
 import Input from "@/components/common/inputFeild/input";
 
-export default function userInfo ({title,caption}:stepProps) {
+import {updateProfileAction} from "@/util/service/profileAction/action";
+import { useActionState,useEffect, useState } from "react";
+
+import toast_errorHandling from "@/util/hooks/errorHandling"
+
+interface props extends stepProps {
+   inputValue?:{
+     email:string,
+     phone:string,
+     address:string
+   }
+}
+
+export default function userInfo ({title,caption,inputValue}:props) {
+
+  const [email,setEmail] = useState({
+     email:inputValue?.email,
+     phone:inputValue?.phone,
+     address:""
+  })
+
+  // console.log(email)
+
+  const [resetKey,setResetKey] = useState(0);
+
+  const [state,formAction,pending] = useActionState(updateProfileAction,null)
+
+  useEffect(()=>{
+    console.log(state);
+    if(state?.status) toast_errorHandling(Number(state.status),"اطلاعات کاربری با موفقیت تغییر کرد");
+  },[state])
+
+  function handleCancel() {
+    setResetKey(k => k + 1);
+  }
 
     return(
-        <form className="w-[80%] flex flex-row justify-between mt-2 ">
+       <form key={resetKey} action={formAction}
+      className="w-full lg:w-[80%] mt-2 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
+      dir="rtl"
+    >
+      
+      <div className="w-full lg:w-[40%] flex flex-col gap-4
+                      order-1">
+    
+        <TitleCaption title={title} caption={caption} />
+ 
+      
+        <div className="flex flex-row items-center gap-5
+           order-3 lg:order-none">
+          <button onClick={handleCancel} type="button" className={` py-3 w-full bg-[#FF5555] rounded-[16px] text-[white] font-medium text-center`}>
+           انصراف
+         </button>
+          <SubmitBt btColor="green" subLabel="اعمال تغییرات" />
+        </div>
+      </div>
+ 
+      <div className="w-full lg:w-[55%] flex flex-col gap-3
+                      order-2">
+        
+        <Input
+          name="email"
+          id="email"
+          type="email"
+          placeHolder="example@gmail.com"
+          label="ایمیل:"
+          InputValueDefault={email?.email}
+          errors={state?.errors?.email}
+        />
+        <Input
+          name="phone"
+          id="phone"
+          type="text"
+          placeHolder="09112223333"
+          label="شماره همراه:"
+          InputValueDefault={email?.phone}
+          errors={state?.errors?.phone}
+        />
 
-           <div className="flex flex-col gap-5">
-            
-            <TitleCaption title={title} caption={caption} />
-            <div className="flex flex-row items-center gap-5">
-            <SubmitBt subLabel="انصراف"/>
-            <SubmitBt subLabel="اعمال تغییرات"/>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-3 w-[50%]">
-             <Input name="firstName" id="firtName" type="text" placeHolder="مرصاد" 
-               label="نام:"/>
-
-              <Input name="lastName" id="lastName" type="text" placeHolder="مسیبی" 
-               label="نام و نام خانوادگی"/> 
-
-               <Input name="email" id="email" type="email" placeHolder="example@gmail.com" 
-               label="جیمیل:"/>
-
-                <Input name="phoneNumber" id="phoneNumber" type="text" placeHolder="09112223333" 
-               label="شماره همراه:"/>
-          </div>
-
-          
-        </form>
+        <Input
+          name="address"
+          id="address"
+          type="text"
+          placeHolder="مازندران،ساری،،،،"
+          label="آدرس:"
+          InputValueDefault={email?.address}
+          errors={state?.errors?.address}
+        />
+      </div>
+ 
+    </form>
     )
 }
