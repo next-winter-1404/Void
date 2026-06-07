@@ -16,6 +16,7 @@ export  async function Api() {
   );
 
   return {
+     client,
     auth: AuthAPI(client),
     house: HouseAPI(client),
     houseDetail: HouseDetailAPI(client),

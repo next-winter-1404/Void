@@ -23,7 +23,7 @@ const Dashsidebar = () => {
         
         <div className='flex flex-col gap-5' dir='ltr'>
             
-            <SideBarButton href="/dashboard" className='flex flex-row justify-between items-center'>
+            <SideBarButton href="/Dashboard" className='flex flex-row justify-between items-center'>
                 داشبورد 
                 <Image src={Home} alt='H' width={20} height={20} />
             </SideBarButton>
@@ -52,6 +52,13 @@ const Dashsidebar = () => {
                 مدیریت  نظرات
                 <Image src={Chat} alt='Add' width={20} height={20} />
             </SideBarButton>
+
+
+            <SideBarButton href="/DashFav" className='flex flex-row justify-between items-center'>
+                       علاقه مندی ها
+                <Image src={Fav} alt='/3' width={20} height={20} />
+            </SideBarButton>
+
 
             <SideBarButton href="/reservations" className='flex flex-row justify-between items-center'>
                         پرداخت ها

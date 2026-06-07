@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation"
 import {useActionState, useState,useEffect} from "react";
 import logout_handler from "@/util/service/authAction/logoutAction";
+import Link from "next/link";
 interface buttonProfileProps {
     removeTok:()=>void
 }
@@ -30,7 +31,8 @@ export default function buttonProfile () {
 
         <form action={formAction}>  
           <ul className={`rounded-[16px] p-3 bg-[white]  cursor-pointer outline outline-[#E9E9E9] shadow-md top-[80px] text-right z-10 left-[5%] ${show ? "fixed" : "hidden"}`}>
-               <li className="font-medium  hover:border-b ">داشبورد</li>
+               <Link className="font-medium  hover:border-b " href={"/Dashboard"}>داشبورد</Link>
+               
                <button type="submit"  className="font-medium  hover:border-b ">خروح از حساب</button>
           </ul>
         </form>
