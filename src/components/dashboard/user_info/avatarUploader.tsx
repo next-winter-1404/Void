@@ -39,7 +39,7 @@ export default function AvatarUpload({ initialAvatar, uploadAction }: AvatarUplo
 
 
   return (
-    <div className="w-[200px]  h-[200px] max-lg:w-full flex items-center justify-center relative">
+    <div className="  h-[200px]  flex items-center justify-center relative">
 
       <Image
         width={150}

@@ -30,18 +30,15 @@ export default function Step4Images({accumulatedData,onStepDone,onBack,images,se
   }
 }, [state, onStepDone]);
 
-// Replace form action with manual submit to inject files
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  const fd = new FormData(e.currentTarget);
+// const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+//   const fd = new FormData(e.currentTarget);
 
-  // Remove any stale file inputs, re-append from state
-  images.forEach((img) => {
-    if (img.file) fd.append("photos", img.file);
-  });
+//   images.forEach((img) => {
+//     if (img.file) fd.append("photos", img.file);
+//   });
 
-  formAction(fd);
-};
+// };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const files = Array.from(e.target.files || [])
@@ -60,7 +57,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      action={formAction}
       className="mt-5 flex flex-col items-center"
     >
       <div className="w-full">

@@ -27,11 +27,13 @@ export default async function profileAvatar ({title,caption}:stepProps) {
           <div className="flex flex-col items-top min-lg:h-[200px] w-[300px]">
              <TitleCaption title={title} caption={caption}/>
           </div>
-
+        
+        <div className="mx-auto">
          <AvatarUpload
           initialAvatar={userInfo?.data?.user.profilePicture}
           uploadAction={uploadAvatarAction}
         />
+        </div>
         </div>
     )
 }

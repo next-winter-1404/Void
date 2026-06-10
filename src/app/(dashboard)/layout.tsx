@@ -8,7 +8,7 @@ export default function DashLayout({children}:Readonly<{children:React.ReactNode
 
     return(
       <SidebarProvider>
-        <div  className='flex flex-row bg-[#ECECEC] gap-3 p-3' dir='rtl'>
+        <div  className='flex flex-row bg-[#ECECEC] gap-3 p-3 h-screen' dir='rtl'>
 
             
            {/* <div className=' w-[16%] h-full'> */}
@@ -21,7 +21,7 @@ export default function DashLayout({children}:Readonly<{children:React.ReactNode
             <DashHeader />
             </div>
 
-            <div className='min-h-screen'>
+            <div className='overflow-y-auto rounded-[16px]'>
             {children}
             </div>
             

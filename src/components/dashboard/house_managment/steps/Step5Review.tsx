@@ -24,7 +24,7 @@ import SubmitBt from "@/components/common/SubmitBt";
 
 export default function Step5Review({ accumulatedData, mode, houseId, onBack }:step5Props) {
 
-  const [state, dispatch,pending] = useActionState(submitAction, null)
+  const [state, formAction,pending] = useActionState(submitAction, null)
   
   useEffect(()=>{
      console.log(state);
@@ -32,7 +32,7 @@ export default function Step5Review({ accumulatedData, mode, houseId, onBack }:s
   
   return (
     <>
-    <form action={dispatch} 
+    <form action={formAction} 
      className="w-full flex flex-wrap max-lg:flex-col  items-center gap-4 mt-5 "
     >
       <input type="hidden" name="_data"   value={JSON.stringify(accumulatedData)} />

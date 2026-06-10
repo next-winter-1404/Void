@@ -25,7 +25,7 @@ export default async function user_info () {
 
     return(
         <>
-         <div className=" bg-white w-full h-full flex flex-col p-3  rounded-[16px]">
+         <div className=" bg-white w-full  flex flex-col p-3  rounded-[16px]">
             <div className="flex flex-row w-full border-b border-[#88888842] py-2">
               <ProfileAvatar title={text[0].title} caption={text[0].caption} />
             </div>

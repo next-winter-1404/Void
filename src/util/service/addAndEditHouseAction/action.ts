@@ -135,7 +135,7 @@ export async function step4Action(
     errors: {},
     data: {
       ...prev,
-      // photos
+      photos
       // mainImageIndex,
     },
   };
@@ -204,6 +204,8 @@ export async function submitAction(
         
        return response;
      }
+
+  return "";
  
 }
 
