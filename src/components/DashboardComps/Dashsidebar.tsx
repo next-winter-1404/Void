@@ -15,7 +15,7 @@ import SideBarButton from './SideBarButton'
 
 const Dashsidebar = () => {
   return (
-    <main className='flex flex-col gap-5 p-5 bg-white m-5 rounded-2xl'>
+    <main className=' flex-col gap-5 p-5 bg-white m-5 rounded-2xl md:flex hidden'>
         <header className='flex flex-row justify-between'>
             <Image src={delta} alt='دلتا' width={50} height={50} />
             <button><Image src={logout} alt='log out' width={24} height={24} /></button>
@@ -38,17 +38,17 @@ const Dashsidebar = () => {
                 <Image src={Pich} alt='P' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/reservations" className='flex flex-row justify-between items-center'>
+            <SideBarButton href="/CustomersReservationList" className='flex flex-row justify-between items-center'>
                 مدیریت رزرو ها
                 <Image src={Add} alt='Add' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/reservations" className='flex flex-row justify-between items-center'>
+            <SideBarButton href="/SellerPaymentSection" className='flex flex-row justify-between items-center'>
                 مدیریت  مالی
                 <Image src={Desk} alt='Add' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/reservations" className='flex flex-row justify-between items-center'>
+            <SideBarButton href="/CommentsSection" className='flex flex-row justify-between items-center'>
                 مدیریت  نظرات
                 <Image src={Chat} alt='Add' width={20} height={20} />
             </SideBarButton>
@@ -65,7 +65,7 @@ const Dashsidebar = () => {
                 <Image src={Desk} alt='Add' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/reservations" className='flex flex-row justify-between items-center'>
+            <SideBarButton href="/Notifactions4u" className='flex flex-row justify-between items-center'>
                 اعلان ها
                 <Image src={Bell} alt='Add' width={20} height={20} />
             </SideBarButton>

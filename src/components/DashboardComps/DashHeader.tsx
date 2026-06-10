@@ -47,7 +47,7 @@ export default function DashHeader() {
            <Image src={Bell2} alt='D'></Image>
         </button>
 
-        {/* سوییچ تم (ساده‌سازی شده) */}
+       
         <div className="flex items-center bg-gray-100 p-1 rounded-full w-20 justify-between">
            <span className="bg-green-400 p-1 rounded-full text-white"><Image src={Sun} alt='W'></Image></span>
            <span className="p-1"><Image src={moon} alt='m'></Image></span>

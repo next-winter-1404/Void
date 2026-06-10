@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-interface FilterState {
+export interface FilterState {
   location: string;
   propertyType: string;
   minPrice: string;
@@ -11,10 +11,10 @@ interface FilterState {
 
 interface FavFilterProps {
   onClose: () => void;
-  onApply?: (filters: FilterState) => void;
+  onChange: (filters: FilterState) => void;
 }
 
-export default function FavFilter({ onClose, onApply }: FavFilterProps) {
+export default function FavFilter({ onClose, onChange , }: FavFilterProps) {
   const [filters, setFilters] = useState<FilterState>({
     location: '',
     propertyType: '',
@@ -23,8 +23,11 @@ export default function FavFilter({ onClose, onApply }: FavFilterProps) {
   });
 
   const set = (key: keyof FilterState) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-      setFilters((f) => ({ ...f, [key]: e.target.value }));
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const updated = { ...filters, [key]: e.target.value };
+      setFilters(updated);
+      onChange(updated);
+    };
 
   return (
     <div className="bg-white rounded-2xl shadow-2xl border border-zinc-100 p-5 w-[320px]" dir="rtl">
@@ -49,37 +52,42 @@ export default function FavFilter({ onClose, onApply }: FavFilterProps) {
             onChange={set('propertyType')}
             className="border border-zinc-200 rounded-xl px-3 py-2 text-sm text-zinc-500 outline-none bg-white"
           >
-            <option value="">آپارتمان</option>
+            <option value="">همه</option>
+            <option value="apartment">آپارتمان</option>
             <option value="villa">ویلا</option>
             <option value="hotel">هتل</option>
             <option value="suite">سوئیت</option>
-          </select></div>
+          </select>
+        </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-zinc-500">همسفر با هتل شما</label>
+          <label className="text-xs text-zinc-500">موقعیت</label>
           <select
             value={filters.location}
             onChange={set('location')}
             className="border border-zinc-200 rounded-xl px-3 py-2 text-sm text-zinc-500 outline-none bg-white"
           >
-            <option value="">استان، شهر، هتل ...</option>
+            <option value="">همه شهرها</option>
           </select>
         </div>
 
         <div className="flex flex-col gap-1">
           <label className="text-xs text-zinc-500">حداقل قیمت</label>
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             value={filters.minPrice}
             onChange={set('minPrice')}
             placeholder="0"
             className="border border-zinc-200 rounded-xl px-3 py-2 text-sm outline-none"
-          /></div>
+          />
+        </div>
 
         <div className="flex flex-col gap-1">
           <label className="text-xs text-zinc-500">حداکثر قیمت</label>
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             value={filters.maxPrice}
             onChange={set('maxPrice')}
             placeholder="تومان"
@@ -87,13 +95,6 @@ export default function FavFilter({ onClose, onApply }: FavFilterProps) {
           />
         </div>
       </div>
-
-      <button
-        onClick={() => onApply?.(filters)}
-        className="mt-4 w-full bg-[#8BDB3E] hover:bg-[#7cc936] text-white font-bold py-2.5 rounded-xl transition-colors text-sm"
-      >
-        اعمال فیلتر
-      </button>
     </div>
   );
 }
