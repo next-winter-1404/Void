@@ -1,4 +1,3 @@
-// components/dashboard/DashboardComps/SidebarContext.tsx
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
@@ -18,12 +17,12 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close drawer on route change
+
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Lock body scroll when open
+  
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };

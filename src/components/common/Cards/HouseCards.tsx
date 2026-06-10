@@ -22,7 +22,7 @@ const HouseCards: FC<Props> = ({ house }) => {
 
         <Image
           src={house.photos || placeholder}
-          alt={house.title}
+          alt="wad"
           width={400}
           height={250}
           className="w-full h-52 object-cover rounded-2xl"
@@ -44,7 +44,7 @@ const HouseCards: FC<Props> = ({ house }) => {
             />
 
             <span>
-              {house.location}
+              {house.address}
             </span>
 
           </div>

@@ -30,7 +30,7 @@ const navItems: NavItem[] = [
   { href: "/notifications", labelFa: "اعلان‌ها",       icon: <Bell size={18} /> },
 ];
 
-// ─── Shared nav tree ────────────────────────────────────────────────────────
+
 interface SidebarContentProps {
   pathname: string;
   onClose?: () => void;
@@ -39,12 +39,12 @@ interface SidebarContentProps {
 function SidebarContent({ pathname, onClose }: SidebarContentProps) {
   return (
     <div className="flex flex-col h-full direction-rtl" dir="rtl">
-      {/* Logo */}
+     
       <div className="text-[28px] font-bold text-[#1a1a2e] text-center px-4 py-6 border-b border-[#e8e6f0] tracking-tight">
         دلتا
       </div>
 
-      {/* Nav items */}
+     
       <nav className="flex-1 px-3 py-3 flex flex-col gap-1">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
@@ -68,7 +68,7 @@ function SidebarContent({ pathname, onClose }: SidebarContentProps) {
         })}
       </nav>
 
-      {/* Wallet */}
+     
       <div className="mx-3 mb-4 px-3 py-3 border-2 border-dashed border-[#c8c4e8] rounded-xl">
         <div className="flex items-center gap-2">
           <Wallet size={16} className="text-[#3C3489] shrink-0" />
@@ -86,17 +86,17 @@ function SidebarContent({ pathname, onClose }: SidebarContentProps) {
   );
 }
 
-// ─── Main Sidebar component ──────────────────────────────────────────────────
+
 export default function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Close drawer on route change
+ 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Lock body scroll when drawer is open
+ 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -104,12 +104,12 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* ── Desktop sidebar (md and up) ── */}
+      
       <aside className="hidden md:flex w-[220px] h-screen sticky top-0 shrink-0 flex-col bg-white border-l border-[#e8e6f0] overflow-y-auto">
         <SidebarContent pathname={pathname} />
       </aside>
 
-      {/* ── Hamburger button (mobile only) ── */}
+      
       <button
         onClick={() => setOpen(true)}
         aria-label="باز کردن منو"
@@ -118,7 +118,7 @@ export default function Sidebar() {
         <Menu size={20} className="text-gray-700" />
       </button>
 
-      {/* ── Backdrop ── */}
+      
       <div
         aria-hidden="true"
         onClick={() => setOpen(false)}
@@ -128,7 +128,7 @@ export default function Sidebar() {
         ].join(" ")}
       />
 
-      {/* ── Drawer panel ── */}
+      
       <aside
         role="dialog"
         aria-modal="true"
@@ -140,7 +140,7 @@ export default function Sidebar() {
           open ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
       >
-        {/* Close button */}
+        
         <button
           onClick={() => setOpen(false)}
           aria-label="بستن منو"

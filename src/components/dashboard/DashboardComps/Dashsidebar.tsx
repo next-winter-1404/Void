@@ -42,12 +42,12 @@ const Dashsidebar = () => {
                 <Image src={User} alt='U' width={20} height={20} />
             </SideBarButton>
             
-            <SideBarButton href="/properties" className='flex flex-row justify-end items-center'>
+            <SideBarButton href="/dashboard/house_managment" className='flex flex-row justify-end items-center'>
                 مدیریت املاک
                 <Image src={Pich} alt='P' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/reservations" className='flex flex-row justify-end items-center'>
+            <SideBarButton href="/dashboard/CustomersReservationList" className='flex flex-row justify-end items-center'>
                 مدیریت رزرو ها
                 <Image src={Add} alt='Add' width={20} height={20} />
             </SideBarButton>
@@ -57,7 +57,7 @@ const Dashsidebar = () => {
                 <Image src={Desk} alt='Add' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/reservations" className='flex flex-row justify-end items-center'>
+            <SideBarButton href="/dashboard/SellerComments" className='flex flex-row justify-end items-center'>
                 مدیریت  نظرات
                 <Image src={Chat} alt='Add' width={20} height={20} />
             </SideBarButton>
@@ -67,7 +67,7 @@ const Dashsidebar = () => {
                 <Image src={Desk} alt='Add' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/reservations" className='flex flex-row justify-end items-center'>
+            <SideBarButton href="/dashboard/Notifactions4u" className='flex flex-row justify-end items-center'>
                 اعلان ها
                 <Image src={Bell} alt='Add' width={20} height={20} />
             </SideBarButton>
