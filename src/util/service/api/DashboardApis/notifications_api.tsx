@@ -1,25 +1,31 @@
-import { ApiClient } from "../apiClient";
+import type { ApiClient } from "@/util/service/api/apiClient";
 
-export type Notification = {
-  id: number
-  userId: number
-  title: string
-  message: string
-  type: string
-  data: Record<string, any>
-  isRead: boolean
-  createdAt: string
+export interface Notification {
+  id: number;
+  userId: number;
+  title: string;
+  message: string;
+  type: string;
+  data: Record<string, any>;
+  isRead: boolean;
+  createdAt: string;
+  updatedAt: string;created_at: string;
+  updated_at: string;
 }
 
-export type NotificationsResponse = {
-  data: Notification[]
-  totalCount: number
+interface NotificationsResponse {
+  data: Notification[];
+  totalCount: number;
 }
 
-export const NotificationsAPI = (client: ApiClient) => ({
-  getNotifications: (userId: string | number, page = 1, limit = 10) =>
-    client.get<NotificationsResponse>(`/api/notifications/${userId}?page=${page}&limit=${limit}`),
+export function NotificationsAPI(client: ApiClient) {
+  return {
+    getNotifications: (userId: number, page: number, limit: number) =>
+      client.get<NotificationsResponse>(
+        `/api/notifications/${userId}?page=${page}&limit=${limit}`
+      ),
 
-  markAllRead: (userId: string | number) =>
-    client.put(`/api/notifications/${userId}/read-all`),
-})
+    markAsRead: (userId: number, notificationId: number) =>
+      client.put(`/api/notifications/${userId}/${notificationId}/read`),
+  };
+}

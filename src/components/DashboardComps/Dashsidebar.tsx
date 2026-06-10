@@ -48,7 +48,7 @@ const Dashsidebar = () => {
                 <Image src={Desk} alt='Add' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/CommentsSection" className='flex flex-row justify-between items-center'>
+            <SideBarButton href="/SellerComments" className='flex flex-row justify-between items-center'>
                 مدیریت  نظرات
                 <Image src={Chat} alt='Add' width={20} height={20} />
             </SideBarButton>
