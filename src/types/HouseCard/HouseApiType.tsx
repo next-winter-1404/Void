@@ -5,7 +5,7 @@ export interface HousesApiType {
     photos?:string,
     rate?:string,
     discounted_price?:string,
-    price?:string,
+    price:number,
     tags?:string,
     last_updated?:string,
     capacity?:number,

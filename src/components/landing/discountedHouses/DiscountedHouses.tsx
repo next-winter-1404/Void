@@ -74,6 +74,7 @@ const query = {
     sort: "price",
     order: "DESC",
     limit: 3,
+    transactionType:"reservation"
     
 }
 const api = await Api();

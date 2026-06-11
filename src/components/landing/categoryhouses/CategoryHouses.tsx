@@ -1,4 +1,3 @@
-import React from 'react'
 import { categoryhouse } from '@/types/CategoryHouse/CategoryHouse'
 import CategoryHouseCard from '../../common/Cards/CategoryHouseCard'
 import vilaee from '@/assets/Images/components/CategoryCard/vilaee.png'
@@ -7,35 +6,67 @@ import boom from '@/assets/Images/components/CategoryCard/boom.png'
 import choob from '@/assets/Images/components/CategoryCard/choob.png'
 import sahel from '@/assets/Images/components/CategoryCard/sahel.png'
 import apart from '@/assets/Images/components/CategoryCard/apart.png'
+import { StaticImageData } from 'next/image'
+import { Api } from '@/util/service/api'
+import { handleAsyncAction } from '@/util/service/api/handleAsync'
+import { redirect } from 'next/dist/server/api-utils'
 
-const mockCategory:categoryhouse[] = [
+const mockCategory:{image:StaticImageData,id:number,redirect:string}[] = [
     {
-        title:"ویلایی",
-        image:vila
+        id:1,
+        image:vila,
+        redirect:"/RentAndMortgage?transactionType=villa"
+
     },
         {
-        title:"ساحلی",
-        image:sahel
+            id:2,
+        image:sahel,
+        redirect:"/RentAndMortgage?transactionType=apartment"
     },
         {
-        title:"استخردار",
-        image:vilaee
+        id:3,
+        image:vilaee,
+        redirect:"/RentAndMortgage?transactionType=villa"
     },
         {
-        title:"کلبه",
-        image:choob
+            id:4,
+        image:apart,
+        redirect:"/RentAndMortgage?transactionType=mortgage"
     },
         {
-        title:"بومگردی",
-        image:boom
+            id:5,
+        image:boom,
+        redirect:"/RentAndMortgage?transactionType=rent"
     },
         {
-        title:"آپارتمان",
-        image:apart
+            id:6,
+        image:choob,
+        redirect:"/RentAndMortgage?transactionType=direct_purchase"
     }
+    
 ] 
 
-const CategoryHouses = () => {
+const CategoryHouses =async() => {
+
+    const api = await Api();
+    const category = await handleAsyncAction(api.landing.category());
+    const categories = category?.data.data
+
+     const categoryImageData = Object.fromEntries(
+      mockCategory.map((loc:any) => [loc.id, loc])
+     )
+
+    //  console.log("image",categoryImageData)
+
+     const mergedData:{id:number,redirect:string,name:string,image:StaticImageData}[] = categories.map((hs:any) => ({
+         id:hs.id,
+         name:hs.name,
+         redirect:categoryImageData[hs.id]?.redirect,
+         image:categoryImageData[hs.id]?.image ?? mockCategory[0].image,
+       }))
+
+    //    console.log("mergae",mergedData)
+
   return (
     <div className='flex flex-col gap-5'>
         <div><p className='font-bold text-2xl md:text-3xl'>دسته بندی ها</p></div>
@@ -43,8 +74,8 @@ const CategoryHouses = () => {
           grid-cols-1
           md:grid-cols-3    
           gap-5 justify-between'>
-            {mockCategory.map((categoryhouse)=>(
-                <CategoryHouseCard key={categoryhouse.title} {...categoryhouse}/>
+            {mergedData.slice(0,6).map((cat)=>(
+                <CategoryHouseCard key={cat.id} title={cat.name} image={cat.image} redirect={cat.redirect}/>
             ))}
         </div>
     </div>

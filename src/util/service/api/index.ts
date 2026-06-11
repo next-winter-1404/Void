@@ -7,6 +7,7 @@ import { HouseDetailAPI } from "./main/detailPageApi/houseDetail-api";
 import { HouseMortgateRentListAPI } from "./main/RentAndMortgageApi/houseApi";
 import { profileApi } from "./dashboard/profile";
 import {HouseManageApi} from "./dashboard/houseManageApi";
+import {LandingApi} from "@/util/service/api/main/landingApi/landingApi"
 import { getToken } from "./token";
 
 export  async function Api() {
@@ -24,6 +25,7 @@ export  async function Api() {
     houseListmortRent: HouseMortgateRentListAPI(client),
     profile: profileApi(client),
     HouseManageApi:HouseManageApi(client),
+    landing:LandingApi(client),
   };
 }
 

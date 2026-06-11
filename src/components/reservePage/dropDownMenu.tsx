@@ -23,7 +23,7 @@ export default function DropDownMenu ({label,setShowDropDown,showDropDown,dropDo
 
     return(
         <>
-          <div className="rounded-[5px] p-[2px]  w-[300px] ">
+          <div className="rounded-[5px] p-[2px]  w-full ">
        <label className="text-[14px] font-medium  block mb-3 pr-2">
          {label}
        </label>

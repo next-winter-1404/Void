@@ -2,7 +2,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-
+import { toPersianFormat } from '@/util/helper/persianFormat';
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -16,6 +16,7 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
+    params.set('limit', "3");
     
     router.push(`?${params.toString()}`, { scroll: true });
   };
@@ -56,9 +57,6 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
   return (
     <div className="flex flex-col items-center gap-4 py-8" dir='ltr'>
       
-      <div className="text-sm text-gray-600">
-        نمایش {totalCount} ملک - صفحه {currentPage} از {totalPages}
-      </div>
 
       <div className="flex items-center gap-3">
         
@@ -66,7 +64,7 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+          className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
             currentPage === 1
               ? 'border-gray-300 text-gray-300 cursor-not-allowed bg-white'
               : 'border-[#6B7FFF] text-[#6B7FFF] hover:bg-[#6B7FFF] hover:text-white cursor-pointer bg-white'
@@ -82,7 +80,7 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
           page === '...' ? (
             <div
               key={`ellipsis-${index}`}
-              className="w-14 h-14 rounded-full border-2 border-[#6B7FFF] bg-white flex items-center justify-center text-gray-700 font-medium text-lg"
+              className="w-8 h-8 rounded-full border-2 border-[#6B7FFF] bg-white flex items-center justify-center text-gray-700 font-medium text-lg"
             >
               ...
             </div>
@@ -90,13 +88,13 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
             <button
               key={page}
               onClick={() => handlePageChange(page as number)}
-              className={`w-14 h-14 rounded-full border-2 border-[#6B7FFF] bg-white flex items-center justify-center font-medium text-lg transition-all duration-200 ${
+              className={`w-8 h-8 rounded-full border-2 border-[#6B7FFF] bg-white flex items-center justify-center font-medium text-lg transition-all duration-200 ${
                 currentPage === page
                   ? 'text-gray-700'
                   : 'text-gray-700 hover:bg-[#6B7FFF] hover:text-white cursor-pointer'
               }`}
             >
-              {page}
+              {toPersianFormat(page)}
             </button>
           )
         ))}
@@ -105,7 +103,7 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+          className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
             currentPage === totalPages
               ? 'border-gray-300 text-gray-300 cursor-not-allowed bg-white'
               : 'border-[#6B7FFF] text-[#6B7FFF] hover:bg-[#6B7FFF] hover:text-white cursor-pointer bg-white'

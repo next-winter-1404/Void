@@ -9,19 +9,26 @@ import locations from '@/assets/Images/components/HouseCard/location.png'
 import parkings from '@/assets/Images/components/HouseCard/parking.png'
 import bath from '@/assets/Images/components/HouseCard/bath.png'
 import placeholder from '@/assets/Images/components/HouseCard/placeholder.png'
+
+import ImG from "@/assets/Images/detailPage/Home-ico.png"
+
+import { toPersianFormat } from '@/util/helper/persianFormat'
+
 type Props = {
   house: HousesApiType
 }
 
 const HouseCards: FC<Props> = ({ house }) => {
+  
+  // console.log(house);
 
   return (
     <Link href={`/detailPage/${house.id}`}>
 
-      <div className=" bg-white rounded-3xl border border-zinc-300  hover:shadow-lg transition overflow-hidden cursor-pointer p-3 ">
+      <div className="rounded-3xl border border-zinc-300  hover:shadow-lg transition overflow-hidden cursor-pointer p-3 ">
 
         <Image
-          src={house.photos || placeholder}
+          src={ImG}
           alt="wad"
           width={400}
           height={250}
@@ -105,7 +112,7 @@ const HouseCards: FC<Props> = ({ house }) => {
 
                 <span className="relative inline-block text-zinc-400 text-lg">
 
-                  {house.price}
+                  {toPersianFormat((house.price))}
 
                   <span className="mr-1 text-sm">
                     تومان
@@ -117,7 +124,7 @@ const HouseCards: FC<Props> = ({ house }) => {
 
                 <div className="font-bold text-2xl text-black">
 
-                  {house.discounted_price}
+                  {toPersianFormat(house.discounted_price)}
 
                   <span className="text-sm font-normal mr-1">
                     تومان
@@ -130,7 +137,7 @@ const HouseCards: FC<Props> = ({ house }) => {
 
               <div className="font-bold text-2xl text-black">
 
-                {house.price}
+                {toPersianFormat(house.price)}
 
                 <span className="text-sm font-normal mr-1">
                   تومان

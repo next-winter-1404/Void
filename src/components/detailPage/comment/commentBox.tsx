@@ -79,8 +79,9 @@ const toggleReplies = (commentId: number) => {
            
 
             <div className=" w-full flex flex-col gap-5 mt-5">
+            
 
-               {currentItems.map((comment:comments)=>(
+               {currentItems.length > 0 ?currentItems.map((comment:comments)=>(
 
                   <div key={comment.id} className="flex flex-col w-full">
                    <div className=" w-full
@@ -149,7 +150,9 @@ const toggleReplies = (commentId: number) => {
                    
                 </div>
 
-               ))}
+               )) : <div className="w-full h-[300px] text-[20px] flex flex-col items-center">
+               <h1 className="font-semibold m-auto">کامنتی برای این خانه ثبت نشده</h1>
+            </div> }
                
 
               <PaginationPage productInArray={comments} itemsPerPage={5} setCurrentItems={setCurrentItems} />

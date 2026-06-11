@@ -1,12 +1,16 @@
 "use client"
 
-import {useState} from "react";
+import {useActionState, useEffect, useState} from "react";
 import type {ReserveBody} from "@/types/reserveType/reserve-type"
 
 import SubmitBt from "@/components/common/SubmitBt";
 
 import Price from "@/components/common/PriceComponent/Price";
 
+import toast_errorHandling from "@/util/hooks/errorHandling";
+
+import {Reserve_Handler} from "@/util/service/reserveAction/action";
+import { redirect } from "next/navigation";
 interface props extends ReserveBody{
     price:number,
     discountPrice:number |null
@@ -18,11 +22,21 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
     const [discountCode, setDiscountCode] = useState("");
   const [discountOpen, setDiscountOpen] = useState(true);
  
+     const [ state,formAction,pending] = useActionState(Reserve_Handler,null);
 
-   const discount = discountPrice == null ? 0 : Math.ceil(((price -discountPrice)/price)*100)
+     useEffect(()=>{
+      console.log(state);
+      if(state?.success){
+         toast_errorHandling(Number(200),"درخواست رزرو شما ارسال شد")
+         toast_errorHandling(Number(200),"وضعیت رزرو خود را در داشبورد خود چک کنید")
+         setTimeout(()=>redirect("/dashboard"),4000)
+      }
+     },[state])
+
+   const discount = discountPrice == null ? 0 : Math.floor(((price -discountPrice)/price)*100)
 
     return (
-        <>
+        <form action={formAction} className="flex flex-col w-full gap-5">
 
        
         <div className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
@@ -70,7 +84,7 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
                 placeholder="کد تخفیف"
                 className="w-full text-right bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-stone-700 placeholder:text-stone-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all"
               />
-              <SubmitBt subLabel="اعمال کد تخفیف" />
+              {/* <SubmitBt subLabel="اعمال کد تخفیف" /> */}
             </div>
           )}
         </div>
@@ -80,7 +94,7 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
           <div className="flex items-center justify-between">
            <span className="text-[16px] font-bold">قیمت</span>
                               <div className="flex flex-row w-full   items-center whitespace-nowrap  text-[20px]">
-                                  <Price price={price} discount={discount} />
+                                  <Price price={price} discount={discount} discounted_price={discountPrice as number} />
                                   </div>
                                   
           </div>
@@ -93,6 +107,6 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
           </button>
         </div>
 
-        </>
+        </form>
     )
 }

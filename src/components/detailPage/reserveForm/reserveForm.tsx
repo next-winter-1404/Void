@@ -48,7 +48,7 @@ export default function reserveForm ({houseId,price,discounted_price}:priceProps
             </div>   
             <input type="hidden" name="houseId" id="houseId" value={houseId} />
 
-           <div className="flex flex-row gap-10 justify-between w-full ">
+           {/* <div className="flex flex-row gap-10 justify-between w-full ">
 
             <InputField name="PersonCount" label="تعداد نفرات" type="text" id="checkInDate"
             placeHolder="وارد کنید"  />
@@ -56,13 +56,13 @@ export default function reserveForm ({houseId,price,discounted_price}:priceProps
            <InputField name="discountCode" label="کد تخفیف" type="text" id="checkInDate"
             placeHolder="وارد کنید"  />
 
-           </div>   
+           </div>    */}
 
             <div className="w-full  flex min-mdflex-row max-lg:flex-col  justify-between ">
                 <div className="w-[45%]">
                     <span className="text-[16px] font-bold">قیمت</span>
                     <div className="flex flex-row w-full   items-center whitespace-nowrap  text-[20px]">
-                        <Price price={price} discount={discount} />
+                        <Price price={price} discounted_price={discounted_price} discount={discount} />
                         
                     </div>
                 </div>

@@ -36,7 +36,7 @@ export default async function reservePage (props: { params: Promise<{ step: stri
     }
 
     return(
-        <div className=" w-full h-full ">
+        <div className=" w-full h-full mt-1">
            <div className="w-full h-[10%] px-10">
                <StepBar currentStep={Step}/>
            </div>

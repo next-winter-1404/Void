@@ -57,63 +57,55 @@ export default function SubmitUser_Form ({houseId,checkInDate,checkOutDate}:Prop
 
     return(
         <>
-          <form action={formAction} className="w-full flex flex-wrap gap-5 mt-5">
+          <form action={formAction} className="w-full flex flex-col gap-6 mt-5 px-2 sm:px-4">
            
-           <div className='flex flex-wrap w-[400px]  gap-2'>
-                <h1 className='w-full text-start font-bold text-[15px]'> مشخصات مسافر</h1>
-              </div>
+           
+           <div className="w-full border-b border-gray-200 pb-2">
+             <h1 className="text-start font-bold text-[15px]">مشخصات مسافر</h1>
+           </div>
 
-              <div className="flex flex-row max-lg:flex-wrap gap-10 justify-between w-full ">
+           
+           <input type="hidden" name="gender"      id="gender"      value={filters.gender}/>
+           <input type="hidden" name="houseId"     id="houseId"     value={houseId}/>
+           <input type="hidden" name="checkInDate" id="checkInDate" value={checkInDate}/>
+           <input type="hidden" name="checkOutDate" id="checkOutDate" value={checkOutDate}/>
 
-             <input type="hidden" name="gender" id="gender" value={filters.gender}/>
-             <input type="hidden" name="houseId" id="houseId" value={houseId}/>
-             <input type="hidden" name="checkInDate" id="checkInDate" value={checkInDate}/>
-             <input type="hidden" name="checkOutDate" id="checkOutDate" value={checkOutDate}/>
-             
-            <InputField name="firstName" label="" type="text" id="firstName"
-            placeHolder="نام "  />
+          
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+             <InputField name="firstName"  label="" type="text" id="firstName"  placeHolder="نام" />
+             <InputField name="lastName"   label="" type="text" id="lastName"   placeHolder="نام خانوادگی" />
+             <InputField name="nationalId" label="" type="text" id="nationalId" placeHolder="کد ملی" />
+           </div>
 
-            <InputField name="lastName" label="" type="text" id="lastName"
-            placeHolder=" نام خانوادگی"  />
-
-           <InputField name="nationalId" label="" type="text" id="nationalId"
-            placeHolder="کد ملی"  />
-
-           </div>   
-
-
-           <div className="flex flex-row max-lg:flex-wrap items-center  gap-10 justify-between w-full ">
-            <div className="w-[50%]">
-             <InputDate name="birthDate" label="تاریخ تولد"/>
+          
+           <div className=" gap-4  w-full flex flex-row items-center max-lg:flex-col mx-auto">
+             <div className="w-[50%] max-lg:w-full pr-3 ">
+               <InputDate name="birthDate" label="تاریخ تولد"/>
              </div>
-
-              <DropDownMenu 
-                label="جنسیت"
-                 dropDownItems={category} 
-                 setShowDropDown={setShowCategory} 
-                 showDropDown={showCategory} 
+             <div className="w-[50%]  max-lg:w-full max-lg:pr-3">
+               <DropDownMenu
+                 label="جنسیت"
+                 dropDownItems={category}
+                 setShowDropDown={setShowCategory}
+                 showDropDown={showCategory}
                  handleChange={handleCategoryChange}
                  filters={filters.gender}
-                 />
-            </div>   
+               />
+             </div>
+           </div>
 
-             <div className='flex flex-wrap w-[400px]  gap-2'>
-                <h1 className='w-full text-start font-bold text-[15px]'> ارسال بلیط به دیگران</h1>
-              </div>
+         
+           <div className="w-full border-b border-gray-200 pb-2">
+             <h1 className="text-start font-bold text-[15px]">ارسال بلیط به دیگران</h1>
+           </div>
 
-             <div className="flex flex-row max-lg:flex-wrap gap-10 justify-between w-full ">
+          
+           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+             <InputField name="sharedEmail"  label="" type="text" id="sharedEmail"  placeHolder="ایمیل" />
+             <InputField name="sharedMobile" label="" type="text" id="sharedMobile" placeHolder="شماره تماس" />
+           </div>
 
-            <InputField name="sharedEmail" label="" type="text" id="sharedEmail"
-            placeHolder="ایمیل"  />
-
-           <InputField name="sharedMobile" label="" type="text" id="sharedMobile"
-            placeHolder="شماره تماس"  />
-
-           </div>   
-
-
-             
-             <SubmitBt subLabel="تایید و ادامه فرایند" />
+           <SubmitBt subLabel="تایید و ادامه فرایند" />
          </form>       
         </>
     )

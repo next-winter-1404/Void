@@ -4,6 +4,8 @@ import Img from "@/assets/Images/detailPage/Home-ico.png"
 import UserInfoCom from "./userInfoCom";
 import SubmitBt from "@/components/common/SubmitBt";
 
+import Buttonn from "./buttonNEw";
+
 import { toPersianFormat,isoToPersianDate } from "@/util/helper/persianFormat";
 
 import { getReserveDate,getForm } from "@/util/hooks/cookieStorage";
@@ -12,6 +14,7 @@ import Price from "@/components/common/PriceComponent/Price";
 
 import {Api} from "@/util/service/api";
 import { handleAsyncAction } from "@/util/service/api/handleAsync";
+import { redirect } from "next/navigation";
 
 interface Passenger {
   ageGroup: string;
@@ -36,30 +39,6 @@ interface HotelInfo {
   discountedPrice: string;
   passengers: Passenger[];
 }
-
-const hotelData: HotelInfo = {
-  name: "هتل همایون فر کیش ایران",
-  rating: 3.5,
-  address: "گیلان، رشت، میدان آزادی، جنب چهار راه عظیمی، میدان آزادی، جنب چهار...",
-  checkIn: "۱۴۰۴/۰۶/۱۶",
-  checkOut: "۱۴۰۴/۰۶/۱۶",
-  originalPrice: "۲۵۰,۰۰۰,۰۰۰",
-  discountPercent: 5,
-  discountedPrice: "۲۵۰,۰۰۰,۰۰۰",
-  passengers: [
-    {
-      ageGroup: "بزرگسال",
-      firstName: "علیرضا",
-      lastName: "رضایی",
-      gender: "مرد",
-      nationalId: "۵۷۸۰۰۱۱۵۵۲",
-      birthDate: "۱۳۷۸/۰۲/۱۸",
-      services: "–",
-      servicePrice: "–",
-      price: "۱,۵۲۰,۰۰۰ تومان",
-    },
-  ],
-};
 
 
 
@@ -102,11 +81,11 @@ function InfoRow({ label, value, valueClass = "" }: { label: string; value: stri
 
 
 export default async function HotelReservePage() {
-  
-  const hotel = hotelData;
 
   const user_reserveDate = await getReserveDate();
   const user_reserveInfo = await getForm();
+
+  console.log("wdad",user_reserveInfo)
 
   // console.log("wwdw",user_reserveDate);
   console.log("wdwadd",user_reserveInfo.sharedMobile)
@@ -118,7 +97,7 @@ export default async function HotelReservePage() {
 
   const houseDetail = houseData?.data;
 
-  const discount = houseDetail?.discounted_price == null ? 0 : Math.ceil(((houseDetail?.price - houseDetail?.discounted_price)/houseDetail?.price)*100)
+  const discount = houseDetail?.discounted_price == null ? 0 : Math.floor(((houseDetail?.price - houseDetail?.discounted_price)/houseDetail?.price)*100)
 
   console.log("hhhhh",houseDetail)
   
@@ -170,7 +149,7 @@ export default async function HotelReservePage() {
               <div className="flex items-center gap-2">
                 <span className="text-[16px] font-bold">قیمت</span>
                    <div className="flex flex-row w-full   items-center whitespace-nowrap  text-[20px]">
-                       <Price price={houseDetail?.price} discount={discount} />
+                       <Price price={houseDetail?.price} discounted_price={houseDetail?.discounted_price} discount={discount} />
                        
                    </div>
                 {/* <span className={`text-xs line-through text-stone-400 ${houseDetail?.discounted_price == null && "hidden"}`}>{houseDetail?.price} تومان</span> */}
@@ -201,7 +180,8 @@ export default async function HotelReservePage() {
               </div>
 
              
-              <SubmitBt  subLabel=" ویرایش مسافران" />
+             <Buttonn label="ویرایش مسافر" id={user_reserveInfo?.houseId} />
+             
             </div>
           
         </div>
@@ -210,7 +190,7 @@ export default async function HotelReservePage() {
 
        <div className=" w-[40%] max-lg:w-full  px-4 py-8 space-y-4">
         
-        <UserInfoCom price={houseDetail?.price} discountPrice={houseDetail?.discount_price}
+        <UserInfoCom price={houseDetail?.price} discountPrice={houseDetail?.discounted_price}
          houseId={user_reserveInfo?.houseId} sharedEmail={user_reserveInfo?.sharedEmail}
         sharedMobile={user_reserveInfo?.sharedMobile} traveler_details={user_reserveInfo?.traveler_details} reservedDates={user_reserveInfo?.reservedDates} />
 

@@ -41,7 +41,7 @@ const NeshanMapComponent = dynamic(
 export default function NeshanMap({ houses = [],loc }: Props) {
    
   const mapRef = useRef<any>(null);
-  console.log("wwwdw",loc);
+  // console.log("wwwdw",loc);
  const [mapInstance, setMapInstance] = useState<any>(null);
 
   // useEffect(() => {
@@ -64,8 +64,8 @@ export default function NeshanMap({ houses = [],loc }: Props) {
 
   const validHouses = useMemo(() => {
     return houses.filter((house) => {
-      const lat = house.location?.lat ?? house.lat;
-      const lng = house.location?.lng ?? house.lng;
+      const lat =  house.lat;
+      const lng =  house.lng;
       return (
         typeof lat === "number" &&
         typeof lng === "number" &&

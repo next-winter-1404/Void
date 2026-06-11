@@ -80,26 +80,26 @@ checkOutDate
           </div>
 
           <div className="flex flex-row items-center whitespace-nowrap justify-between max-md:text-[15px] text-sm border-zinc-300 border-t pt-1">
-            {room &&
+            {room > 0&&
             <div className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(room)} خواب <Image src={bed} alt='bed' height={20} width={20}/>
             </div>}
-            {bathrooms &&
+            {bathrooms >0 &&
             <div  className='flex flex-row items-center  border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(bathrooms)} حمام<Image src={bath} alt='bebat' height={20} width={20}/>
             </div>}
             
-            {yard_type &&
+            {/* {yard_type  &&
             <div className='flex flex-row items-center border-l px-1  border-zinc-300' dir='ltr'>
-              {toPersianFormat(yard_type)} <Image src={hayat} alt='bed' height={20} width={20}/>
-            </div>}
+              {yard_type === null ? "شخصی" : yard_type} <Image src={hayat} alt='bed' height={20} width={20}/>
+            </div>} */}
 
-            {parking &&
+            {parking >0 &&
             <div  className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(parking)} پارکینگ<Image src={parkings} alt='park' height={20} width={20}/>
             </div>}
             
-            {capacity &&
+            {capacity >0 &&
             <div  className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(capacity)} نفر<Image src={persons} alt='park' height={20} width={20}/>
             </div>}

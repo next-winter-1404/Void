@@ -7,9 +7,15 @@ import "swiper/css/navigation";
 import { Navigation } from 'swiper/modules';
 import { useState } from "react";
 
+import { isoToPersianDate } from '@/util/helper/persianFormat';
+
 import { FakeComments } from '@/types/FakeUserComments/FakeUserComments';
 
-const UserComments = () => {
+interface props {
+  comment:any[]
+}
+
+const UserComments = ({comment}:props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const total = FakeComments.length;
 
@@ -40,16 +46,17 @@ const UserComments = () => {
           1024: { slidesPerView: 3 },
         }}
       >
-        {FakeComments.map((item, i) => (
+        {comment.map((item, i) => (
           <SwiperSlide key={i}>
             <div className="bg-[#4E6AF3] text-white rounded-3xl p-8 min-h-[320px] h-auto flex flex-col justify-between">
-              <p className="leading-relaxed">{item.text}</p>
+              <p className="leading-relaxed">{item.text}</p><br/>
+              <p className="leading-relaxed text-[14px]">{item.caption}</p>
 
               <div className="flex  justify-baseline gap-5 items-center mt-6" dir=''>
                 <div className="w-10 h-10 bg-white rounded-full"></div>
                 <div className="text-right">
-                  <p className="font-bold">{item.name}</p>
-                  <p className="text-sm opacity-80">{item.date}</p>
+                  <p className="font-bold">{`${item.user.lastName + " " + item.user.firstName}`}</p>
+                  <p className="text-sm opacity-80">{isoToPersianDate(item.created_at)}</p>
                 </div>
 
                 

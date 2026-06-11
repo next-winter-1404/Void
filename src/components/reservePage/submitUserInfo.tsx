@@ -47,7 +47,7 @@ export  default async function submitUser_info ({
                     />
              </div>
              
-              <div className="w-[50%] h-[full] max-lg:w-full flex flex-col items-center">
+              <div className="w-[50%] h-[full] max-lg:w-[80%] flex flex-col items-center">
                   <SubmitForm houseId={houseDetail?.id} checkInDate={reserveDate?.checkInDate} checkOutDate={reserveDate?.checkOutDate} />
              </div>    
         </div>

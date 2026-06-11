@@ -1,12 +1,13 @@
 import { toPersianFormat } from "@/util/helper/persianFormat";
 
 type PriceProps = {
-  price: number;      
+  price: number;  
+  discounted_price:number;    
   discount?: number;  
   currency?: string; 
 };
 
-export default function Price({ price, discount = 0, currency = "تومان" }: PriceProps) {
+export default function Price({ price,discounted_price ,discount = 0, currency = "تومان" }: PriceProps) {
   const hasDiscount = discount > 0;
 
   const finalPrice = hasDiscount ? Math.round(price - price * (discount / 100)) : price;
@@ -24,7 +25,7 @@ export default function Price({ price, discount = 0, currency = "تومان" }: 
         )}
 
         <span className="text-black font-bold text-base">
-          {toPersianFormat(finalPrice)} {currency}
+          {toPersianFormat(discounted_price)} {currency}
         </span>
       </div>
 

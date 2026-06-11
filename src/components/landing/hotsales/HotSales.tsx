@@ -64,7 +64,7 @@ import { HousesApiType } from '@/types/HouseCard/HouseApiType'
 // ]
 
 const query = {
-   sort: "price",
+    sort: "price",
     order: "DESC",
     limit: 3,
     transactionType:"rental"
@@ -92,7 +92,9 @@ const HotSales = () => {
           خرید و فروش های داغ این هفته
         </h2>
 
-        <Button1 href="/RentAndMortgage" label="مشاهده همه" />
+       <div className="hidden md:flex">
+          <Button1 href="/RentAndMortgage" label="نمایش همه" />
+        </div>
 
       </header>
 
@@ -105,6 +107,10 @@ const HotSales = () => {
           />
         ))}
 
+      </div>
+
+       <div className="flex md:hidden justify-center mt-2">
+        <Button1 href="/RentAndMortgage" label="نمایش همه" />
       </div>
 
     </div>
