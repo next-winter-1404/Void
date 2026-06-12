@@ -1,6 +1,5 @@
 'use client'
 import { ReactNode, useState, useEffect, useRef } from 'react'
-import { Pagination } from './Pagination'
 
 export type Column<T> = {
   key: keyof T | string
@@ -54,6 +53,97 @@ function ActionMenu({ actions }: { actions: ActionItem[] }) {
   )
 }
 
+function toPersianDigits(n: number | string) {
+  return String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[+d])
+}
+
+function Pagination({
+  current, total, onChange,
+}: { current: number; total: number; onChange: (p: number) => void }) {
+  if (total <= 1) return null
+
+  const pages = total <= 7
+    ? Array.from({ length: total }, (_, i) => i + 1)
+    : [1, 2, 3, 4, 5]
+
+  return (
+    <div className="flex items-center gap-1 flex-wrap" dir="rtl">
+      {pages.map((p) => (
+        <button
+          key={p}
+          onClick={() => onChange(p)}
+          className={`w-8 h-8 rounded-lg text-sm font-medium transition-all ${
+            p === current
+              ? 'bg-green-400 text-white shadow-sm'
+              : 'bg-white border border-zinc-200 text-zinc-600 hover:border-green-300 hover:text-green-600'
+          }`}
+        >
+          {toPersianDigits(p)}
+        </button>
+      ))}
+      {total > 7 && (
+        <>
+          <span className="text-zinc-300 text-sm px-0.5">•••</span>
+          <button
+            onClick={() => onChange(total)}
+            className={`w-8 h-8 rounded-lg border text-sm font-medium transition-all ${
+              current === total
+                ? 'bg-green-400 text-white border-green-400'
+                : 'border-zinc-200 text-zinc-600 hover:border-green-300 hover:text-green-600'
+            }`}
+          >
+            {toPersianDigits(total)}
+          </button>
+        </>
+      )}
+    </div>
+  )
+}
+function MobileCard<T extends { id?: string | number }>({
+  row,
+  columns,
+  getActions,
+  index,
+}: {
+  row: T
+  columns: Column<T>[]
+  getActions?: (row: T) => ActionItem[]
+  index: number
+}) {
+  const [open, setOpen] = useState(false)
+  const [titleCol, ...restCols] = columns
+
+  return (
+    <div className="bg-white border border-zinc-100 rounded-xl p-4 shadow-sm space-y-2.5">
+      <div className="flex items-start justify-between gap-2">
+        <div className="text-sm font-semibold text-zinc-800">
+          {titleCol.render
+            ? titleCol.render(row)
+            : String((row as Record<string, unknown>)[String(titleCol.key)] ?? '')}
+        </div>
+        {getActions && (
+          <ActionMenu actions={getActions(row)} />
+        )}
+      </div>
+
+      <div className="space-y-1.5">
+        {restCols.map(col => {
+          const val = col.render
+            ? col.render(row)
+            : String((row as Record<string, unknown>)[String(col.key)] ?? '')
+          if (!val || val === '') return null
+          return (
+            <div key={String(col.key)} className="flex items-center justify-between gap-2 text-sm">
+              <span className="text-zinc-400 text-xs shrink-0">{col.header}</span>
+              <span className="text-zinc-700 text-right">{val}</span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 type DataTableProps<T> = {
   title: string
   columns: Column<T>[]
@@ -92,63 +182,58 @@ export function DataTable<T extends { id?: string | number }>({
   loading = false,
 }: DataTableProps<T>) {
   const [search, setSearch] = useState('')
-  const [page, setPage] = useState(currentPage)
 
   const handlePageChange = (p: number) => {
-    setPage(p)
     onPageChange?.(p)
   }
 
-  const pages = totalPages <= 7
-    ? Array.from({ length: totalPages }, (_, i) => i + 1)
-    : [1, 2, 3, 4, 5, '...', totalPages]
-
   return (
-    <div className="relative w-full bg-white p-5 rounded-2xl" dir="rtl">
+    <div className="relative w-full bg-white rounded-2xl" dir="rtl">
 
-      
-      <div className="flex items-center justify-between mb-4 gap-3 flex-wrap border-b border-zinc-200 pb-5 border-dashed">
-        <h2 className="text-base font-bold text-zinc-800 whitespace-nowrap">{title}</h2><div className="flex items-center gap-3 flex-1 justify-end flex-wrap">
-          {showBackButton ? (
-            <button
-              onClick={onBackClick}
-              className="flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700"
-            >
-              <span>◀</span>
-              <span>مشاهده همه</span>
-            </button>
-          ) : (
-            <>
-              {showSearch && (
-                <input
-                  type="text"
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                  placeholder={searchPlaceholder}
-                  className="border border-zinc-200 rounded-xl px-4 py-2 text-sm text-zinc-500 outline-none w-48 sm:w-64 bg-white"
-                  dir="rtl"
-                />
-              )}
-              {showFilter && (
-                <button className="bg-[#8BDB3E] hover:bg-[#7cc936] text-black text-sm px-5 py-2 rounded-xl transition-colors">
-                  فیلتر ها
-                </button>
-              )}
-            </>
-          )}
+      {(title || showSearch || showFilter || showBackButton || showAddButton) && (
+        <div className="flex items-center justify-between mb-4 gap-3 flex-wrap border-b border-zinc-200 pb-4 border-dashed px-1">
+          {title && <h2 className="text-base font-bold text-zinc-800 whitespace-nowrap">{title}</h2>}
+          <div className="flex items-center gap-3 flex-1 justify-end flex-wrap">
+            {showBackButton ? (
+              <button
+                onClick={onBackClick}
+                className="flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700"
+              >
+                <span>◀</span>
+                <span>مشاهده همه</span>
+              </button>
+            ) : (
+              <>
+                {showSearch && (
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    placeholder={searchPlaceholder}
+                    className="border border-zinc-200 rounded-xl px-4 py-2 text-sm text-zinc-500 outline-none w-40 sm:w-56 bg-white focus:border-green-400 transition-colors"
+                    dir="rtl"
+                  />
+                )}
+                {showFilter && (
+                  <button className="bg-[#8BDB3E] hover:bg-[#7cc936] text-black text-sm px-5 py-2 rounded-xl transition-colors">
+                    فیلتر ها
+                  </button>
+                )}
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
-      
-      <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm overflow-x-auto">
+      <div className="hidden sm:block rounded-2xl border border-zinc-100 shadow-sm overflow-x-auto">
         <table className="w-full text-sm" dir="rtl">
           <thead>
-            <tr className="border-b border-zinc-100 bg-zinc-100">
+            <tr className="border-b border-zinc-100 bg-zinc-50">
               {getActions && <th className="py-3 px-4 w-10" />}
               {columns.map(col => (
                 <th
                   key={String(col.key)}
-                  className={`py-3 px-4 text-right font-semibold text-zinc-700 whitespace-nowrap ${col.className ?? ''}`}
+                  className={`py-3 px-4 text-right font-semibold text-zinc-500 text-xs whitespace-nowrap ${col.className ?? ''}`}
                 >
                   {col.header}
                 </th>
@@ -158,19 +243,20 @@ export function DataTable<T extends { id?: string | number }>({
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={columns.length + (getActions ? 1 : 0)} className="text-center py-8 text-zinc-400">
-                  در حال بارگذاری...
+                <td colSpan={columns.length + (getActions ? 1 : 0)} className="py-14 text-center">
+                  <div className="inline-block w-5 h-5 border-2 border-green-300 border-t-green-500 rounded-full animate-spin" />
+                  <p className="text-sm text-zinc-400 mt-2">در حال بارگذاری...</p>
                 </td>
               </tr>
             ) : data.length === 0 ? (
               <tr>
-                <td colSpan={columns.length + (getActions ? 1 : 0)} className="text-center py-8 text-zinc-400">
+                <td colSpan={columns.length + (getActions ? 1 : 0)} className="text-center py-12 text-zinc-400 text-sm">
                   داده‌ای یافت نشد
                 </td>
               </tr>
             ) : (
               data.map((row, i) => (
-                <tr key={row.id ?? i} className="border-b border-zinc-50 last:border-0 hover:bg-zinc-50">
+                <tr key={row.id ?? i} className="border-b border-zinc-50 last:border-0 hover:bg-zinc-50/60 transition-colors">
                   {getActions && (
                     <td className="py-3 px-4">
                       <ActionMenu actions={getActions(row)} />
@@ -193,27 +279,42 @@ export function DataTable<T extends { id?: string | number }>({
         </table>
       </div>
 
-      
-      <div className="flex items-center justify-between mt-4 flex-wrap gap-2">
-        <div className="flex items-center gap-1 flex-wrap" dir="ltr">
-          {pages.map((p, i) => (
-            <button
-              key={i}
-              onClick={() => typeof p === 'number' && handlePageChange(p)}
-              disabled={p === '...'}
-              className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors
-                ${p === page
-                  ? 'bg-lime-500 text-white'
-                  : p === '...'
-                    ? 'bg-transparent text-zinc-400 cursor-default'
-                    : 'bg-zinc-300 border border-zinc-200 text-zinc-600 hover:bg-zinc-50'}`}
-            >
-              {p}
-            </button>
-          ))}
-        </div>
+      <div className="sm:hidden space-y-3">
+        {loading ? (
+          <div className="py-12 text-center">
+            <div className="inline-block w-5 h-5 border-2 border-green-300 border-t-green-500 rounded-full animate-spin" />
+            <p className="text-sm text-zinc-400 mt-2">در حال بارگذاری...</p>
+          </div>
+        ) : data.length === 0 ? (
+          <div className="py-12 text-center text-zinc-400 text-sm">داده‌ای یافت نشد</div>
+        ) : (
+          data.map((row, i) => (
+            <MobileCard key={row.id ?? i} row={row} columns={columns} getActions={getActions} index={i} />
+          ))
+        )}
+      </div>
 
-        {showAddButton && (
+      {!loading && totalPages > 1 && (
+        <div className="flex items-center justify-between mt-4 flex-wrap gap-2 px-1">
+          <Pagination
+            current={currentPage}
+            total={totalPages}
+            onChange={handlePageChange}
+          />
+          {showAddButton && (
+            <button
+              onClick={onAddClick}
+              className="flex items-center gap-1 bg-[#8BDB3E] hover:bg-[#7cc936] text-black px-5 py-2 rounded-xl text-sm transition-colors"
+            >
+              <span className="text-lg">⊕</span>
+              {addButtonLabel}
+            </button>
+          )}
+        </div>
+      )}
+
+      {!loading && totalPages <= 1 && showAddButton && (
+        <div className="flex justify-end mt-4 px-1">
           <button
             onClick={onAddClick}
             className="flex items-center gap-1 bg-[#8BDB3E] hover:bg-[#7cc936] text-black px-5 py-2 rounded-xl text-sm transition-colors"
@@ -221,8 +322,8 @@ export function DataTable<T extends { id?: string | number }>({
             <span className="text-lg">⊕</span>
             {addButtonLabel}
           </button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -98,22 +98,26 @@ interface Props {
 export default function SellerCommentsSection({ sellerId }: Props) {
   const [data, setData] = useState<CommentsResponse | null>(null);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null)
+  ;
 
   const fetchComments = useCallback(async (p: number) => {
-    if (!sellerId) return; 
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await getSellerComments(sellerId, p); 
-      setData(res);
-    } catch (e: any) {
-      setError(e.message ?? "خطا در دریافت نظرات");
-    } finally {
-      setLoading(false);
-    }
-  }, [sellerId]);
+  if (!sellerId) {
+    setLoading(false); 
+    return;
+  }
+  setLoading(true);
+  setError(null);
+  try {
+    const res = await getSellerComments(sellerId, p);
+    setData(res);
+  } catch (e: any) {
+    setError(e.message ?? "خطا در دریافت نظرات");
+  } finally {
+    setLoading(false);
+  }
+}, [sellerId])
 
   useEffect(() => { fetchComments(page); }, [fetchComments, page]);
 

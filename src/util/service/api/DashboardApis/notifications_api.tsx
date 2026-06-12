@@ -9,23 +9,39 @@ export interface Notification {
   data: Record<string, any>;
   isRead: boolean;
   createdAt: string;
-  updatedAt: string;created_at: string;
+  updatedAt: string;
+  created_at: string;
   updated_at: string;
 }
 
-interface NotificationsResponse {
+export interface NotificationsResponse {
   data: Notification[];
   totalCount: number;
 }
 
+export type FilterType = "همه" | "خوانده شده" | "خوانده نشده";
+
 export function NotificationsAPI(client: ApiClient) {
   return {
-    getNotifications: (userId: number, page: number, limit: number) =>
-      client.get<NotificationsResponse>(
-        `/api/notifications/${userId}?page=${page}&limit=${limit}`
-      ),
+    getNotifications: (
+      userId: number,
+      page: number,
+      limit: number,
+      filter: FilterType = "همه"
+    ) => {
+      const isReadParam =
+        filter === "خوانده شده"
+          ? "&isRead=true"
+          : filter === "خوانده نشده"
+          ? "&isRead=false"
+          : "";
+      return client.get<NotificationsResponse>(
+        `/api/notifications/${userId}?page=${page}&limit=${limit}&sort=createdAt&order=DESC${isReadParam}`
+      );
+    },
 
-    markAsRead: (userId: number, notificationId: number) =>
-      client.put(`/api/notifications/${userId}/${notificationId}/read`),
+
+    markAsRead: (notificationId: number) =>
+      client.put(`/api/notifications/${notificationId}/read`),
   };
 }
