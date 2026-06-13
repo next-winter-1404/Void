@@ -50,7 +50,7 @@ isFavorite,
     return (
     <div>
         <div onClick={()=>redirect(`/detailPage/${id}`)}  className={`
-        bg-white rounded-[16px] border border-zinc-300
+         rounded-[16px] border border-zinc-300
         hover:shadow-lg transition
          cursor-pointer
          w-[400px] max-md:w-[100%]

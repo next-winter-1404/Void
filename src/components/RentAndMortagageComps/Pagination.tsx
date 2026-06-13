@@ -16,7 +16,7 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
-    params.set('limit', "3");
+    params.set('limit', "6");
     
     router.push(`?${params.toString()}`, { scroll: true });
   };
@@ -60,14 +60,14 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
 
       <div className="flex items-center gap-3">
         
-        {/* دکمه قبلی */}
+      
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
             currentPage === 1
-              ? 'border-gray-300 text-gray-300 cursor-not-allowed bg-white'
-              : 'border-[#6B7FFF] text-[#6B7FFF] hover:bg-[#6B7FFF] hover:text-white cursor-pointer bg-white'
+              ? 'border-gray-300 text-gray-300 cursor-not-allowed '
+              : 'border-[#6B7FFF] text-[#6B7FFF] hover:bg-[#6B7FFF] hover:text-white cursor-pointer '
           }`}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,12 +75,12 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
           </svg>
         </button>
 
-        {/* شماره صفحات */}
+  
         {getPageNumbers().map((page, index) => (
           page === '...' ? (
             <div
               key={`ellipsis-${index}`}
-              className="w-8 h-8 rounded-full border-2 border-[#6B7FFF] bg-white flex items-center justify-center text-gray-700 font-medium text-lg"
+              className="w-8 h-8 rounded-full border-2 border-[#6B7FFF]  flex items-center justify-center text-gray-700 font-medium text-lg"
             >
               ...
             </div>
@@ -88,9 +88,9 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
             <button
               key={page}
               onClick={() => handlePageChange(page as number)}
-              className={`w-8 h-8 rounded-full border-2 border-[#6B7FFF] bg-white flex items-center justify-center font-medium text-lg transition-all duration-200 ${
+              className={`w-8 h-8 rounded-full border-2 border-[#6B7FFF] flex items-center justify-center font-medium text-lg transition-all duration-200 ${
                 currentPage === page
-                  ? 'text-gray-700'
+                  ? 'text-gray-700 bg-[#6B7FFF]'
                   : 'text-gray-700 hover:bg-[#6B7FFF] hover:text-white cursor-pointer'
               }`}
             >
@@ -99,14 +99,14 @@ const Pagination = ({ currentPage, totalPages, totalCount }: PaginationProps) =>
           )
         ))}
 
-        {/* دکمه بعدی */}
+    
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
             currentPage === totalPages
-              ? 'border-gray-300 text-gray-300 cursor-not-allowed bg-white'
-              : 'border-[#6B7FFF] text-[#6B7FFF] hover:bg-[#6B7FFF] hover:text-white cursor-pointer bg-white'
+              ? 'border-gray-300 text-gray-300 cursor-not-allowed '
+              : 'border-[#6B7FFF] text-[#6B7FFF] hover:bg-[#6B7FFF] hover:text-white cursor-pointer '
           }`}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -13,13 +13,16 @@ import logout from '@/assets/Images/Dashboard/logout.png'
 import delta from '@/assets/Images/Dashboard/delta.png'
 import SideBarButton from '@/components/dashboard/DashboardComps/SideBarButton'
 import Burgar from "@/assets/ico/burgar/icons8-hamburger-menu-50.gif"
+import Burgar2 from "@/assets/ico/burgar/burgar2-ico.png"
 import ButtonProfile from '../../auth/buttonProfile'
 
+import DarkMode from "@/components/darkmode/darkmodeBt"
 
 import { redirect } from "next/navigation"
 import {useActionState, useState,useEffect} from "react";
 import logout_handler from "@/util/service/authAction/logoutAction";
 import toast_errorHandling from "@/util/hooks/errorHandling"
+import { useTheme } from 'next-themes'
 interface props {
     isLoggin:boolean
     userInfo : any
@@ -40,19 +43,23 @@ const Dashsidebar = ({isLoggin,userInfo}:props) => {
           
         } 
 
+        const {theme} = useTheme();
+
   return (
     <>
       
-       <button onClick={()=>setOpen(true)} className={` ${open ? "hidden" : ""} bg-[white] rounded-[16px]  p-2
+       <button onClick={()=>setOpen(true)} className={` ${open ? "hidden" : ""} ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"}  rounded-[16px]  p-2 
          min-lg:hidden w-[50px] h-[50px]  shadow-md flex items-center justify-center`}>
-           <Image className="rounded-[16px] w-[80%] h-[80%]" alt="menu" src={Burgar}/>
+           <Image className="rounded-[16px] w-[80%] h-[80%]" alt="menu" src={Burgar2}/>
          </button>
 
-    <div className={`flex flex-col  gap-5 p-5 bg-[white]  transition-all duration-300 ease-in-out right-[0] top-[0]  z-[100] 
+    <div className={`flex flex-col  gap-5 p-5 ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"}  transition-all duration-300 ease-in-out right-[0] top-[0]  z-[100] 
          transition-[1s] duration-[280ms]  absolute  w-[200px] h-screen ${open ? "" : "hidden"} `}>
         <header className='flex flex-col justify-between'>
-            
+             <div className='flex flex-row justify-between items-center'>
              <button className='' onClick={()=>setOpen(false)}><Image src={logout} alt='log out' width={24} height={24} /></button>
+             <DarkMode/>
+             </div>
            {isLoggin &&<div className='flex flex-col items-right'>
               <div className="flex flex-row-reverse items-center  gap-3 p-4">
                    <div onClick={()=>setT(!set)} className="w-8 h-8 rounded-full">
@@ -84,9 +91,10 @@ const Dashsidebar = ({isLoggin,userInfo}:props) => {
                     </span>
                   </button>
                 </li>
-             </form>
+               </form>
       
         </div>}  
+
             
         </header>
         
@@ -101,17 +109,17 @@ const Dashsidebar = ({isLoggin,userInfo}:props) => {
                 <Image src={Desk} alt='H' width={20} height={20} />
             </SideBarButton>}
             
-            <SideBarButton href="/dashboard" className='flex flex-row justify-end  items-center'>
+            <SideBarButton href="/home" className='flex flex-row justify-end  items-center'>
                  خانه
                 <Image src={Home} alt='H' width={20} height={20} />
             </SideBarButton>
 
-             <SideBarButton href="/dashboard" className='flex flex-row justify-end  items-center'>
+             <SideBarButton href="/aboutUs" className='flex flex-row justify-end  items-center'>
                  درباره ما
                 <Image src={Chat} alt='H' width={20} height={20} />
             </SideBarButton>
 
-            <SideBarButton href="/dashboard" className='flex flex-row justify-end  items-center'>
+            <SideBarButton href="/blog" className='flex flex-row justify-end  items-center'>
                  مقالات
                 <Image src={Bell} alt='H' width={20} height={20} />
             </SideBarButton>

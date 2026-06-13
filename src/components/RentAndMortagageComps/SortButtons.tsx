@@ -53,7 +53,7 @@ export default function SortButtons() {
   };
 
   return (
-    <div className="flex flex-nowrap gap-2 mb-6">
+    <div className="flex flex-row items-center gap-2 max-lg:overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
       <Button2 onClick={() => updateSort()} active={isActive()}>
         همه
       </Button2>

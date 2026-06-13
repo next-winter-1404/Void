@@ -6,6 +6,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
+import {useTheme} from "next-themes"
 interface SearchFilters {
   location: string;
   guests: string;
@@ -19,7 +20,7 @@ interface SearchFilters {
 function FieldWrapper({ children, label }: { children: React.ReactNode; label: string }) {
   return (
     <div className="flex flex-row max-lg:flex-col  items-center justify-center gap-2">
-      <span className="text-[13px] max-lg:text-[10px] font-medium text-gray-700 whitespace-nowrap">
+      <span className="text-[13px] max-lg:text-[10px] font-medium  whitespace-nowrap">
         {label}
       </span>
       {children}
@@ -79,10 +80,12 @@ export default function SearchBar() {
     router.push(`${path}?${params.toString()}`);
   }, [filters, activeTab, router, isReservation]);
 
+  const {theme} = useTheme();
+
   return (
     <div
       dir="rtl"
-      className="w-full h-[120px] bg-white rounded-[15px] shadow-md border border-gray-100 flex flex-col items-center justify-end gap-2"
+      className={`w-full h-[120px] ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"}  rounded-[15px] shadow-md border border-gray-100 flex flex-col items-center justify-end gap-2`}
     >
     
       <div className="h-[30%] w-full  pr-2 flex flex-row items-center  gap-4">
@@ -96,7 +99,7 @@ export default function SearchBar() {
                 ? { borderTop: "5px solid #4F46E5" }
                 : {}
             }
-            className="rounded-[6px] border-indigo-600  leading-10 "
+            className={`rounded-[6px] border-indigo-600  leading-10 `}
           >
             {it}
           </button>
@@ -112,7 +115,7 @@ export default function SearchBar() {
             <button
               type="button"
               onClick={() => setShowLocation((v) => !v)}
-              className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-500 bg-white hover:bg-gray-50 transition min-w-[140px] justify-between"
+              className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm  transition min-w-[140px] justify-between"
             >
               <span>{filters.location || "انتخاب کنید"}</span>
               <span className="text-xs text-gray-400">▼</span>
@@ -125,7 +128,7 @@ export default function SearchBar() {
                     <button
                       type="button"
                       className={`w-full text-right px-4 py-2 text-sm hover:bg-teal-500 hover:text-white transition ${
-                        filters.location === loc ? "bg-orange-500 text-white" : ""
+                        filters.location === loc ? "bg-orange-500 text-white" : "text-[black]"
                       }`}
                       onClick={() => {
                         setFilters((prev) => ({
@@ -158,7 +161,7 @@ export default function SearchBar() {
                 onChange={(e) =>
                   setFilters((prev) => ({ ...prev, guests: e.target.value }))
                 }
-                className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-700 bg-white outline-none w-[120px] text-right placeholder:text-gray-400 transition"
+                className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-700 outline-none w-[120px] text-right placeholder:text-gray-400 transition"
               />
             </FieldWrapper>
 
@@ -176,7 +179,7 @@ export default function SearchBar() {
                   <button
                     type="button"
                     onClick={openCalendar}
-                    className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-500 bg-white hover:bg-gray-50 transition min-w-[140px]"
+                    className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-500  hover:bg-gray-50 transition min-w-[140px]"
                   >
                     <CalendarIcon />
                     <span className={value ? "text-gray-800" : "text-gray-400"}>
@@ -202,7 +205,7 @@ export default function SearchBar() {
                   <button
                     type="button"
                     onClick={openCalendar}
-                    className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-500 bg-white hover:bg-gray-50 transition min-w-[140px]"
+                    className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-500 hover:bg-gray-50 transition min-w-[140px]"
                   >
                     <CalendarIcon />
                     <span className={value ? "text-gray-800" : "text-gray-400"}>
@@ -229,7 +232,7 @@ export default function SearchBar() {
                 onChange={(e) =>
                   setFilters((prev) => ({ ...prev, minArea: e.target.value }))
                 }
-                className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-700 bg-white outline-none w-[120px] text-right placeholder:text-gray-400 transition"
+                className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-700  outline-none w-[120px] text-right placeholder:text-gray-400 transition"
               />
             </FieldWrapper>
 
@@ -244,7 +247,7 @@ export default function SearchBar() {
                 onChange={(e) =>
                   setFilters((prev) => ({ ...prev, maxArea: e.target.value }))
                 }
-                className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-700 bg-white outline-none w-[120px] text-right placeholder:text-gray-400 transition"
+                className="[&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-700  outline-none w-[120px] text-right placeholder:text-gray-400 transition"
               />
             </FieldWrapper>
 
@@ -255,14 +258,14 @@ export default function SearchBar() {
                   <button
                     type="button"
                     onClick={() => setShowDealType((v) => !v)}
-                    className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-500 bg-white hover:bg-gray-50 transition min-w-[140px] justify-between"
+                    className="flex items-center gap-2 border border-gray-200 rounded-xl px-3 h-10 text-sm text-gray-500  hover:bg-gray-50 transition min-w-[140px] justify-between"
                   >
                     <span>{filters.dealType || "انتخاب کنید"}</span>
                     <span className="text-xs text-gray-400">▼</span>
                   </button>
 
                   {showDealType && (
-                    <ul className="absolute top-full mt-1 right-0 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden">
+                    <ul className="absolute top-full mt-1 right-0 w-full  border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden">
                       {dealTypeOptions.map((opt) => (
                         <li key={opt}>
                           <button

@@ -46,7 +46,8 @@ const UserComments = ({comment}:props) => {
           1024: { slidesPerView: 3 },
         }}
       >
-        {comment.map((item, i) => (
+
+        {comment.length > 0 ? comment.map((item, i) => (
           <SwiperSlide key={i}>
             <div className="bg-[#4E6AF3] text-white rounded-3xl p-8 min-h-[320px] h-auto flex flex-col justify-between">
               <p className="leading-relaxed">{item.text}</p><br/>
@@ -63,7 +64,7 @@ const UserComments = ({comment}:props) => {
               </div>
             </div>
           </SwiperSlide>
-        ))}
+        )) : <div>کامنتی نداریم</div>}
       </Swiper>
 
       <div dir='ltr' className="flex items-center gap-6 mt-8">

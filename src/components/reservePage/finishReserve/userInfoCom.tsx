@@ -16,6 +16,7 @@ interface props extends ReserveBody{
     discountPrice:number |null
 }
 
+import { useTheme } from "next-themes";
 
 export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sharedMobile,traveler_details,reservedDates}:props) {
 
@@ -35,11 +36,14 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
 
    const discount = discountPrice == null ? 0 : Math.floor(((price -discountPrice)/price)*100)
 
+
+   const {theme} = useTheme();
+
     return (
         <form action={formAction} className="flex flex-col w-full gap-5">
 
        
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
+        <div className=" rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
           <button
             className="w-full flex items-center justify-between p-5 text-right"
           >
@@ -51,11 +55,11 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
           </button>
           <div className="px-5 pb-5 space-y-1">
            
-            <div className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3 border border-slate-100">
+            <div className={`flex items-center justify-between ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-slate-50" : "bg-[#444444]"}    rounded-xl px-4 py-3 border border-slate-100`}>
               <span className="text-sm text-stone-500 font-mono">{sharedEmail}</span>
               <span className="text-xs text-stone-400">ایمیل</span>
             </div>
-            <div className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3 border border-slate-100">
+            <div className={`flex items-center justify-between ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-slate-50" : "bg-[#444444]"} rounded-xl px-4 py-3 border border-slate-100`}>
               <span className="text-sm text-stone-600 font-mono dir-ltr" dir="ltr">{sharedMobile}</span>
               <span className="text-xs text-stone-400">شماره تماس</span>
             </div>
@@ -63,7 +67,7 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
         </div>
 
       
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
+        <div className=" rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
           <button
             onClick={() => setDiscountOpen((v) => !v)}
             className="w-full flex items-center justify-between p-5 text-right"
@@ -82,7 +86,7 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
                 value={discountCode}
                 onChange={(e) => setDiscountCode(e.target.value)}
                 placeholder="کد تخفیف"
-                className="w-full text-right bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-stone-700 placeholder:text-stone-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all"
+                className={`w-full text-right ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-slate-50" : "bg-[#444444]"} border border-slate-200 rounded-xl px-4 py-3 text-sm text-stone-700 placeholder:text-stone-300 outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100 transition-all`}
               />
               {/* <SubmitBt subLabel="اعمال کد تخفیف" /> */}
             </div>
@@ -90,7 +94,7 @@ export default function userInfoCom ({price,discountPrice,houseId,sharedEmail,sh
         </div>
 
         
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-5 space-y-4">
+        <div className=" rounded-2xl shadow-sm border border-stone-100 p-5 space-y-4">
           <div className="flex items-center justify-between">
            <span className="text-[16px] font-bold">قیمت</span>
                               <div className="flex flex-row w-full   items-center whitespace-nowrap  text-[20px]">

@@ -21,15 +21,19 @@ interface commentBoxProps {
     nextSlide:()=>void
 }
 
+import { useTheme } from "next-themes"
+
 
 export default function comment_Box({nextSlide}:commentBoxProps){
 
     const [toggle,setToggle] = useState<boolean>(false);
 
+    const {theme} = useTheme();
+
     return(
         <>
-        <div className="w-[95%] h-[200px] rounded-[16px] bg-[white] shadow-md shadow-gray-50  
-              flex flex-col items-center absolute bottom-[20px] right-[20px] justify-end px-2 gap-1">
+        <div className={`w-[95%] h-[200px] rounded-[16px] ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"}    shadow-md shadow-gray-50  
+              flex flex-col items-center absolute bottom-[20px] right-[20px] justify-end px-2 gap-1`}>
 
                <span className="absolute right-[10px] top-[10px]">
                 <Image alt="comma" src={Comma}/>

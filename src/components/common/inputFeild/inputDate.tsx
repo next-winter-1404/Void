@@ -43,7 +43,7 @@ export default function CustomDateInput({name,label}:InputDateProps) {
                 textIndent:"40px",
                 fontSize: 16,
                 cursor: "pointer",
-                color: value ? "#000" : "#999",
+               
               }}
             >
               {value || "تاریخ را وارد کنید"}

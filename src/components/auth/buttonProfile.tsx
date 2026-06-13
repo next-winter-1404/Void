@@ -7,6 +7,8 @@ import toast_errorHandling from "@/util/hooks/errorHandling"
 import Image from "next/image"
 import Link from "next/link"
 
+import { useScrollDirection } from "@/util/hooks/scrollDetect";
+
 interface buttonProfileProps {
     removeTok:()=>void
 }
@@ -14,6 +16,8 @@ interface buttonProfileProps {
 interface props {
   userInfo:any
 }
+
+import { useTheme } from "next-themes";
 
 
 export default function buttonProfile ({userInfo}:props) {
@@ -38,19 +42,29 @@ export default function buttonProfile ({userInfo}:props) {
       toast_errorHandling(Number(200),"از حساب خود خارج شدید😒")
     } 
 
+    const {theme} = useTheme();
+
+      const {isHidden} = useScrollDirection();
+      useEffect(()=>{
+         if(isHidden){
+          setShow(false);
+       }
+      },[isHidden])
+      
+
     return(
         <>
         <button style={{backgroundImage:"url('/ico/avatar.png')"}} onClick={handle}
         className={` rounded-full w-10 h-10 bg-cover`}></button>
 
-       <form action={formAction}>
+       <form action={formAction} >
   <div
     className={`
       ${show ? "fixed" : "hidden"}
       top-[80px] left-[5%] z-10
       w-[200px]
       rounded-[24px]
-      bg-white
+      ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"} 
       shadow-md
       outline outline-[#E9E9E9]
       overflow-hidden

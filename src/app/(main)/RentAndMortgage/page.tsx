@@ -1,5 +1,5 @@
-// app/.../page.tsx
-import React from 'react'
+
+
 import HouseCards from '@/components/common/Cards/HouseCards';
 import { handleAsyncAction } from '@/util/service/api/handleAsync';
 import FilterButton from '@/components/RentAndMortagageComps/FilterButton';
@@ -9,12 +9,14 @@ import SearchInput from '@/components/RentAndMortagageComps/SearchInput';
 import { Api } from '@/util/service/api';
 import SearchModal from '@/components/common/searchBox/searchModal';
 
-// این خط مهمه - صفحه رو dynamic می‌کنه
+import FilterModal from "@/components/RentAndMortagageComps/filter/filterModal";
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 interface PageProps {
   searchParams: Promise<{
+    search?:string
     sort?: string;
     order?: string;
     page?: string;
@@ -31,30 +33,30 @@ interface PageProps {
 
 const RentAndMortgage = async ({ searchParams }: PageProps) => {
   
-  // در Next.js 15، searchParams یک Promise هست
-  const params = await searchParams;
+  const {sort,order,search,page,limit,transactionType,propertyType,location,minPrice,maxPrice,minArea,maxArea} = await searchParams;
   
-  // تبدیل searchParams به query object
+
   const query = {
-    sort: params.sort || "price",
-    order: params.order || "DESC",
-    page: parseInt(params.page || "1"),
-    limit: parseInt(params.limit || "6"),
-    ...(params.transactionType && { transactionType: "reservation" }),
-    // ...(params.propertyType && { propertyType: params.propertyType }),
-    ...(params.location && { location: params.location }),
-    ...(params.minPrice && { minPrice: params.minPrice }),
-    ...(params.maxPrice && { maxPrice: params.maxPrice }),
-    ...(params.minArea && { minArea: params.minArea }),
-    ...(params.maxArea && { maxArea: params.maxArea }),
+    search,
+    sort,
+    order,
+    page,
+    limit:6,
+    transactionType,
+    propertyType,
+    location,
+    minPrice,
+    maxPrice,
+    minArea,
+    maxArea
   };
 
-  console.log('Query params:', query); // برای debug
+  // console.log('Query params:', query); 
 
   const api = await Api();
   const housesRes = await handleAsyncAction(api.houseListmortRent.mortgateRentHouse(query));
   
-  console.log('API Response:', housesRes); // برای debug
+  // console.log('API Response:', housesRes); 
 
   const houses = housesRes?.data?.houses || [];
   const totalCount = housesRes?.data?.totalCount || 0;
@@ -67,15 +69,18 @@ const RentAndMortgage = async ({ searchParams }: PageProps) => {
         رهن و اجاره آپارتمان
       </h2>
 
-      <div className='hidden md:flex flex-row gap-5 border-b border-zinc-300 justify-center'>
+      <div className='flex flex-row max-lg:flex-wrap gap-5 border-b  border-zinc-300 items-center '>
+        <div className='w-[30%] max-lg:w-[65%]'>
         <SearchModal />
-        <FilterButton />
+        </div>
+        {/* <FilterButton /> */}
+        <FilterModal/>
         <SortButtons />
       </div>
 
-      <div className='md:hidden flex flex-row gap-5 border-b border-zinc-300 justify-baseline'>
+      {/* <div className='md:hidden flex flex-row gap-5 border-b border-zinc-300 justify-baseline'>
         <FilterButton />
-      </div>
+      </div> */}
 
       {houses.length === 0 ? (
         <div className="text-center py-10 text-gray-500">
@@ -90,7 +95,8 @@ const RentAndMortgage = async ({ searchParams }: PageProps) => {
           </div>
 
           <Pagination 
-            currentPage={query.page} 
+            // limit={query.limit}
+            currentPage={Number(page)} 
             totalPages={totalPages}
             totalCount={totalCount}
           />

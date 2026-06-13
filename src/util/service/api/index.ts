@@ -8,7 +8,10 @@ import { HouseMortgateRentListAPI } from "./main/RentAndMortgageApi/houseApi";
 import { profileApi } from "./dashboard/profile";
 import {HouseManageApi} from "./dashboard/houseManageApi";
 import {LandingApi} from "@/util/service/api/main/landingApi/landingApi"
+import { contactApi } from "./main/contactUs/contactApi";
 import { getToken } from "./token";
+import { blogApi } from "./main/blogApi/blogApi";
+
 
 export  async function Api() {
   const token = await getToken() as string;
@@ -26,6 +29,8 @@ export  async function Api() {
     profile: profileApi(client),
     HouseManageApi:HouseManageApi(client),
     landing:LandingApi(client),
+    blog:blogApi(client),
+    contactUs:contactApi(client)
   };
 }
 

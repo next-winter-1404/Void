@@ -1,6 +1,8 @@
 'use client'
 import {useEffect, useState} from "react"
 
+import {useTheme} from "next-themes"
+
 export interface dropDownItems {
     id:number,
     name:string,
@@ -19,8 +21,10 @@ interface dropDownMenuProps {
     filters:string | ""
 }
 
+
 export default function DropDownMenu ({label,setShowDropDown,showDropDown,dropDownItems,handleChange,filters}:dropDownMenuProps) {
 
+  const {theme} = useTheme();
     return(
         <>
           <div className="rounded-[5px] p-[3px] w-[95%] pr-2">
@@ -30,7 +34,7 @@ export default function DropDownMenu ({label,setShowDropDown,showDropDown,dropDo
        
        <div className="relative">
          <div
-         className="border border-gray-300 rounded-lg p-2 text-sm text-gray-700 cursor-pointer flex justify-between items-center hover:bg-gray-50"
+         className="border border-gray-300 rounded-lg p-2 text-sm  cursor-pointer flex justify-between items-center "
            onClick={() => setShowDropDown(!showDropDown)}
            
          >
@@ -44,7 +48,7 @@ export default function DropDownMenu ({label,setShowDropDown,showDropDown,dropDo
                <li key={item.id}>
                  <label
                    className={`block px-4 py-2 text-sm cursor-pointer hover:bg-teal-500 hover:text-white ${
-                     filters === item.name ? '!bg-orange-500 !text-white' : ''
+                     filters === item.name ? '!bg-orange-500 !text-white' : 'text-[black]'
                    }`}
                    onClick={() => {
                      handleChange(item.name);

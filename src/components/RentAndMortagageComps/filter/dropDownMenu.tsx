@@ -23,14 +23,14 @@ export default function DropDownMenu ({label,setShowDropDown,showDropDown,dropDo
 
     return(
         <>
-          <div className="rounded-[5px] p-[2px]  w-full ">
+          <div className="rounded-[5px] p-[3px] w-[95%] pr-2">
        <label className="text-[14px] font-medium  block mb-3 pr-2">
          {label}
        </label>
        
        <div className="relative">
          <div
-         className="border border-gray-300 rounded-[16px] p-3  text-sm text-gray-700 cursor-pointer flex justify-between items-center "
+         className="border border-gray-300 rounded-lg p-2 text-sm  cursor-pointer flex justify-between items-center "
            onClick={() => setShowDropDown(!showDropDown)}
            
          >
@@ -44,7 +44,7 @@ export default function DropDownMenu ({label,setShowDropDown,showDropDown,dropDo
                <li key={item.id}>
                  <label
                    className={`block px-4 py-2 text-sm cursor-pointer hover:bg-teal-500 hover:text-white ${
-                     filters === item.name ? '!bg-orange-500 !text-white' : 'text-[black]'
+                     filters === item.name ? '!bg-orange-500 ' : 'text-[black]'
                    }`}
                    onClick={() => {
                      handleChange(item.name);

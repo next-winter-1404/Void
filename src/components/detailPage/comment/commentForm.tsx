@@ -16,7 +16,11 @@ export default function commentForm(){
 
     useEffect(()=>{
          console.log("response",state)
-          if(state?.status) toast_errorHandling(Number(state.status));
+          if(state?.success){
+             toast_errorHandling(Number(state.status),"نظر ثبت شد");
+             setTimeout(()=>window.location.reload(),1000)
+          }
+          
     },[state])
      
 
@@ -39,7 +43,7 @@ export default function commentForm(){
                  h-[140px]
                  rounded-[30px]
                  border border-[#efefef]
-                 bg-white
+                 
                  px-6 py-3
                  placeholder:text-[#bbbbbb]
                  text-gray-700

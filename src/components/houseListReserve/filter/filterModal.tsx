@@ -13,6 +13,8 @@ import type {dropDownItems} from "./dropDownMenu";
 
 import { QueryMapper } from "@/util/helper/queryMapper"
 
+import {useTheme} from "next-themes"
+
 import { useCallback } from "react"
 
 export default function filterModal() {
@@ -106,13 +108,15 @@ export default function filterModal() {
     
     //   console.log("price",filters.priceRange[1])
 
+    const {theme} = useTheme();
+
     return (
         <>   
         <FilterButton showFilter={showFilter} setShowFilter={setShowFilter} label=" فیلتر ها"/>
 
          <div className={`w-[280px] max-xl:w-[230px]  absolute top-[150px] z-[10] rounded-[16px]
           ${showFilter ? "block":"hidden"}`}>
-        <div className="shadow-md shadow-purple-200 w-full bg-white rounded-[20px] py-[10px] flex flex-col items-center gap-1">
+        <div className={`shadow-md shadow-purple-200 w-full ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"} rounded-[20px] py-[10px] flex flex-col items-center gap-1`}>
 
                 
           <DropDownMenu 

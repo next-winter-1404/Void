@@ -24,7 +24,7 @@ export default function Price({ price,discounted_price ,discount = 0, currency =
           </span>
         )}
 
-        <span className="text-black font-bold text-base">
+        <span className=" font-bold text-base">
           {toPersianFormat(discounted_price)} {currency}
         </span>
       </div>

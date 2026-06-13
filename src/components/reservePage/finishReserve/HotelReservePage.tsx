@@ -110,7 +110,7 @@ export default async function HotelReservePage() {
       <div className=" w-[50%] max-lg:w-full px-4 py-8 space-y-4">
 
        
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
+        <div className=" rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
           <div className="p-5">
            
             <div className="flex gap-4 mb-5">
@@ -134,7 +134,7 @@ export default async function HotelReservePage() {
                 { label: "تاریخ ورود به هتل", value:  isoToPersianDate(user_reserveDate?.checkInDate) },
                 { label: "تاریخ خروج از هتل", value: isoToPersianDate(user_reserveDate?.checkOutDate) },
               ].map(({ label, value }) => (
-                <div key={label} className="bg-slate-50 rounded-xl p-3 text-right border border-slate-100">
+                <div key={label} className=" rounded-xl p-3 text-right border border-slate-100">
                   <p className="text-[10px] text-stone-400 mb-1">{label}</p>
                   <div className="flex items-center gap-1.5 justify-end">
                     <p className="text-sm font-bold text-stone-700">{value}</p>
@@ -145,7 +145,7 @@ export default async function HotelReservePage() {
             </div>
 
             
-            <div className="flex items-center justify-between bg-teal-50/60 rounded-xl px-4 py-3 border border-teal-100">
+            <div className="flex items-center justify-between  rounded-xl px-4 py-3 border border-teal-100">
               <div className="flex items-center gap-2">
                 <span className="text-[16px] font-bold">قیمت</span>
                    <div className="flex flex-row w-full   items-center whitespace-nowrap  text-[20px]">
@@ -163,7 +163,7 @@ export default async function HotelReservePage() {
         </div>
 
        
-        <div dir="ltr" className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
+        <div dir="ltr" className=" rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
           
             <div className="flex items-center justify-end gap-2">
               <span className="font-extrabold text-stone-800 text-sm p-4">مشخصات مسافران</span>
@@ -172,7 +172,7 @@ export default async function HotelReservePage() {
 
           
             <div  className="px-5 pb-5">
-              <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+              <div className=" rounded-xl p-4 border border-slate-100">
                 <InfoRow label="نام و نام خانوادگی" value={`${user_reserveInfo.traveler_details[0].firstName} ${user_reserveInfo?.traveler_details[0].lastName}`} />
                 <InfoRow label="جنسیت" value={user_reserveInfo?.traveler_details[0].gender === "male" ? "آقا" : "خانوم"} />
                 <InfoRow label="کد ملی " value={user_reserveInfo?.traveler_details[0].nationalId} valueClass="text-teal-600 font-bold" />

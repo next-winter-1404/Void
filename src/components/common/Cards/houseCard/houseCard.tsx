@@ -63,7 +63,7 @@ isFavorite
     return (
     <div>
         <div className="
-        bg-white rounded-[16px] border border-zinc-300
+        rounded-[16px] border border-zinc-300
         hover:shadow-lg transition
          cursor-pointer
          w-[300px] max-md:w-[350px]

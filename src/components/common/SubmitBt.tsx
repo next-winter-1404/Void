@@ -11,7 +11,7 @@ export default function SubmitBt ({subLabel,btColor}:submitType) {
     
 
     return (
-    <button type="submit" style={{backgroundColor:BG}} className={` py-3 w-full rounded-[16px] ${btColor ? "" :"text-[white]"}  font-medium text-center`}>
+    <button type="submit" style={{backgroundColor:BG}} className={` whitespace-nowrap py-3 w-full rounded-[16px] ${btColor ? "" :"text-[white]"}  font-medium text-center`}>
      {subLabel}
     </button>
     )

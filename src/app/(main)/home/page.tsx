@@ -16,7 +16,7 @@ const  LandingPage =async() => {
 
   const api = await Api();
   const comments = await handleAsyncAction(api.landing.getComments());
-  const comment = comments?.data?.comments
+  const comment = comments?.data?.comments 
 
   return (
     <div dir='rtl' className='flex flex-col gap-20'>

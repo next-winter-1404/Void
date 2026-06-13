@@ -1,12 +1,17 @@
+"use client"
 import React from 'react'
 import Image from 'next/image'
 import PIZA from '@/assets/Images/components/header/PIZA.png'
 import trustme from '@/assets/Images/components/footer/trustme.png'
 import { footerData } from './FooterItemsDatas'
 
+
 const FooterComponent = () => {
+
+ 
+
   return (
-    <footer className="w-full border-t border-black bg-white" dir="rtl">
+    <footer className={`w-full border-t border-black `} dir="rtl">
       <div className="max-w mx-auto py-12 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:justify-between gap-8">
         <div className="flex-1 max-w-sm space-y-6 text-right">
           <Image src={PIZA} alt="PIZA" width={80} height={80} />
