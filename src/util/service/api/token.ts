@@ -46,3 +46,16 @@ export async function getUserId(): Promise<number | null> {
     return null;
   }
 }
+export async function getUserRole(): Promise<string | null> {
+  const token = await getToken();
+  if (!token) return null;
+
+  try {
+    const payload = token.split(".")[1];
+    const decoded = JSON.parse(atob(payload));
+  
+    return decoded.role ?? decoded.userRole ?? decoded.type ?? null;
+  } catch {
+    return null;
+  }
+}

@@ -1,69 +1,33 @@
-'use client'
 
-import { DataTable, Column } from '@/components/DashboardComps/ReUsableTable/ui/DataTable'
-import { StatusBadge } from '@/components/DashboardComps/ReUsableTable/ui/StatusBadge'
-import { Pagination } from '@/components/DashboardComps/ReUsableTable/ui/Pagination'
+import { getToken } from "@/util/service/api/token";
+import { ApiClient } from "@/util/service/api/apiClient";
+import {
+  CustomerReservationAPI,
+  BookingsResponse,
+} from "@/util/service/api/DashboardApis/CustomerReservationList_api";
+import { handleAsyncAction } from "@/util/service/api/handleAsync";
+import ReservationListPage from "./Reservationlistpage";
 
-type Reservation = {
-  id: number
-  propertyName: string
-  passengerInfo: string
-  reserveDate: string
-  amount: string
-  reserveStatus: 'تایید شده' | 'لغو شده' | 'در انتظار'
-  paymentStatus: 'تایید شده' | 'لغو شده'
-}
-const reservationsData: Reservation[] = [
-  {
-    id: 1,
-    propertyName: 'ویلا دریایی شمال',
-    passengerInfo: 'علی محمدی',
-    reserveDate: '1405/03/15',
-    amount: '۲,۵۰۰,۰۰۰ تومان',
-    reserveStatus: 'تایید شده',
-    paymentStatus: 'تایید شده',
-  },
-  {
-    id: 2,
-    propertyName: 'آپارتمان تهران',
-    passengerInfo: 'سارا احمدی',
-    reserveDate: '1405/03/18',
-    amount: '۱,۲۰۰,۰۰۰ تومان',
-    reserveStatus: 'در انتظار',
-    paymentStatus: 'لغو شده',
-  },
-]
+const PAGE_SIZE = 10;
 
-const reservationColumns: Column<Reservation>[] = [
-  { key: 'propertyName', header: 'نام ملک' },
-  { key: 'passengerInfo', header: 'اطلاعات مسافر' },
-  { key: 'reserveDate',   header: 'تاریخ رزرو' },
-  { key: 'amount',        header: 'مبلغ' },
-  {
-    key: 'reserveStatus',
-    header: 'وضعیت رزرو',
-    render: row => <StatusBadge status={row.reserveStatus} />,
-  },
-  {
-    key: 'paymentStatus',
-    header: 'وضعیت پرداخت',
-    render: row => <StatusBadge status={row.paymentStatus} />,
-  },
-]
+export default async function Page() {
+  const token = await getToken();
 
-export default function ReservationListPage() {
-  return (
-    <DataTable
-      title="لیست رزرو های مشتریان"
-      columns={reservationColumns}
-      data={reservationsData}
-      searchPlaceholder="نام مسافر مورد نظر ...."
-      getActions={row => [
-        { label: 'ثبت رزرو', icon: '✓', onClick: () => {} },
-        { label: 'جزئیات',   icon: '☰', onClick: () => {} },
-        { label: 'حذف',      icon: '✕', onClick: () => {}, className: 'text-red-500' },
-      ]}totalPages={6}
-      
-    />
-  )
+  if (!token) {
+    return (
+      <div className="w-full h-full bg-gray-50 flex items-center justify-center" dir="rtl">
+        <p className="text-sm text-gray-400">لطفاً ابتدا وارد حساب کاربری خود شوید.</p>
+      </div>
+    );
+  }
+
+  const client = new ApiClient(process.env.NEXT_PUBLIC_API_URL!, token);
+  const api = CustomerReservationAPI(client);
+  const result = await handleAsyncAction(api.getBookings({ page: 1, limit: PAGE_SIZE }));
+
+  const initialData: BookingsResponse = result.success
+    ? result.data
+    : { data: [], totalCount: 0 };
+
+  return <ReservationListPage token={token} initialData={initialData} />;
 }

@@ -1,6 +1,18 @@
 import { ApiClient } from "../apiClient";
 
-export interface Comment {
+export type SellerCommentUser = {
+  firstName: string;
+  lastName: string;
+  profilePicture: string | null;
+};
+
+export type SellerCommentHouse = {
+  id: number;
+  title: string;
+  address: string;
+};
+
+export type SellerComment = {
   id: number;
   house_id: number;
   title: string;
@@ -8,20 +20,22 @@ export interface Comment {
   rating: string;
   created_at: string;
   parent_comment_id: number | null;
-  user: { firstName: string; lastName: string; profilePicture: string | null };
-  house: { id: number; title: string; address: string };
-}
+  user: SellerCommentUser;
+  house: SellerCommentHouse;
+};
 
-export interface CommentsResponse {
-  comments: Comment[];
+export type SellerCommentsResponse = {
+  comments: SellerComment[];
   totalCount: number;
   currentPage: number;
   totalPages: number;
-}
+};
 
 export function SellerCommentsAPI(client: ApiClient) {
   return {
-    getSellerComments: (sellerId: string | number, page = 1) =>
-      client.get<CommentsResponse>(`/api/comments/seller/${sellerId}?page=${page}`),
+    getSellerComments: (seller_id: string | number, page = 1) =>
+      client.get<SellerCommentsResponse>(
+        `/api/comments/seller/${seller_id}?page=${page}`
+      ),
   };
 }
