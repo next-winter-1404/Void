@@ -36,10 +36,10 @@ export async function getUserId(): Promise<number | null> {
   if (!token) return null;
 
   try {
-    // JWT format: header.payload.signature
+    
     const payload = token.split(".")[1];
     const decoded = JSON.parse(atob(payload));
-    // ببین userId توی کدوم field هست
+  
     console.log("JWT payload:", decoded);
     return decoded.id ?? decoded.userId ?? decoded.sub ?? null;
   } catch {
