@@ -92,7 +92,7 @@ const Dashsidebar = ({ role }: DashsidebarProps) => {
                 <Image src={Add} alt='Add' width={20} height={20} />
               </SideBarButton>
 
-              <SideBarButton href="/Favorites" className='flex flex-row justify-end items-center'>
+              <SideBarButton href="/DashFav" className='flex flex-row justify-end items-center'>
                 علاقه‌مندی‌ها
                 <Image src={Fav} alt='Fav' width={20} height={20} />
               </SideBarButton>

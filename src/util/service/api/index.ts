@@ -6,7 +6,6 @@ import { HouseAPI } from "./main/houseApi/house_api";
 import { HouseDetailAPI } from "./main/detailPageApi/houseDetail-api";
 import { HouseMortgateRentListAPI } from "./main/RentAndMortgageApi/houseApi";
 import { getToken } from "./token";
-import { SellerCommentsAPI } from "./DashboardApis/comments_api";
 
 
 export  async function Api() {
@@ -23,7 +22,7 @@ export  async function Api() {
     house: HouseAPI(client),
     houseDetail: HouseDetailAPI(client),
     houseListmortRent: HouseMortgateRentListAPI(client),
-    sellerComments: SellerCommentsAPI(client),
+
   };
 }
 

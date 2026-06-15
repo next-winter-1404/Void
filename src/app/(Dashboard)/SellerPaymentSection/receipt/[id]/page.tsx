@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { getSellerPayments, SellerPayment } from '@/util/service/api/DashboardApis/seller_payments_api'
+import { getSellerPayments, SellerPayment } from '@/util/service/api/DashboardApis/user_payments_api'
 
 const statusLabels: Record<string, string> = {
   pending: 'در انتظار',
