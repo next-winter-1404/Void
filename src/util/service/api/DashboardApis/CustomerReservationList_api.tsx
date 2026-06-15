@@ -65,5 +65,11 @@ export function CustomerReservationAPI(client: ApiClient) {
 
     deleteBooking: (id: number) =>
       client.delete(`/api/bookings/${id}`),
+
+    confirmBooking: (id: number) =>
+      client.post(`/api/bookings/${id}/continue`),
+
+    cancelBooking: (id: number) =>
+      client.post(`/api/bookings/${id}/cancel`),
   };
 }

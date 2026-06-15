@@ -59,10 +59,7 @@ const statusMap: Record<BookingStatus, StatusType> = {
 };
 
 function FilterDropdown({
-  onApply,
-  initialStatus,
-  initialStartDate,
-  initialEndDate,
+  onApply, initialStatus, initialStartDate, initialEndDate,
 }: {
   onApply: (status: BookingStatus | "", startDate: string, endDate: string) => void;
   initialStatus: BookingStatus | "";
@@ -96,56 +93,38 @@ function FilterDropdown({
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full mt-2 z-50 bg-white border border-gray-100 rounded-2xl shadow-xl p-5 w-[400px] max-w-[calc(100vw-1rem)]" style={{ width: '400px' }}>
+        <div className="absolute left-0 top-full mt-2 z-50 bg-white border border-gray-100 rounded-2xl shadow-xl p-5" style={{ width: '400px', maxWidth: 'calc(100vw - 1rem)' }}>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-gray-800">فیلتر ها</h3>
-            <button
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-1 text-xs text-red-400 border border-red-300 rounded-full px-3 py-1 hover:bg-red-50 transition-colors"
-            >
+            <button onClick={() => setOpen(false)} className="flex items-center gap-1 text-xs text-red-400 border border-red-300 rounded-full px-3 py-1 hover:bg-red-50 transition-colors">
               <span>✕</span> بستن
             </button>
           </div>
-
           <div className="space-y-3 border-t border-dashed border-gray-200 pt-4">
             <div className="grid grid-cols-2 gap-3">
               <div className="relative border border-gray-200 rounded-xl px-3 py-2.5">
                 <label className="absolute -top-2 right-3 bg-white px-1 text-xs text-gray-400">تاریخ رفت</label>
                 <div className="flex items-center gap-2">
                   <span className="text-gray-400 text-xs shrink-0">📅</span>
-                  <input
-                    type="text"
-                    value={startDate}
-                    onChange={e => setStartDate(e.target.value)}
-                    placeholder="۱۴۰۴-۰۱-۰۱"
-                    className="outline-none text-sm text-gray-700 w-full text-right bg-transparent"
-                  />
+                  <input type="text" value={startDate} onChange={e => setStartDate(e.target.value)} placeholder="۱۴۰۴-۰۱-۰۱"
+                    className="outline-none text-sm text-gray-700 w-full text-right bg-transparent" />
                 </div>
               </div>
               <div className="relative border border-gray-200 rounded-xl px-3 py-2.5">
                 <label className="absolute -top-2 right-3 bg-white px-1 text-xs text-gray-400">تاریخ برگشت</label>
                 <div className="flex items-center gap-2">
                   <span className="text-gray-400 text-xs shrink-0">📅</span>
-                  <input
-                    type="text"
-                    value={endDate}
-                    onChange={e => setEndDate(e.target.value)}
-                    placeholder="۱۴۰۴-۱۲-۲۹"
-                    className="outline-none text-sm text-gray-700 w-full text-right bg-transparent"
-                  />
+                  <input type="text" value={endDate} onChange={e => setEndDate(e.target.value)} placeholder="۱۴۰۴-۱۲-۲۹"
+                    className="outline-none text-sm text-gray-700 w-full text-right bg-transparent" />
                 </div>
               </div>
             </div>
-
             <div className="relative border border-gray-200 rounded-xl px-3 py-2.5">
               <label className="absolute -top-2 right-3 bg-white px-1 text-xs text-gray-400">وضعیت رزرو</label>
               <div className="flex items-center gap-2">
                 <span className="text-gray-400 text-xs shrink-0">▾</span>
-                <select
-                  value={status}
-                  onChange={e => setStatus(e.target.value as any)}
-                  className="outline-none text-sm text-gray-700 w-full appearance-none bg-transparent cursor-pointer text-right"
-                >
+                <select value={status} onChange={e => setStatus(e.target.value as any)}
+                  className="outline-none text-sm text-gray-700 w-full appearance-none bg-transparent cursor-pointer text-right">
                   <option value="">همه</option>
                   <option value="confirmed">تایید شده</option>
                   <option value="pending">در انتظار</option>
@@ -154,18 +133,13 @@ function FilterDropdown({
               </div>
             </div>
           </div>
-
           <div className="flex gap-2 mt-4">
-            <button
-              onClick={() => { setStatus(""); setStartDate(""); setEndDate(""); onApply("", "", ""); setOpen(false); }}
-              className="flex-1 border border-gray-200 text-gray-500 py-2 rounded-xl text-sm hover:bg-gray-50 transition-colors"
-            >
+            <button onClick={() => { setStatus(""); setStartDate(""); setEndDate(""); onApply("", "", ""); setOpen(false); }}
+              className="flex-1 border border-gray-200 text-gray-500 py-2 rounded-xl text-sm hover:bg-gray-50 transition-colors">
               پاک کردن
             </button>
-            <button
-              onClick={() => { onApply(status, startDate, endDate); setOpen(false); }}
-              className="flex-1 bg-green-400 hover:bg-green-500 text-white font-medium py-2 rounded-xl transition-colors text-sm"
-            >
+            <button onClick={() => { onApply(status, startDate, endDate); setOpen(false); }}
+              className="flex-1 bg-green-400 hover:bg-green-500 text-white font-medium py-2 rounded-xl transition-colors text-sm">
               اعمال فیلتر
             </button>
           </div>
@@ -177,10 +151,7 @@ function FilterDropdown({
 
 function CloseButton({ onClick }: { onClick: () => void }) {
   return (
-    <button
-      onClick={onClick}
-      className="flex items-center gap-1 text-xs text-red-400 border border-red-200 rounded-full px-2.5 py-1 hover:bg-red-50 transition-colors"
-    >
+    <button onClick={onClick} className="flex items-center gap-1 text-xs text-red-400 border border-red-200 rounded-full px-2.5 py-1 hover:bg-red-50 transition-colors">
       <span>✕</span> بستن
     </button>
   );
@@ -188,7 +159,6 @@ function CloseButton({ onClick }: { onClick: () => void }) {
 
 function DetailWindows({ booking, onClose }: { booking: Booking; onClose: () => void }) {
   const [activeWindow, setActiveWindow] = useState<"main" | "payments" | "reservations" | "travelers">("main");
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" dir="rtl">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
@@ -335,8 +305,8 @@ function DeleteConfirm({ booking, onConfirm, onCancel, loading }: {
           آیا از حذف رزرو <strong className="text-gray-700">{booking.house.title}</strong> مطمئن هستید؟
         </p>
         <div className="flex gap-2">
-          <button onClick={onCancel} className="flex-1 border border-gray-200 text-gray-600 py-2 rounded-xl text-sm hover:bg-gray-50 transition-colors">انصراف</button>
-          <button onClick={onConfirm} disabled={loading} className="flex-1 bg-red-400 hover:bg-red-500 disabled:opacity-60 text-white py-2 rounded-xl text-sm transition-colors">
+          <button onClick={onCancel} className="flex-1 border border-gray-200 text-gray-600 py-2 rounded-xl text-sm hover:bg-gray-50">انصراف</button>
+          <button onClick={onConfirm} disabled={loading} className="flex-1 bg-red-400 hover:bg-red-500 disabled:opacity-60 text-white py-2 rounded-xl text-sm">
             {loading ? "..." : "حذف"}
           </button>
         </div>
@@ -345,14 +315,19 @@ function DeleteConfirm({ booking, onConfirm, onCancel, loading }: {
   );
 }
 
-function ReservationCard({ booking, onDetail, onDelete }: { booking: Booking; onDetail: () => void; onDelete: () => void }) {
+function ReservationCard({ booking, onDetail, onDelete, onConfirm, onCancel }: {
+  booking: Booking; onDetail: () => void; onDelete: () => void;
+  onConfirm: () => void; onCancel: () => void;
+}) {
   return (
     <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm space-y-3">
       <div className="flex items-start justify-between gap-2">
         <span className="text-sm font-semibold text-gray-800">{booking.house.title}</span>
         <ActionMenu actions={[
-          { label: "جزئیات", icon: "☰", onClick: onDetail },
-          { label: "حذف", icon: "✕", onClick: onDelete, className: "text-red-500" },
+          { label: "تایید رزرو", icon: "✓", onClick: onConfirm },
+          { label: "لغو رزرو",  icon: "✕", onClick: onCancel,  className: "text-orange-500" },
+          { label: "جزئیات",    icon: "☰", onClick: onDetail },
+          { label: "حذف",       icon: "✕", onClick: onDelete,  className: "text-red-500" },
         ]} />
       </div>
       <div className="grid grid-cols-2 gap-2 text-xs">
@@ -477,9 +452,7 @@ export default function ReservationListPage({
     }, 400);
   }, [fetchPage, statusFilter, startDate, endDate]);
 
-  const handleFilterApply = useCallback((
-    status: BookingStatus | "", sd: string, ed: string
-  ) => {
+  const handleFilterApply = useCallback((status: BookingStatus | "", sd: string, ed: string) => {
     setStatusFilter(status);
     setStartDate(sd);
     setEndDate(ed);
@@ -495,7 +468,35 @@ export default function ReservationListPage({
     if (res.success) fetchPage(page);
   }, [deleteBooking, page, getApi, fetchPage]);
 
+ 
+  const handleConfirmBooking = useCallback(async (booking: Booking) => {
+    const res = await handleAsyncAction(
+      getApi().confirmBooking(booking.id)
+    );
+    if (res.success) {
+      setBookings(prev => prev.map(b => b.id === booking.id ? { ...b, status: "confirmed" } : b));
+    }
+  }, [getApi]);
+
+  
+  const handleCancelBooking = useCallback(async (booking: Booking) => {
+    const res = await handleAsyncAction(
+      getApi().cancelBooking(booking.id)
+    );
+    if (res.success) {
+      setBookings(prev => prev.map(b => b.id === booking.id ? { ...b, status: "cancelled" } : b));
+    }
+  }, [getApi]);
+
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
+
+ 
+  const getRowActions = (row: Booking) => [
+    { label: "تایید رزرو", icon: "✓", onClick: () => handleConfirmBooking(row) },
+    { label: "لغو رزرو",  icon: "✕", onClick: () => handleCancelBooking(row),  className: "text-orange-500" },
+    { label: "جزئیات",    icon: "☰", onClick: () => setDetailBooking(row) },
+    { label: "حذف",       icon: "✕", onClick: () => setDeleteBooking(row),      className: "text-red-500" },
+  ];
 
   return (
     <div className="w-full h-full bg-gray-50 p-3 sm:p-5" dir="rtl">
@@ -534,12 +535,13 @@ export default function ReservationListPage({
 
         {!isFetching && !error && (
           <>
+       
             <div className="hidden sm:block rounded-2xl border border-gray-100 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-100">
-                    <th className="py-3 px-4 w-10" />
-                    {["نام اقامتگاه","تعداد مسافر","تاریخ رزرو","قیمت کل","وضعیت رزرو","وضعیت پرداخت"].map(h => (
+            
+                    {["نام اقامتگاه","تعداد مسافر","تاریخ رزرو","قیمت کل","وضعیت رزرو","وضعیت پرداخت",""].map(h => (
                       <th key={h} className="py-3 px-4 text-right text-xs font-semibold text-gray-500 whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
@@ -549,18 +551,16 @@ export default function ReservationListPage({
                     <tr><td colSpan={7} className="py-12 text-center text-sm text-gray-400">رزروی یافت نشد</td></tr>
                   ) : bookings.map((row, i) => (
                     <tr key={row.id ?? i} className="border-b border-gray-50 last:border-0 hover:bg-gray-50/50 transition-colors">
-                      <td className="py-3 px-4">
-                        <ActionMenu actions={[
-                          { label: "جزئیات", icon: "☰", onClick: () => setDetailBooking(row) },
-                          { label: "حذف", icon: "✕", onClick: () => setDeleteBooking(row), className: "text-red-500" },
-                        ]} />
-                      </td>
                       <td className="py-3 px-4 font-medium text-gray-800 whitespace-nowrap">{row.house.title}</td>
                       <td className="py-3 px-4 text-gray-600 whitespace-nowrap">{toPersianDigits(row.traveler_details?.length ?? 0)} عدد مسافر</td>
                       <td className="py-3 px-4 text-gray-600 text-xs whitespace-nowrap">{row.reservedDates?.[0] ? formatDate(row.reservedDates[0]) : "—"}</td>
                       <td className="py-3 px-4 font-medium text-gray-800 whitespace-nowrap">{formatAmount(row.house.price)}</td>
                       <td className="py-3 px-4"><StatusBadge status={statusMap[row.status] ?? "در انتظار"} /></td>
                       <td className="py-3 px-4"><StatusBadge status={row.status === "confirmed" ? "تایید شده" : "در انتظار"} /></td>
+                   
+                      <td className="py-3 px-4">
+                        <ActionMenu actions={getRowActions(row)} />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -571,7 +571,14 @@ export default function ReservationListPage({
               {bookings.length === 0
                 ? <div className="py-12 text-center text-sm text-gray-400">رزروی یافت نشد</div>
                 : bookings.map((row, i) => (
-                    <ReservationCard key={row.id ?? i} booking={row} onDetail={() => setDetailBooking(row)} onDelete={() => setDeleteBooking(row)} />
+                    <ReservationCard
+                      key={row.id ?? i}
+                      booking={row}
+                      onDetail={() => setDetailBooking(row)}
+                      onDelete={() => setDeleteBooking(row)}
+                      onConfirm={() => handleConfirmBooking(row)}
+                      onCancel={() => handleCancelBooking(row)}
+                    />
                   ))
               }
             </div>
