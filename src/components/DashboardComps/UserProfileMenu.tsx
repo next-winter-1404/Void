@@ -35,7 +35,7 @@ function LogoutModal({ onConfirm, onCancel, loading }: {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" dir="rtl">
       <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
       <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 z-10 text-center">
-        <Image src="/assets/warning.png" alt="warning" width={72} height={72} className="mx-auto mb-5" />
+        <Image src={warning} alt="warning" width={72} height={72} className="mx-auto mb-5" />
         <h2 className="text-base font-bold text-gray-800 mb-6">آیا از خروج خود مطمعن هستید؟</h2>
         <div className="flex items-center justify-center gap-3">
           <button onClick={onCancel} className="px-6 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors">
@@ -71,7 +71,7 @@ function NotifSettingsInline({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="border-t border-gray-100 px-4 py-3" dir="rtl">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between gap-5 mb-3">
         <button
           onClick={onClose}
           className="flex items-center gap-1 text-xs text-red-400 border border-red-200 rounded-full px-2.5 py-0.5 hover:bg-red-50 transition-colors"

@@ -113,7 +113,7 @@ function DeleteConfirm({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" dir="rtl">
       <div className="absolute inset-0 bg-black/40" onClick={onCancel} />
-      <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-xs p-6 z-10 text-center">
+      <div className="relative border border-black bg-white rounded-2xl shadow-xl w-500 max-w-xs p-6 z-10 text-center">
         <div className="w-11 h-11 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
           <span className="text-red-500 text-xl">✕</span>
         </div>
@@ -293,7 +293,6 @@ function StatsBar({ comments }: { comments: SellerComment[] }) {
 
   return (
     <div className="flex flex-wrap items-center gap-4 px-5 py-4 bg-gray-50 border-b border-gray-100">
-      {/* avg */}
       <div className="text-center">
         <p className="text-2xl font-extrabold text-gray-800">{toPersianDigits(avg)}</p>
         <div className="flex items-center justify-center gap-0.5 mt-0.5">

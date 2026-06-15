@@ -122,7 +122,7 @@ export default function DashHeader() {
         <span className="hidden sm:inline">{title}</span>
         <span className="sm:hidden text-sm">{title}</span>
         <span className="text-gray-400">
-          <Image src={arrowdash} alt='>>>' width={16} height={16} />
+          <Image src={arrowdash} alt='>>>' width={30} height={30} />
         </span>
       </div>
 
@@ -156,7 +156,7 @@ export default function DashHeader() {
           {dropdownOpen && (
             <div className="absolute left-0 mt-2 w-80 sm:w-96 bg-white border border-gray-200 rounded-2xl shadow-lg z-50 overflow-hidden" dir='rtl'>
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-                <span className="text-xs text-gray-400">{unreadCount} خوانده نشده</span>
+                
                 <span className="text-sm font-bold">اعلان‌ها</span>
               </div>
               <ul className="max-h-72 overflow-y-auto divide-y divide-gray-50">

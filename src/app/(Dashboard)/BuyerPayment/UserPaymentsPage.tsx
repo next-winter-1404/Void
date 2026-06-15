@@ -185,6 +185,7 @@ interface Props {
 
 export default function UserPaymentsPage({ token, initialData }: Props) {
   const [payments, setPayments]         = useState<UserPayment[]>(initialData.payments);
+  const router = useRouter()
   const [totalCount, setTotalCount]     = useState(initialData.totalCount);
   const [page, setPage]                 = useState(1);
   const [statusFilter, setStatusFilter] = useState<PaymentStatus | "">("");
@@ -280,15 +281,13 @@ export default function UserPaymentsPage({ token, initialData }: Props) {
                       <td className="py-3 px-5"><StatusBadge status={row.status} /></td>
                       <td className="py-3 px-5 text-gray-600">{row.description}</td>
                       <td className="py-3 px-5">
-                        {row.paymentUrl && (
-                          <button 
-                            onClick={() => router.push(row.paymentUrl)}
+                          <button
+                            onClick={() => router.push(`/BuyerPayment/receipt/${row.id}`)}
                             className="text-blue-400 hover:text-blue-500 hover:underline text-xs whitespace-nowrap transition-colors"
                           >
                             مشاهده رسید
                           </button>
-                        )}
-                      </td>
+                        </td>
                     </tr>
                   ))}
                 </tbody>
