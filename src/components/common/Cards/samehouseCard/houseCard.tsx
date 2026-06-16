@@ -1,5 +1,5 @@
 
-import type { houseCardProps } from "@/types/houseCardType/houseCard-Type"
+import type { houseCardProps } from "@/types/HouseCardType/houseCard-Type"
 import Link from "next/link"
 import Image from "next/image"
 import bed from '@/assets/Images/common/HouseCard/bed.png'

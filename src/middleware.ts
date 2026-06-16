@@ -39,5 +39,5 @@ export async function middleware(req:NextRequest) {
 }
 
 export const config = {
-    matcher : ["/forgetPassword/","/register/","/reserving/*"]
+    matcher : ["/forgetPassword/","/register/","/reserving/"]
 }
