@@ -1,6 +1,6 @@
 'use client'
 import HouseCard from "@/components/common/Cards/samehouseCard/houseCard";
-import type { houseCardProps } from "@/types/houseCard-type/houseCard-type";
+import type { houseCardProps } from "@/types/HouseCardType/houseCard-Type";
 import { useEffect } from "react";
 
 interface HouseDataProps {

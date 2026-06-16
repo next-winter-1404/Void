@@ -1,6 +1,6 @@
 'use client'
 import HouseCard from "@/components/common/Cards/houseCard/houseCard";
-import type { houseCardProps } from "@/types/houseCard-type/houseCard-type";
+import type { houseCardProps } from "@/types/HouseCardType/houseCard-Type";
 import { useEffect,useState } from "react";
 
 import PaginationPage from "@/components/common/paginationPage/paginationPage";
