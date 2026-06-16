@@ -1,13 +1,19 @@
 "use client"
 
+import dynamic from 'next/dynamic'
+
+const  PriceRange = dynamic(() => import("./priceRange"), { ssr: false })
+
 import {useState,useEffect} from "react"
 import FilterButton from "@/components/common/button"
 import DropDownMenu from "./dropDownMenu"
-import PriceRange from "./priceRange"
+// import PriceRange from "./priceRange"
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import type {dropDownItems} from "./dropDownMenu";
 
 import { QueryMapper } from "@/util/helper/queryMapper"
+
+import {useTheme} from "next-themes"
 
 import { useCallback } from "react"
 
@@ -54,12 +60,12 @@ export default function filterModal() {
     useEffect(() => {
   const params = new URLSearchParams(searchParams.toString());
 
-    const cat = QueryMapper.map(filters.category, "propertyType", category);
+    const cat = QueryMapper.map(filters.category, "transactionType", category);
     const loc = QueryMapper.map(filters.location, "location", Location);
     const srt = QueryMapper.map(filters.sort, "sort", Sorting);
     const prc = String(filters.priceRange[1]);
 
-    cat.propertyType ? params.set("propertyType",cat.propertyType) : params.delete("propertyType");
+    cat.transactionType ? params.set("transactionType",cat.transactionType) : params.delete("transactionType");
     loc.location ? params.set("location",loc.location) : params.delete("location");
     srt.sort ? params.set("sort", srt.sort) : params.delete("sort");
     srt.order ? params.set("order", srt.order) : params.delete("order");
@@ -102,13 +108,15 @@ export default function filterModal() {
     
     //   console.log("price",filters.priceRange[1])
 
+    const {theme} = useTheme();
+
     return (
         <>   
         <FilterButton showFilter={showFilter} setShowFilter={setShowFilter} label=" فیلتر ها"/>
 
          <div className={`w-[280px] max-xl:w-[230px]  absolute top-[150px] z-[10] rounded-[16px]
           ${showFilter ? "block":"hidden"}`}>
-        <div className="shadow-md shadow-purple-200 w-full bg-white rounded-[20px] py-[10px] flex flex-col items-center gap-1">
+        <div className={`shadow-md shadow-purple-200 w-full ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"} rounded-[20px] py-[10px] flex flex-col items-center gap-1`}>
 
                 
           <DropDownMenu 

@@ -34,7 +34,7 @@ export default function CustomDateInput({name,label}:InputDateProps) {
             <div
               onClick={openCalendar}
               style={{
-               width: 325,
+               width: 250,
                 height: 50,
                 borderRadius: 16,
                 border: "1px solid #d3d3d3",
@@ -43,7 +43,7 @@ export default function CustomDateInput({name,label}:InputDateProps) {
                 textIndent:"40px",
                 fontSize: 16,
                 cursor: "pointer",
-                color: value ? "#000" : "#999",
+               
               }}
             >
               {value || "تاریخ را وارد کنید"}

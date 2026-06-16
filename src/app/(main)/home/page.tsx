@@ -9,7 +9,16 @@ import HeroSection from '@/components/landing/HeroSection/HeroSection'
 import UserComments from '@/components/landing/UserComments/UserComments'
 import DiscountedHouses from '@/components/landing/discountedHouses/DiscountedHouses'
 import PropertySearchTabs from '@/components/landing/fixedBar/FixedBard'
-const LandingPage = () => {
+import { Api } from '@/util/service/api'
+import { handleAsyncAction } from '@/util/service/api/handleAsync'
+
+const  LandingPage =async() => {
+
+
+  const api = await Api();
+  const comments = await handleAsyncAction(api.landing.getComments());
+  const comment = comments?.data?.comments 
+
   return (
     <div dir='rtl' className='flex flex-col gap-20'>
       {/* <PropertySearchTabs /> */}
@@ -19,7 +28,7 @@ const LandingPage = () => {
       <HotSales />
       <Rotbebartart />
       <BestLocation />
-      <UserComments />
+      <UserComments comment={comment} />
       
     </div>
   )

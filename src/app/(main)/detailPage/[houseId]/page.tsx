@@ -12,6 +12,7 @@ import MapIco2 from "@/assets/ico/detailPage/Map2-ico.png"
 
 import { handleAsyncAction } from "@/util/service/api/handleAsync";
 import { Api } from "@/util/service/api";
+import { getToken, getUserInfo } from "@/util/service/api/token";
 
 interface SearchProps {
   params: {
@@ -33,12 +34,16 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
   const resolved = await props.params;
   const houseID = Number(resolved.houseId);
   
+  const user = await getUserInfo();
+  const token = await getToken() as string;
+  const userId = user?.id;
 
   const api = await Api();
 
    //housedetail
    const theHouse = await handleAsyncAction(api.houseDetail.houseDetail(houseID));
-   const theHouseDetail = theHouse.data
+   const theHouseDetail = theHouse?.data
+   const theHouseFavoriteId = theHouse?.data?.favoriteId
   //  console.log("housessss",theHouse?.data);
 
 
@@ -50,6 +55,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
      case "rental":descriptionHomeType = <DescribeHomeRent   houseDetail={theHouseDetail}/>;break
      case "mortgage" : descriptionHomeType = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
      case "direct purchase" : descriptionHomeType  = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
+     case "sell" : descriptionHomeType  = <DescribeHomeRent  houseDetail={theHouseDetail}/>;break
      default : descriptionHomeType =<DescriptionHome  houseDetail={theHouseDetail}/>
    }
     
@@ -67,8 +73,8 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
 
    //thehouseComment
    const theHouseComment = await handleAsyncAction(api.houseDetail.houseComments(houseID));
-  //  console.log("houseComment",theHouseComment)
- 
+   console.log("houseComment",theHouseComment)
+   
     return(
         <>
           <div dir="rtl" className="w-full  flex flex-col">
@@ -102,7 +108,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
               {descriptionHomeType}
 
                {transactionType === "reservation" &&
-                <ReserveForm price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
+                <ReserveForm token={token} user_id={userId} favoriteId={theHouseFavoriteId} houseId={theHouseDetail?.id} price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
                 }
 
                <CommentBox comments={theHouseComment?.data?.comments}/>

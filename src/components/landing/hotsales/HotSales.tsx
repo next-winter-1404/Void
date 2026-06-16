@@ -6,67 +6,11 @@ import placeholder from '@/assets/Images/components/HouseCard/placeholder.png'
 import {Api} from "@/util/service/api"
 import { handleAsyncAction } from '@/util/service/api/handleAsync'
 import { HousesApiType } from '@/types/HouseCard/HouseApiType'
-// const mockHouses: HouseCard[] = [
-//   {
-//     id: "1",
-//     title: "آپارتمان لوکس زعفرانیه",
-//     location: "تهران، زعفرانیه",
-//     oldPrice: 15000000,
-//     image: placeholder,
-//     isDicounted: false,
-//     discountPrice: 3000000,
-//     discountPercent: 15,
-//     showBeds: true,
-//     beds: 3,
-//     showBath: true,
-//     baths: 2,
-//     showParking: true,
-//     parking: 1,
-//     showYard: true,
-//     yard: "حیاط دار"
-//   },
-//   {
-//     id: "2",
-//     title: "آپارتمان لوکس زعفرانیه",
-//     location: "تهران، زعفرانیه",
-//     oldPrice: 15000000,
-//     image: placeholder,
-//     isDicounted: false,
-//     discountPrice: 3000000,
-//     discountPercent: 15,
-//     showBeds: true,
-//     beds: 3,
-//     showBath: true,
-//     baths: 2,
-//     showParking: true,
-//     parking: 1,
-//     showYard: true,
-//     yard: "حیاط دار"
-//   },
-//   {
-//     id: "3",
-//     title: "آپارتمان لوکس زعفرانیه",
-//     location: "تهران، زعفرانیه",
-//     oldPrice: 15000000,
-//     image: placeholder,
-//     isDicounted: false,
-//     discountPrice: 3000000,
-//     discountPercent: 15,
-//     showBeds: true,
-//     beds: 3,
-//     showBath: true,
-//     baths: 2,
-//     showParking: true,
-//     parking: 1,
-//     showYard: true,
-//     yard: "حیاط دار"
-//   },
-// ]
-
+import { Suspense } from 'react'
+import Loading from "@/app/loading"
 const query = {
-   sort: "price",
+    sort: "price",
     order: "DESC",
-    page: 1,
     limit: 3,
     transactionType:"rental"
 }
@@ -93,19 +37,27 @@ const HotSales = () => {
           خرید و فروش های داغ این هفته
         </h2>
 
-        <Button1 href="/RentAndMortgage" label="مشاهده همه" />
+       <div className="hidden md:flex">
+          <Button1 href="/RentAndMortgage" label="نمایش همه" />
+        </div>
 
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-
+       
+       <Suspense fallback={<Loading/>}>
         {houses.map((house:any) => (
           <HouseCards
             key={house.id}
              house={house}
           />
         ))}
+        </Suspense>
 
+      </div>
+
+       <div className="flex md:hidden justify-center mt-2">
+        <Button1 href="/RentAndMortgage" label="نمایش همه" />
       </div>
 
     </div>

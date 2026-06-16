@@ -15,5 +15,6 @@ export interface houseDetailProps{
    address?:string,
    sellerName?:string | undefined
    last_updated?:string
+   favoriteId?:number
   }
 }

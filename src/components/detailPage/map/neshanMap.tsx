@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import "@neshan-maps-platform/mapbox-gl/dist/NeshanMapboxGl.css";
 import "@/assets/style/neshanStyle.css";
 
-import { toPersianFormat } from "@/util/helper/persionFormat";
+import { toPersianFormat } from "@/util/helper/persianFormat";
 
 type House = {
   id?: string | number;

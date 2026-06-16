@@ -1,4 +1,4 @@
-import {ApiClient, apiClient} from "@/util/service/api/apiClient";
+import {ApiClient} from "@/util/service/api/apiClient";
 
 export const HouseMortgateRentListAPI = (client:ApiClient)=> ({
    

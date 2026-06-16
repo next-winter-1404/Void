@@ -1,5 +1,5 @@
 
-import type { houseCardProps } from "@/types/HouseCardType/houseCard-Type"
+import type { houseCardProps } from "@/types/houseCardType/houseCard-Type"
 import Link from "next/link"
 import Image from "next/image"
 import bed from '@/assets/Images/common/HouseCard/bed.png'
@@ -8,7 +8,7 @@ import parkings from '@/assets/Images/common/HouseCard/parking.png'
 import bath from '@/assets/Images/common/HouseCard/bath.png'
 import hayat from '@/assets/Images/common/HouseCard/hayatdarad.png'
 import persons from '@/assets/Images/common/HouseCard/persons.png'
-import { toPersianFormat } from "@/util/helper/persionFormat"
+import { toPersianFormat } from "@/util/helper/persianFormat"
 import { redirect } from "next/navigation"
 
 
@@ -50,10 +50,10 @@ isFavorite,
     return (
     <div>
         <div onClick={()=>redirect(`/detailPage/${id}`)}  className={`
-        bg-white rounded-[16px] border border-zinc-300
+         rounded-[16px] border border-zinc-300
         hover:shadow-lg transition
          cursor-pointer
-         w-[400px] 
+         w-[400px] max-md:w-[100%]
         flex flex-col items-center
         p-3  
         `}
@@ -80,27 +80,27 @@ isFavorite,
           </div>
 
           <div className="flex flex-row items-center whitespace-nowrap justify-between max-md:text-[15px] text-sm border-zinc-300 border-t pt-1">
-            {room &&
-            <div className='flex flex-row items-center border-r border-zinc-300' dir='ltr'>
+            {room > 0 &&
+            <div className='flex flex-row items-center border-l  px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(room)} خواب <Image src={bed} alt='bed' height={20} width={20}/>
             </div>}
-            {bathrooms &&
-            <div  className='flex flex-row items-center  border-r border-zinc-300' dir='ltr'>
+            {bathrooms > 0 &&
+            <div  className='flex flex-row items-center  border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(bathrooms)} حمام<Image src={bath} alt='bebat' height={20} width={20}/>
             </div>}
             
-            {yard_type &&
-            <div className='flex flex-row items-center border-r  border-zinc-300' dir='ltr'>
-              {toPersianFormat(yard_type)} <Image src={hayat} alt='bed' height={20} width={20}/>
+            {yard_type  &&
+            <div className='flex flex-row items-center border-l px-1  border-zinc-300' dir='ltr'>
+              {yard_type} <Image src={hayat} alt='bed' height={20} width={20}/>
             </div>}
 
-            {parking &&
-            <div  className='flex flex-row items-center border-r border-zinc-300' dir='ltr'>
+            {parking > 0&&
+            <div  className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(parking)} پارکینگ<Image src={parkings} alt='park' height={20} width={20}/>
             </div>}
             
-            {capacity &&
-            <div  className='flex flex-row items-center border-r border-zinc-300' dir='ltr'>
+            {capacity > 0&&
+            <div  className='flex flex-row items-center border-l px-1 border-zinc-300' dir='ltr'>
               {toPersianFormat(capacity)} نفر<Image src={persons} alt='park' height={20} width={20}/>
             </div>}
           </div>

@@ -1,10 +1,13 @@
 'use client'
 import HouseCard from "@/components/common/Cards/houseCard/houseCard";
-import type { houseCardProps } from "@/types/HouseCardType/houseCard-Type";
+import type { houseCardProps } from "@/types/houseCardType/houseCard-Type";
 import { useEffect,useState } from "react";
 
 import PaginationPage from "@/components/common/paginationPage/paginationPage";
 import NeshanMap from "../map/neshanMap";
+
+import Paginate from "@/components/common/paginationPage/paginationDash/paginationPage"
+import Paginate2 from "@/components/RentAndMortagageComps/Pagination";
 
 type House = {
   id?: string | number;
@@ -25,13 +28,16 @@ type House = {
 interface HouseDataProps {
      houseData:houseCardProps[]
      houses?: House[];
+     totall:number;
+     page:number;
+     totalcount:number
   loc?:{
     latLoc:number,
     lngLoc:number
   }
 }
 
-export default function ResHouse_List ({houseData,loc,houses}:HouseDataProps) {
+export default function ResHouse_List ({totalcount,page,houseData,loc,houses,totall}:HouseDataProps) {
 
   // useEffect(()=>{
   //   console.log("house",houseData);
@@ -42,19 +48,22 @@ export default function ResHouse_List ({houseData,loc,houses}:HouseDataProps) {
   const [currentItems,setCurrentItems] = useState<any[]>([]);
   const [showMap,setShowMap] = useState<boolean>(false);
  
-  const housess = Array.isArray(houseData) ? houseData : [];
+  // const housess = Array.isArray(houseData) ? houseData : [];
+
+  // console.log("erlhrelrerelee",Math.floor(houseData.length));
+  // console.log(houseData);
 
     return(
 
        
 
-        <div dir="rtl" className="w-full h-[600px] flex flex-row flex-wrap gap-3 justify-center min-xl:overflow-y-scroll relative">
+        <div dir="rtl" className="w-full h-[600px] flex flex-row flex-wrap gap-3 justify-center overflow-y-scroll relative">
          
           <button onClick={()=>setShowMap(!showMap) }
            className="px-5 py-2 text-[20px] bg-[black] text-[white] rounded-[20px] hidden max-xl:block 
              fixed right-[50px] bottom-[50px] z-[10] ">نقشه</button>
 
-          {currentItems.length > 0 ? currentItems.map((prop)=>(
+          {houseData.length > 0 ? houseData.map((prop)=>(
             <HouseCard
               key={prop.id}
               id={prop.id}
@@ -85,7 +94,7 @@ export default function ResHouse_List ({houseData,loc,houses}:HouseDataProps) {
              />
           )):
             <div className="w-full h-[500px] text-[20px] flex flex-col items-center">
-               <h1 className="font-semibold m-auto">محصولی یافت نشد</h1>
+               <h1 className="font-semibold m-auto">خانه ای یافت نشد</h1>
             </div> 
           }
           
@@ -93,7 +102,13 @@ export default function ResHouse_List ({houseData,loc,houses}:HouseDataProps) {
              <NeshanMap houses={houses} loc={loc}/>
           </div>
 
-          <PaginationPage productInArray={housess} itemsPerPage={10} setCurrentItems={setCurrentItems}/>
+          {/* <PaginationPage productInArray={housess} itemsPerPage={10} setCurrentItems={setCurrentItems}/> */}
+          {/* <Paginate totalPages={Math.floor(houseData.length/Number(limit))} /> */}
+          <div className="w-full p-5 flex justify-center mt-6 space-x-2">
+              <Paginate2 currentPage={page} totalPages={totall} totalCount={totalcount}/>
+          </div>
+        
+
           
         </div>
     )

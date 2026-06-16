@@ -13,6 +13,7 @@ import { forgetPass_ResetPass } from "@/util/service/authAction/action";
 //util/service(type)
 import { actionResult } from "@/util/service/authAction/actionResult";
 
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 export default function resetPass () {
 
@@ -24,9 +25,10 @@ export default function resetPass () {
    
       const [state,formAction,pending] = useActionState(forgetPass_ResetPass,actionResult);
       
-          useEffect(()=>{
-            console.log(state);
-         },[state]) 
+         useEffect(()=>{
+          console.log(" response",state)
+           if(state?.status) toast_errorHandling(Number(state.status),"رمز عبور با موفقیت تغییر کرد👌");
+        },[state])
          
         if(state.success){
           redirect("/login");

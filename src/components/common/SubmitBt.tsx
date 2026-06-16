@@ -1,12 +1,17 @@
 'use client'
 interface submitType {
-    subLabel:string
+    subLabel:string,
+    btColor?: "red" | "green"
+
 }
 
-export default function SubmitBt ({subLabel}:submitType) {
+export default function SubmitBt ({subLabel,btColor}:submitType) {
+
+    const BG = btColor === "red" ? "#FF5555" : btColor ==="green" ? "#8CFF45" : "#586CFF"
+    
 
     return (
-    <button type="submit" className="bg-[#586CFF] py-3 w-full rounded-[16px] text-[white] font-medium text-center">
+    <button type="submit" style={{backgroundColor:BG}} className={` whitespace-nowrap py-3 w-full rounded-[16px] ${btColor ? "" :"text-[white]"}  font-medium text-center`}>
      {subLabel}
     </button>
     )

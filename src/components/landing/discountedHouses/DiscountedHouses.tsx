@@ -7,74 +7,15 @@ import Timer from '@/components/common/counter/counter';
 import { HousesApiType } from '@/types/HouseCard/HouseApiType'
 import {Api} from "@/util/service/api"
 import { handleAsyncAction } from '@/util/service/api/handleAsync'
-// const mockHouses: HouseCard[] = [
-//   {
-//     id: "1",
-//     title: "آپارتمان لوکس زعفرانیه",
-//     location: "تهران، زعفرانیه",
-//     oldPrice: 15000000,
-//     image: placeholder,
-//     isDicounted: true,
-//     discountPrice: 3000000,
-//     discountPercent: 15,
-//     showBeds: true,
-//     beds: 3,
-//     showBath: true,
-//     baths: 2,
-//     showParking: false,
-//     parking: 1,
-//     showYard: false,
-//     yard: "حیاط دار",
-//     showPeople: true,
-//     people: 5,
-//   },
-//   {
-//     id: "2",
-//     title: "آپارتمان لوکس زعفرانیه",
-//     location: "تهران، زعفرانیه",
-//     oldPrice: 15000000,
-//     image: placeholder,
-//     isDicounted: true,
-//     discountPrice: 3000000,
-//     discountPercent: 15,
-//     showBeds: true,
-//     beds: 3,
-//     showBath: true,
-//     baths: 2,
-//     showParking: false,
-//     parking: 1,
-//     showYard: false,
-//     yard: "حیاط دار",
-//     showPeople: true,
-//     people: 5,
-//   },
-//   {
-//     id: "3",
-//     title: "آپارتمان لوکس زعفرانیه",
-//     location: "تهران، زعفرانیه",
-//     oldPrice: 15000000,
-//     image: placeholder,
-//     isDicounted: true,
-//     discountPrice: 3000000,
-//     discountPercent: 15,
-//     showBeds: true,
-//     beds: 3,
-//     showBath: true,
-//     baths: 2,
-//     showParking: false,
-//     parking: 1,
-//     showYard: false,
-//     yard: "حیاط دار",
-//     showPeople: true,
-//     people: 5,
-//   },
-// ]
+import { Suspense } from 'react'
+import Loading from '@/app/loading'
 
 const query = {
-   sort: "price",
+    sort: "price",
     order: "DESC",
-    page: 1,
-    limit: 3
+    limit: 3,
+    transactionType:"reservation"
+    
 }
 const api = await Api();
 
@@ -112,13 +53,14 @@ const DiscountedHouses = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-
+       <Suspense fallback={<Loading/>}>
         {houses.map((house:any) => (
           <HouseCards
             key={house.id}
              house={house}
           />
         ))}
+        </Suspense>
 
       </div>
 

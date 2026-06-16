@@ -2,9 +2,10 @@
 import Image from 'next/image';
 import HomeImg from "@/assets/Images/detailPage/Home-ico.png";
 import HomeRentInfo from './HomerentInfo';
-import { toPersianFormat } from '@/util/helper/persionFormat';
+import { toPersianFormat } from '@/util/helper/persianFormat';
 import type { houseDetailProps } from '@/types/houseDetailType/houseDetail-type';
-
+import { getUserInfo } from '@/util/service/api/token';
+import { getToken } from '@/util/service/api/token';
 import NeshanMap from '../map/neshanMap';
 import {Api} from "@/util/service/api"
 import { handleAsyncAction } from '@/util/service/api/handleAsync';
@@ -20,6 +21,12 @@ export default async function DescribeHome ({houseDetail}:houseDetailProps){
     
    const theHouse_Location = theHouseLocation?.data
    
+   const user = await getUserInfo();
+     const token = await getToken() as string;
+     const userId = user?.id;
+
+  //  console.log("price",Number(houseDetail.price));
+   
   let buildingType = null;
 
    switch(houseDetail.tags){
@@ -32,9 +39,15 @@ export default async function DescribeHome ({houseDetail}:houseDetailProps){
   //  console.log("lat",theHouse_Location?.lat)
   //  console.log("lng",theHouse_Location?.lng)
 
+  // console.log("houseDetail",houseDetail);
+
+  const sellerInfo = await handleAsyncAction(api.auth.theUserInfo(houseDetail?.id));
+  const sellerInfos = sellerInfo?.data?.data;
+  console.log("sellerInfo",sellerInfos);
+
    const houseDetailLcation = [
        {id:1,oldPrice:houseDetail.discounted_price,name:houseDetail?.title
-        ,price:houseDetail?.price,lat:Number(theHouse_Location?.lat),lng:Number(theHouse_Location?.lng),address:houseDetail?.address,
+        ,price:houseDetail?.price,lat:Number(theHouse_Location?.location.lat),lng:Number(theHouse_Location?.location.lng),address:houseDetail?.address,
         image:"https://hesamghasemi.com/wp-content/uploads/2025/01/%D9%86%D9%85%D8%A7-%D9%88%DB%8C%D9%84%D8%A7-%D8%B3%D8%A7%D8%AF%D9%872_.jpg"},
 
    ]
@@ -79,8 +92,8 @@ export default async function DescribeHome ({houseDetail}:houseDetailProps){
              </p>
 
 
-             <HomeRentInfo sellerName={houseDetail?.sellerName ? houseDetail?.sellerName : ""} last_updated={houseDetail?.last_updated ? houseDetail?.last_updated : ""}
-             mortagatePrice={houseDetail?.price} rentPrice={houseDetail?.price}/>
+             <HomeRentInfo token={token} user_id={userId} houseId={houseDetail?.id} favoriteId={houseDetail?.favoriteId} phoneNumber={sellerInfos?.phoneNumber ?? "شماره در دسترس نیست"} sellerName={houseDetail?.sellerName ? houseDetail?.sellerName : ""} last_updated={houseDetail?.last_updated ? houseDetail?.last_updated : ""}
+             mortagatePrice={Number(houseDetail?.price)} rentPrice={Number(houseDetail?.price)}/>
 
 
           

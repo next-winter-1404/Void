@@ -3,7 +3,8 @@ import SubmitBt from "@/components/common/SubmitBt";
 import comment_Handler from "@/util/service/commentAction/action";
 import { useParams } from "next/navigation";
 import { useActionState,useEffect } from "react";
-import { success } from "zod";
+
+import toast_errorHandling from "@/util/hooks/errorHandling";
 
 
 export default function commentForm(){
@@ -14,8 +15,15 @@ export default function commentForm(){
     const[state,formAction,pending] = useActionState(comment_Handler,result);
 
     useEffect(()=>{
-         console.log("comment response",state)
+         console.log("response",state)
+          if(state?.success){
+             toast_errorHandling(Number(state.status),"نظر ثبت شد");
+            //  setTimeout(()=>window.location.reload(),1000)
+          }
+          
     },[state])
+     
+
 
     return(
         <>
@@ -35,7 +43,7 @@ export default function commentForm(){
                  h-[140px]
                  rounded-[30px]
                  border border-[#efefef]
-                 bg-white
+                 
                  px-6 py-3
                  placeholder:text-[#bbbbbb]
                  text-gray-700
