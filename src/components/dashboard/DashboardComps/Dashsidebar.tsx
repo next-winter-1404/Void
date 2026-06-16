@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import { useMemo,useState,useEffect } from 'react'
 import Image from 'next/image'
 import Home  from '@/assets/Images/Dashboard/Home.png'
 import Chat  from '@/assets/Images/Dashboard/Chat.png'
@@ -15,36 +15,58 @@ import SideBarButton from './SideBarButton'
 import { useSidebar } from './burgerButtonState/sidebarContext'
 import { useTheme } from 'next-themes'
 import { getUserInfo } from '@/util/hooks/localStorage'
-interface DashsidebarProps {
-  role: string | null   
-}
+import { BuyerWalletWidget, SellerCommentsWidget } from './sidebarWidgets'
+import Piza from "@/assets/ico/PIZA.png"
 
 const Dashsidebar = () => {
   const { open, setOpen } = useSidebar()
+  const { theme } = useTheme()
 
-  const userInfo = getUserInfo();
-const role = userInfo?.role;
+   const [mounted, setMounted] = useState(false);
+  
+  
+    useEffect(() => setMounted(true), []);
+  
+     
+ 
+      //  useEffect(() => setMounted(true), [])
+
+  const userInfo = useMemo(() => {
+    if (!mounted) return null 
+    return getUserInfo()
+  }, [mounted])
+
+ 
+  // const userInfo = useMemo(() => getUserInfo(), [])
+  const role = userInfo?.role
   const isSeller = role === 'seller'
 
-  const {theme} = useTheme();
+   const bgColor = mounted
+      ? theme === "dark" ?'bg-[#444444]' : 'bg-white'
+      : "bg-[#ECECEC]"; 
 
-  return (
-    <>
-      <main className={`flex flex-col gap-5 p-5 ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"} max-h-screen right-[0] z-[100]
-          transition-[1s] duration-[280ms] h-full
-          ${open ? 'max-xl:fixed w-[300px]' : 'w-[16%] max-xl:hidden'}
-          rounded-2xl`}>
+  
+  // const bgColor =
+  //   theme === 'dark' ? 'bg-[#444444]' :
+  //   theme === 'light' ? 'bg-white' :
+  //   'bg-[#444444]'
 
-        <header className='flex flex-row justify-between'>
-          <Image src={delta}  alt='دلتا' width={50} height={50} />
-          <button className='min-xl:hidden' onClick={() => setOpen(false)}>
-            <Image src={logout} alt='log out' width={24} height={24} />
-          </button>
-        </header>
+   return (
+    <main className={`flex flex-col gap-5 p-5 ${bgColor} max-h-screen right-[0] z-[100]
+        transition-[1s] duration-[280ms] h-full
+        ${open ? 'max-xl:fixed w-[300px]' : 'w-[16%] max-xl:hidden'}
+        rounded-2xl`}
+    >
+      <header className='flex flex-row justify-between'>
+        <Image src={Piza} alt='piza' width={50} height={50} />
+        <button className='min-xl:hidden' onClick={() => setOpen(false)}>
+          <Image src={logout} alt='بستن' width={24} height={24} />
+        </button>
+      </header>
 
+      {role !== 'admin'  ? (
         <div className='flex flex-col gap-5' dir='ltr'>
 
-          
           <SideBarButton href="/dashboard" className='flex flex-row justify-end items-center'>
             داشبورد
             <Image src={Home} alt='H' width={20} height={20} />
@@ -55,12 +77,7 @@ const role = userInfo?.role;
             <Image src={User} alt='U' width={20} height={20} />
           </SideBarButton>
 
-
-
-
-
-
-          {isSeller && (
+          {isSeller ? (
             <>
               <SideBarButton href="/dashboard/house_managment" className='flex flex-row justify-end items-center'>
                 مدیریت املاک
@@ -72,7 +89,7 @@ const role = userInfo?.role;
                 <Image src={Add} alt='Add' width={20} height={20} />
               </SideBarButton>
 
-              <SideBarButton href="/dashboard/payment_managment" className='flex flex-row justify-end items-center'>
+              <SideBarButton href="/dashboard/sellerPayment_managment" className='flex flex-row justify-end items-center'>
                 مدیریت مالی
                 <Image src={Desk} alt='Desk' width={20} height={20} />
               </SideBarButton>
@@ -82,15 +99,7 @@ const role = userInfo?.role;
                 <Image src={Chat} alt='Chat' width={20} height={20} />
               </SideBarButton>
             </>
-          )}
-
-
-
-
-
-
-
-          {!isSeller && (
+          ) : (
             <>
               <SideBarButton href="/dashboard/reserve_managment" className='flex flex-row justify-end items-center'>
                 مدیریت رزرو ها
@@ -102,24 +111,37 @@ const role = userInfo?.role;
                 <Image src={Fav} alt='Fav' width={20} height={20} />
               </SideBarButton>
 
-              <SideBarButton href="/dashboard/payment_managment" className='flex flex-row justify-end items-center'>
+              <SideBarButton href="/dashboard/buyerPayment_managment" className='flex flex-row justify-end items-center'>
                 پرداخت ها
                 <Image src={Desk} alt='Desk' width={20} height={20} />
               </SideBarButton>
             </>
           )}
 
-          
           <SideBarButton href="/dashboard/Notifactions" className='flex flex-row justify-end items-center'>
             اعلان ها
             <Image src={Bell} alt='Bell' width={20} height={20} />
           </SideBarButton>
 
         </div>
+      ) : (
+        <>
+         <SideBarButton href="/dashboard" className='flex flex-row justify-start items-center'>
+          <Image src={Desk} alt='Desk' width={20} height={20} />
+          داشبورد
+        </SideBarButton>
 
-        <div className='w-full h-[100px] border rounded-[16px]'></div>
-      </main>
-    </>
+        <SideBarButton href="/dashboard/AdminUsers" className='flex flex-row justify-start items-center'>
+          <Image src={Desk} alt='Desk' width={20} height={20} />
+          مدیریت
+        </SideBarButton>
+        </>
+      )}
+
+      <div className="p-5 border-t border-gray-100 mt-auto">
+        {isSeller ? <SellerCommentsWidget /> : <BuyerWalletWidget />}
+      </div>
+    </main>
   )
 }
 

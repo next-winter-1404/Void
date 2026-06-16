@@ -15,7 +15,7 @@ export default async function Page() {
 
   if (!userId || !token) {
     return (
-      <div className="min-h-screen  flex items-center justify-center" dir="rtl">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" dir="rtl">
         <p className="text-sm text-gray-400">لطفاً ابتدا وارد حساب کاربری خود شوید.</p>
       </div>
     );

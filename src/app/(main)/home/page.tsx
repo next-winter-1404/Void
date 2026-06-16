@@ -11,6 +11,7 @@ import DiscountedHouses from '@/components/landing/discountedHouses/DiscountedHo
 import PropertySearchTabs from '@/components/landing/fixedBar/FixedBard'
 import { Api } from '@/util/service/api'
 import { handleAsyncAction } from '@/util/service/api/handleAsync'
+
 const  LandingPage =async() => {
 
 

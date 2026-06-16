@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import arrdash from '@/assets/Images/Dashboard/dashhome/arrdash.png';
-
+import Link from "next/link"
 interface Booking {
   id: string | number;
   hotelName: string;
@@ -35,7 +35,7 @@ export default function BookingTable({ role, data }: BookingTableProps) {
       <div className="flex justify-between items-center mb-6">
         <h2 className="font-bold text-lg text-zinc-800">{title}</h2>
         <button className="flex items-center gap-2 text-zinc-400 text-sm hover:text-zinc-600 transition-colors">
-          <span className="text-xs">مشاهده همه</span>
+          <Link href={'/dashboard/reserve_managment'} className="text-xs" >مشاهده همه</Link>
           <Image src={arrdash} alt="arrow" />
         </button>
       </div>

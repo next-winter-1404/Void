@@ -12,15 +12,11 @@ import { contactApi } from "./main/contactUs/contactApi";
 import { getToken } from "./token";
 import { blogApi } from "./main/blogApi/blogApi";
 import { SellerCommentsAPI } from "./DashboardApis/comments_api";
+import { cache } from 'react';
 
-
-export  async function Api() {
+export const Api = cache(async function Api() {
   const token = await getToken() as string;
-
-  const client = new ApiClient(
-    process.env.NEXT_PUBLIC_API_URL!,
-    token
-  );
+  const client = new ApiClient(process.env.NEXT_PUBLIC_API_URL!, token);
 
   return {
     client,
@@ -29,11 +25,11 @@ export  async function Api() {
     houseDetail: HouseDetailAPI(client),
     houseListmortRent: HouseMortgateRentListAPI(client),
     profile: profileApi(client),
-    HouseManageApi:HouseManageApi(client),
-    landing:LandingApi(client),
-    blog:blogApi(client),
-    contactUs:contactApi(client),
+    HouseManageApi: HouseManageApi(client),
+    landing: LandingApi(client),
+    blog: blogApi(client),
+    contactUs: contactApi(client),
     sellerComments: SellerCommentsAPI(client),
   };
-}
+});
 

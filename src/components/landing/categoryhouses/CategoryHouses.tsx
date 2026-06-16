@@ -10,7 +10,8 @@ import { StaticImageData } from 'next/image'
 import { Api } from '@/util/service/api'
 import { handleAsyncAction } from '@/util/service/api/handleAsync'
 import { redirect } from 'next/dist/server/api-utils'
-
+import { Suspense } from 'react'
+import Loading from '@/app/loading'
 const mockCategory:{image:StaticImageData,id:number,redirect:string}[] = [
     {
         id:1,
@@ -74,9 +75,11 @@ const CategoryHouses =async() => {
           grid-cols-1
           md:grid-cols-3    
           gap-5 justify-between'>
+            <Suspense fallback={<Loading/>}>
             {mergedData.slice(0,6).map((cat)=>(
                 <CategoryHouseCard key={cat.id} title={cat.name} image={cat.image} redirect={cat.redirect}/>
             ))}
+            </Suspense>
         </div>
     </div>
   )

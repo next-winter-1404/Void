@@ -8,8 +8,8 @@ import tehran from '@/assets/Images/components/LocationCard/tehran.png'
 import { StaticImageData } from 'next/image'
 import { Api } from '@/util/service/api'
 import { handleAsyncAction } from '@/util/service/api/handleAsync'
-
-
+import { Suspense } from 'react'
+import Loading from '@/app/loading'
 
 
 
@@ -87,10 +87,11 @@ const BestLocation =async() => {
             <p className='font-bold text-2xl md:text-3xl '>محبوب‌ترین مقاصد این ماه</p>
         </div>
         <div className='flex flex-row justify-evenly flex-wrap gap-2'>
-            
+           <Suspense fallback={<Loading/>}> 
           {mergedData.slice(0,6).map((loc, index) => (
-    <div  className={index >= 3 ? "hidden md:block" : ""} key={loc.id}> <LocationCard   {...loc}  /></div>
-  ))}
+          <div  className={index >= 3 ? "hidden md:block" : ""} key={loc.id}> <LocationCard   {...loc}  /></div>
+          ))}
+          </Suspense>
         </div>
     </div>
   )

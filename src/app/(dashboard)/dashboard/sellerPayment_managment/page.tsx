@@ -121,7 +121,7 @@ export default function FinancialManagementPage() {
       header: '',
       render: row => (
         <button
-          onClick={() => router.push(`/dashboard/payment_managment/receipt/${row.id}`)}
+          onClick={() => router.push(`/SellerPaymentSection/receipt/${row.id}`)}
           className="text-blue-500 hover:text-blue-600 hover:underline text-xs whitespace-nowrap transition-colors"
         >
           مشاهده رسید
@@ -131,7 +131,7 @@ export default function FinancialManagementPage() {
   ]
 
   return (
-    <div className="w-full h-full p-3 sm:p-5" dir="rtl">
+    <div className="w-full h-full bg-gray-50 p-3 sm:p-5" dir="rtl">
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
         {statsCards.map(card => (

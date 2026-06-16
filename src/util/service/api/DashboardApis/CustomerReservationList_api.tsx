@@ -38,16 +38,26 @@ export interface GetBookingsParams {
   page?: number;
   limit?: number;
   status?: BookingStatus | "";
+  search?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export function CustomerReservationAPI(client: ApiClient) {
   return {
     getBookings: (params: GetBookingsParams = {}) => {
-      const { page = 1, limit = 10, status } = params;
-      const statusParam = status ? `&status=${status}` : "";
-      return client.get<BookingsResponse>(
-        `/api/bookings?page=${page}&limit=${limit}${statusParam}`
-      );
+      const { page = 1, limit = 10, status, search, startDate, endDate } = params;
+      const q = new URLSearchParams({
+        page: String(page),
+        limit: String(limit),
+        sort: "created_at",
+        order: "DESC",
+      });
+      if (status)    q.set("status", status);
+      if (search)    q.set("search", search);
+      if (startDate) q.set("startDate", startDate);
+      if (endDate)   q.set("endDate", endDate);
+      return client.get<BookingsResponse>(`/api/bookings?${q}`);
     },
 
     getBookingById: (id: number) =>
@@ -55,5 +65,11 @@ export function CustomerReservationAPI(client: ApiClient) {
 
     deleteBooking: (id: number) =>
       client.delete(`/api/bookings/${id}`),
+
+    confirmBooking: (id: number) =>
+      client.post(`/api/bookings/${id}/continue`),
+
+    cancelBooking: (id: number) =>
+      client.post(`/api/bookings/${id}/cancel`),
   };
 }

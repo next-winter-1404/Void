@@ -11,6 +11,8 @@ import { isoToPersianDate } from '@/util/helper/persianFormat';
 
 import { FakeComments } from '@/types/FakeUserComments/FakeUserComments';
 
+import { Suspense } from 'react';
+import Loading from '@/app/loading';
 interface props {
   comment:any[]
 }
@@ -46,7 +48,7 @@ const UserComments = ({comment}:props) => {
           1024: { slidesPerView: 3 },
         }}
       >
-
+        <Suspense fallback={<Loading/>}>
         {comment.length > 0 ? comment.map((item, i) => (
           <SwiperSlide key={i}>
             <div className="bg-[#4E6AF3] text-white rounded-3xl p-8 min-h-[320px] h-auto flex flex-col justify-between">
@@ -65,6 +67,7 @@ const UserComments = ({comment}:props) => {
             </div>
           </SwiperSlide>
         )) : <div>کامنتی نداریم</div>}
+        </Suspense>
       </Swiper>
 
       <div dir='ltr' className="flex items-center gap-6 mt-8">

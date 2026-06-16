@@ -73,8 +73,8 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
 
    //thehouseComment
    const theHouseComment = await handleAsyncAction(api.houseDetail.houseComments(houseID));
-  //  console.log("houseComment",theHouseComment)
- 
+   console.log("houseComment",theHouseComment)
+   
     return(
         <>
           <div dir="rtl" className="w-full  flex flex-col">

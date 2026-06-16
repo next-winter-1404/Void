@@ -6,8 +6,13 @@ export async function middleware(req:NextRequest) {
     const token = await getToken();
     
     if(!token && req.nextUrl.pathname.startsWith("/reserving")){
-        return NextResponse.redirect(new URL("/home", req.url));
+        return NextResponse.redirect(new URL("/login", req.url));
     }
+
+     if(!token && req.nextUrl.pathname.startsWith("/dashboard")){
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
+
 
     // if(req.nextUrl.pathname.startsWith("/forgetPassword")){
     //      return "/forgetPassword"
@@ -34,5 +39,5 @@ export async function middleware(req:NextRequest) {
 }
 
 export const config = {
-    matcher : ["/forgetPassword/","/register/","/reserving/contactWithSeller"]
+    matcher : ["/forgetPassword/","/register/","/reserving/*"]
 }

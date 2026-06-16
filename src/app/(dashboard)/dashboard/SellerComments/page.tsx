@@ -2,7 +2,7 @@ import { getToken, getUserId } from "@/util/service/api/token";
 import { ApiClient } from "@/util/service/api/apiClient";
 import { SellerCommentsAPI, SellerCommentsResponse } from "@/util/service/api/DashboardApis/seller_comments_api";
 import { handleAsyncAction } from "@/util/service/api/handleAsync";
-import SellerCommentsPage from "./CommentsTable";
+import SellerCommentsPage from "./SellerCommentsPage";
 
 const PAGE_SIZE = 10;
 

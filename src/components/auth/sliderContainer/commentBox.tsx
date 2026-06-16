@@ -15,7 +15,7 @@ import ArrowRight2 from "@/assets/ico/arrow/right2.png"
 import "@/assets/style/paraghraph.css"
 
 import Circle_Timer from "@/components/common/timer/timer"
-import {useState} from "react"
+import {useState,useEffect} from "react"
 
 interface commentBoxProps {
     nextSlide:()=>void
@@ -28,11 +28,19 @@ export default function comment_Box({nextSlide}:commentBoxProps){
 
     const [toggle,setToggle] = useState<boolean>(false);
 
-    const {theme} = useTheme();
+  const { theme } = useTheme()
+  
+     const [mounted, setMounted] = useState(false);
+    
+    
+      useEffect(() => setMounted(true), []);
+      const bgColor = mounted
+      ? theme === "dark" ?'bg-[#444444]' : 'bg-white'
+      : "bg-[#ECECEC]"; 
 
     return(
         <>
-        <div className={`w-[95%] h-[200px] rounded-[16px] ${theme === "dark" ? "bg-[#444444]" : theme === "light" ? "bg-white" : "bg-[#444444]"}    shadow-md shadow-gray-50  
+        <div className={`w-[95%] h-[200px] rounded-[16px] ${bgColor}    shadow-md shadow-gray-50  
               flex flex-col items-center absolute bottom-[20px] right-[20px] justify-end px-2 gap-1`}>
 
                <span className="absolute right-[10px] top-[10px]">
