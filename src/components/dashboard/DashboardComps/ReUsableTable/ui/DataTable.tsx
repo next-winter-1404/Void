@@ -194,8 +194,8 @@ export function DataTable<T extends { id?: string | number }>({
       </div>
 
       
-      <div className="flex items-center justify-between mt-4 flex-wrap gap-2">
-        <div className="flex items-center gap-1 flex-wrap" dir="ltr">
+      <div dir='ltr' className="flex items-center justify-between mt-4 flex-wrap gap-2">
+        <div className="flex items-center gap-1 flex-wrap " dir="ltr">
           {pages.map((p, i) => (
             <button
               key={i}

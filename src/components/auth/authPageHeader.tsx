@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -12,6 +13,7 @@ interface stepProps {
     email?:string
 }
 
+import {redirect} from "next/navigation"
 
 
 export default function authPageHeader ({step,head,email}:stepProps) {
@@ -29,11 +31,10 @@ export default function authPageHeader ({step,head,email}:stepProps) {
     ]
     
     
- 
     return (
         <>
           <header className="my-2 w-full">
-             <h1 className=" py-3"><Image alt="logo" src={PIZA} /></h1>
+             <button onClick={()=>redirect("/home")} className=" py-3"><Image alt="logo" src={PIZA} /></button>
              <h1 className="font-bold text-[36px] mb-5">{head}</h1>
             
              

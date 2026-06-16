@@ -28,9 +28,10 @@ import { ApiClient } from "../api/apiClient";
 import { getUserInfo, setToken } from "../api/token";
 
 import jwt from "@/util/hooks/jwt";
+import { userInfo } from "os";
 
 
-export async function login_Handler(prevState:action_result ,formData:FormData):Promise<action_result>{
+export async function login_Handler(prevState:action_result ,formData:FormData):Promise<any>{
   
 const data = {
     email: formData.get("email") as string,
@@ -53,8 +54,11 @@ const data = {
 
    if (response.data?.accessToken) {
     const userInfo = await  jwt(response.data?.accessToken);
+   
    await setToken(response.data.accessToken,userInfo);
     console.log("token set in cookies!");
+
+     if(userInfo) return {userInfo:userInfo,res:response}
   }
 
  

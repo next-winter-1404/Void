@@ -1,9 +1,7 @@
 "use client";
 
 import { useRef, useState, useActionState, useEffect } from "react";
-import Image from "next/image";
 import { Camera, XCircle } from "lucide-react";
-
 
 interface AvatarUploadProps {
   initialAvatar: string;
@@ -14,42 +12,33 @@ export default function AvatarUpload({ initialAvatar, uploadAction }: AvatarUplo
   const [avatar, setAvatar] = useState(initialAvatar);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadFormRef = useRef<HTMLFormElement>(null);
-  const hiddenFileRef = useRef<HTMLInputElement>(null);
 
   const [uploadState, uploadDispatch, isPending] = useActionState(uploadAction, null);
 
-  console.log(uploadState);
-
   useEffect(() => {
     if (uploadState?.avatarUrl) setAvatar(uploadState.avatarUrl);
+    console.log(uploadState);
   }, [uploadState]);
 
-  
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (!e.target.files?.[0]) return;
-    setAvatar(URL.createObjectURL(e.target.files[0]));
-    uploadFormRef.current?.requestSubmit();
+  if (!e.target.files?.[0]) return;
+  setAvatar(URL.createObjectURL(e.target.files[0])); 
+  uploadFormRef.current?.requestSubmit();
+}
+
+  function handleDelete() {
+    setAvatar(initialAvatar);
   }
-
- 
-  async function handleDelete() {
-      return "";
-  }
-
-
 
   return (
-    <div className="  h-[200px]  flex items-center justify-center relative">
-
-      <Image
-        width={150}
-        height={150}
+    <div className="h-[200px] flex items-center justify-center relative">
+      <img
         className={[
-          "rounded-full shadow-md bg-[gray]/20 object-cover transition-opacity duration-200",
+          "rounded-full shadow-md bg-[gray]/20 w-[150px] h-[150px] object-cover transition-opacity duration-200",
           isPending ? "opacity-40" : "opacity-100",
         ].join(" ")}
         alt="profileAvatar"
-        src={""}
+        src={avatar}
       />
 
       {isPending && (
@@ -58,9 +47,7 @@ export default function AvatarUpload({ initialAvatar, uploadAction }: AvatarUplo
         </div>
       )}
 
-      
       <form ref={uploadFormRef} action={uploadDispatch} className="hidden">
-       
         <input
           ref={fileInputRef}
           type="file"
@@ -68,16 +55,8 @@ export default function AvatarUpload({ initialAvatar, uploadAction }: AvatarUplo
           accept="image/*"
           onChange={handleFileChange}
         />
-        
-        <input
-          ref={hiddenFileRef}
-          type="file"
-          name="avatar"
-          accept="image/*"
-        />
       </form>
 
-     
       <button
         type="button"
         disabled={isPending}
@@ -89,7 +68,6 @@ export default function AvatarUpload({ initialAvatar, uploadAction }: AvatarUplo
         <Camera size={20} className="text-black" />
       </button>
 
-      
       <button
         type="button"
         disabled={isPending}
@@ -100,7 +78,6 @@ export default function AvatarUpload({ initialAvatar, uploadAction }: AvatarUplo
       >
         <XCircle size={20} className="text-black" />
       </button>
-
     </div>
   );
 }

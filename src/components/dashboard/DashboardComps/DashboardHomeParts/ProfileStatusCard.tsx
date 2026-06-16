@@ -2,10 +2,20 @@ import React from 'react';
 import Image from 'next/image';
 import saved from '@/assets/Images/Dashboard/dashhome/saved.png';
 import arrdash from '@/assets/Images/Dashboard/dashhome/arrdash.png';
+import { getToken } from '@/util/service/api/token';
+import { getUserInfo } from '@/util/hooks/localStorage';
+import { toPersianFormat } from '@/util/helper/persianFormat';
+interface props {
+  Percentage:number
+}
+
+export default function ProfileStatusCard({Percentage}:props) {
+
+  
 
 
-export default function ProfileStatusCard() {
-  const percentage = 40;
+
+  const percentage = Percentage;
   const size = 100;
   const strokeWidth = 10;
   const radius = 40;
@@ -54,7 +64,7 @@ export default function ProfileStatusCard() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-2xl font-bold text-zinc-800">{percentage}%</span>
+          <span className="text-2xl font-bold text-zinc-800">{toPersianFormat(percentage)}%</span>
           <p className="text-sm text-zinc-500 leading-6 max-w-[200px]">
             برای اینکه بازدید خوبی داشته باشید، پروفایل شما باید حداقل ۷۰٪ تکمیل شده باشد.
           </p>

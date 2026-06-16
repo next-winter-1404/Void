@@ -4,7 +4,8 @@ import HomeImg from "@/assets/Images/detailPage/Home-ico.png";
 import HomeRentInfo from './HomerentInfo';
 import { toPersianFormat } from '@/util/helper/persianFormat';
 import type { houseDetailProps } from '@/types/houseDetailType/houseDetail-type';
-
+import { getUserInfo } from '@/util/service/api/token';
+import { getToken } from '@/util/service/api/token';
 import NeshanMap from '../map/neshanMap';
 import {Api} from "@/util/service/api"
 import { handleAsyncAction } from '@/util/service/api/handleAsync';
@@ -19,6 +20,10 @@ export default async function DescribeHome ({houseDetail}:houseDetailProps){
    const theHouseLocation = await handleAsyncAction(api.houseDetail.houseLocation(houseDetail?.id));
     
    const theHouse_Location = theHouseLocation?.data
+   
+   const user = await getUserInfo();
+     const token = await getToken() as string;
+     const userId = user?.id;
 
   //  console.log("price",Number(houseDetail.price));
    
@@ -87,7 +92,7 @@ export default async function DescribeHome ({houseDetail}:houseDetailProps){
              </p>
 
 
-             <HomeRentInfo phoneNumber={sellerInfos?.phoneNumber ?? "شماره در دسترس نیست"} sellerName={houseDetail?.sellerName ? houseDetail?.sellerName : ""} last_updated={houseDetail?.last_updated ? houseDetail?.last_updated : ""}
+             <HomeRentInfo token={token} user_id={userId} houseId={houseDetail?.id} favoriteId={houseDetail?.favoriteId} phoneNumber={sellerInfos?.phoneNumber ?? "شماره در دسترس نیست"} sellerName={houseDetail?.sellerName ? houseDetail?.sellerName : ""} last_updated={houseDetail?.last_updated ? houseDetail?.last_updated : ""}
              mortagatePrice={Number(houseDetail?.price)} rentPrice={Number(houseDetail?.price)}/>
 
 

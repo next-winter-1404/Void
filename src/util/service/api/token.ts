@@ -33,6 +33,7 @@ export async function setToken(token: string,user_info:userProps) {
 
 
 
+
 export async function getToken() {
   const cookieStore = await cookies();
   return cookieStore.get("auth_token")?.value || null;
@@ -44,6 +45,35 @@ export async function getUserInfo():Promise<userProps>{
    const userData =  cookieStore.get("user_info")?.value as string || "{}";
 
    return JSON.parse(userData);
+}
+
+export async function getUserId(): Promise<number | null> {
+  const token = await getToken();
+  if (!token) return null;
+
+  try {
+    
+    const payload = token.split(".")[1];
+    const decoded = JSON.parse(atob(payload));
+  
+    console.log("JWT payload:", decoded);
+    return decoded.id ?? decoded.userId ?? decoded.sub ?? null;
+  } catch {
+    return null;
+  }
+}
+export async function getUserRole(): Promise<string | null> {
+  const token = await getToken();
+  if (!token) return null;
+
+  try {
+    const payload = token.split(".")[1];
+    const decoded = JSON.parse(atob(payload));
+  
+    return decoded.role ?? decoded.userRole ?? decoded.type ?? null;
+  } catch {
+    return null;
+  }
 }
 
 

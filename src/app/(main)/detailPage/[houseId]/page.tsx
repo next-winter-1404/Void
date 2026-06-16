@@ -12,6 +12,7 @@ import MapIco2 from "@/assets/ico/detailPage/Map2-ico.png"
 
 import { handleAsyncAction } from "@/util/service/api/handleAsync";
 import { Api } from "@/util/service/api";
+import { getToken, getUserInfo } from "@/util/service/api/token";
 
 interface SearchProps {
   params: {
@@ -33,12 +34,16 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
   const resolved = await props.params;
   const houseID = Number(resolved.houseId);
   
+  const user = await getUserInfo();
+  const token = await getToken() as string;
+  const userId = user?.id;
 
   const api = await Api();
 
    //housedetail
    const theHouse = await handleAsyncAction(api.houseDetail.houseDetail(houseID));
    const theHouseDetail = theHouse?.data
+   const theHouseFavoriteId = theHouse?.data?.favoriteId
   //  console.log("housessss",theHouse?.data);
 
 
@@ -103,7 +108,7 @@ export  default async function DetailPage(props: { params: Promise<{ houseId: st
               {descriptionHomeType}
 
                {transactionType === "reservation" &&
-                <ReserveForm houseId={theHouseDetail?.id} price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
+                <ReserveForm token={token} user_id={userId} favoriteId={theHouseFavoriteId} houseId={theHouseDetail?.id} price={theHouseDetail?.price} discounted_price={theHouseDetail?.discounted_price}/>
                 }
 
                <CommentBox comments={theHouseComment?.data?.comments}/>

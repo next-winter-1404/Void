@@ -11,6 +11,7 @@ import {LandingApi} from "@/util/service/api/main/landingApi/landingApi"
 import { contactApi } from "./main/contactUs/contactApi";
 import { getToken } from "./token";
 import { blogApi } from "./main/blogApi/blogApi";
+import { SellerCommentsAPI } from "./DashboardApis/comments_api";
 
 
 export  async function Api() {
@@ -22,6 +23,7 @@ export  async function Api() {
   );
 
   return {
+    client,
     auth: AuthAPI(client),
     house: HouseAPI(client),
     houseDetail: HouseDetailAPI(client),
@@ -30,7 +32,8 @@ export  async function Api() {
     HouseManageApi:HouseManageApi(client),
     landing:LandingApi(client),
     blog:blogApi(client),
-    contactUs:contactApi(client)
+    contactUs:contactApi(client),
+    sellerComments: SellerCommentsAPI(client),
   };
 }
 

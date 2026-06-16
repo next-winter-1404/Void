@@ -194,18 +194,17 @@ export async function submitAction(
 
   if(mode === "add"){
      const responseA = await handleAsyncAction(api.HouseManageApi.AddHouse(body));
-     if(responseA?.success) {
-        const photoResponse = await handleAsyncAction(api.HouseManageApi.uploadPhotoHouse(responseA?.data.id,body?.photos))
-
-        return responseA;
-     }
+     return responseA;
+     
+    //  if(responseA?.success) {
+    //     const photoResponse = await handleAsyncAction(api.HouseManageApi.uploadPhotoHouse(responseA?.data.id,body?.photos))
+    //  }
+      
   }else{
        const response = await handleAsyncAction(api.HouseManageApi.EditHouse(Number(houseId),body))
         
        return response;
      }
-
-  return "";
  
 }
 

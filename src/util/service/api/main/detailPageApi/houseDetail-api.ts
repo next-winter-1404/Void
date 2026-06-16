@@ -52,7 +52,10 @@ export const HouseDetailAPI = (client:ApiClient)=> ({
 
   ReserveHouseHandler : (data:ReserveBody)=>{
     return client.post("/api/bookings",data)
-  }
+  },
+
+  addFavorite:(data:{house_id:number,user_id:number})=>client.post(`/api/favorites`,data),
+  removeFavorite:(favoriteId:number)=>client.delete(`/api/favorites/${favoriteId}`)
 
   
 })

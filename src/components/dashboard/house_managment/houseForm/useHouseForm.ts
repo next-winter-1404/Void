@@ -52,7 +52,7 @@ export function useHouseForm({
     if (initialData && Object.keys(initialData).length > 0) {
       setAccumulatedData(initialData);
     }
-  }, [initialData]);
+  }, [1]);
 
  
   const goToStep = useCallback(

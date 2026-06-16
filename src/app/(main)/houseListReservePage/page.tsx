@@ -53,7 +53,7 @@ export default async function houseList_reservePage ({searchParams}:filterParams
     sort:sort ? sort : "last_updated",
     order:order ? order : "DESC",
     maxPrice ,
-    limit:3,
+    limit:4,
     page,
     search
   };

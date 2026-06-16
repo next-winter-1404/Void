@@ -21,6 +21,8 @@ import PriceDisplay from "./compsOfStep/step5Comps/priceDisplay";
 
 
 import SubmitBt from "@/components/common/SubmitBt";
+import toast_errorHandling from "@/util/hooks/errorHandling";
+import { redirect } from "next/navigation";
 
 export default function Step5Review({ accumulatedData, mode, houseId, onBack }:step5Props) {
 
@@ -28,6 +30,8 @@ export default function Step5Review({ accumulatedData, mode, houseId, onBack }:s
   
   useEffect(()=>{
      console.log(state);
+     if(state?.status){ toast_errorHandling(200,"خانه ثبت شد")
+      setTimeout(()=>redirect("/dashboard"),2000)}
   },[state])
   
   return (

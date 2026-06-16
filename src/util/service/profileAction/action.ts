@@ -6,22 +6,41 @@ import {
   ,profileChangerZod
   } from "@/util/hooks/zodValidation";
 
+
 import {Api} from "@/util/service/api"
 import { handleAsyncAction } from "../api/handleAsync";
-import { getUserInfo } from "../api/token";
+import { getToken, getUserInfo } from "../api/token";
 
-export async function uploadAvatarAction(_: unknown, formData: FormData):Promise<any> {
-    const api = await Api();
+const url =process.env.NEXT_PUBLIC_API_URL
+
+export async function uploadAvatarAction(_: unknown, formData: FormData): Promise<{ avatarUrl?: string; error?: string }> {
   const file = formData.get("avatar") as File;
-  //  console.log("file",file)
-  const Data = await handleAsyncAction(api.profile.profileAvatarUploader(file));
+  const token = await getToken();
 
- 
-  console.log("Full Data:", JSON.stringify(Data));
-  
-    return {avatarUrl: Data}
-   
- 
+  try {
+    const body = new FormData();
+    body.append("picture", file);
+
+    const res = await fetch(`http://188.121.111.8:3003/api/users/upload/picture`, {
+      method: "PUT",
+      body,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Request failed: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return data;
+
+
+  } catch (error) {
+    console.error(error);
+    return { error: "آپلود تصویر با خطا مواجه شد" };
+  }
 }
 
 export async function updateProfileAction(prevState:any, formData: FormData):Promise<any> {

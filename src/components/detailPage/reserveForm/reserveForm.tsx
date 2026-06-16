@@ -5,7 +5,7 @@ import SubmitBt from "@/components/common/SubmitBt";
 import InputDate from "@/components/common/inputFeild/inputDate";
 import Price from "@/components/common/PriceComponent/Price";
 import { useActionState, useEffect } from "react";
-
+import ButtonFav from "@/components/detailPage/favoriteButton/favoriteButton"
 
 import availability_House from "@/util/service/reserveAction/availableReserve";
 import toast_errorHandling from "@/util/hooks/errorHandling";
@@ -14,9 +14,12 @@ interface priceProps {
      houseId:number,
      price:number,
      discounted_price:number
+     favoriteId?:number,
+     user_id:number,
+     token:string
 }
 
-export default function reserveForm ({houseId,price,discounted_price}:priceProps){
+export default function reserveForm ({houseId,price,discounted_price,favoriteId,user_id,token}:priceProps){
 
      const result = {success:false,};
     const [state,formAction,pending] = useActionState(availability_House,result);
@@ -67,14 +70,17 @@ export default function reserveForm ({houseId,price,discounted_price}:priceProps
                     </div>
                 </div>
                 <div className="w-[30%] flex flex-row items-center justify-end max-lg:justify-start gap-2 ">
-                    <button style={{backgroundImage:"url('/ico/share.png')"}} className="w-10 h-10 bg-[length:100%_100%]"></button>
-                    <button style={{backgroundImage:"url('/ico/link.png')"}}  className="w-10 h-10 bg-[length:100%_100%]"></button>
+                     <ButtonFav token={token} houseId={houseId} user_id={user_id} favoriteId={favoriteId} />
+                    {/* <button style={{backgroundImage:"url('/ico/share.png')"}} className="w-10 h-10 bg-[length:100%_100%]"></button> */}
+                    {/* <button style={{backgroundImage:"url('/ico/link.png')"}}  className="w-10 h-10 bg-[length:100%_100%]"></button> */}
                 </div>
 
             </div>
              
              <SubmitBt subLabel="همین الان رزرو کن" />
          </form>       
+
+        
         </>
     )
 }

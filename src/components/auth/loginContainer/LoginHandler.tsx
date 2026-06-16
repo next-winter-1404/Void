@@ -14,17 +14,23 @@ import { login_Handler} from "@/util/service/authAction/action";
 
 import { actionResult } from "@/util/service/authAction/actionResult";
 
+
 import toast_errorHandling from "@/util/hooks/errorHandling";
 
-export default function step1 () {
+import { setAuth,getUserInfo } from "@/util/hooks/localStorage";
 
+export default function step1 () {
 
     const [state,formAction,pending] = useActionState(login_Handler,actionResult);
     
    useEffect(()=>{
             console.log("response",state)
-             if(state?.status) toast_errorHandling(Number(state.status),"شما با موفقیت وارد حساب خود شدید✅");
-             if(state?.status == 200) setTimeout(()=>redirect("/home"),3000);
+             if(state?.res?.status) toast_errorHandling(Number(state?.res?.status),"شما با موفقیت وارد حساب خود شدید✅");
+             if(state?.res?.status == 200) setTimeout(()=>redirect("/home"),3000);
+             console.log(state?.userInfo);
+           if(state?.res?.success)setAuth(state?.userInfo);
+           const user = getUserInfo();
+           console.log("fromLocalStorage",user);
        },[state])
     
 

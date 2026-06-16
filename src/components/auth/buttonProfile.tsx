@@ -22,8 +22,8 @@ import { useTheme } from "next-themes";
 
 export default function buttonProfile ({userInfo}:props) {
 
-  console.log(userInfo);
-
+  // console.log(userInfo);
+   
    const [show,setShow] = useState<boolean>(false); 
 
     const handle = () =>{

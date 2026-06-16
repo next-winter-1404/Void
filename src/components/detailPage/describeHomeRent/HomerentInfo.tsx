@@ -2,7 +2,7 @@ import Price from "@/components/common/PriceComponent/Price";
 import Avater from "@/assets/ico/avatar.png";
 import SubmitBt from '@/components/common/SubmitBt';
 import { isoToPersianDate,toPersianFormat } from "@/util/helper/persianFormat";
-
+import ButtonFav from "@/components/detailPage/favoriteButton/favoriteButton"
 import Image from "next/image"
 
 interface rentInfoProps{
@@ -11,9 +11,13 @@ interface rentInfoProps{
     sellerName:string 
     last_updated:string
     phoneNumber:string | number; 
+    houseId:number,
+    user_id:number,
+    favoriteId?:number,
+    token:string
 }
 
-export default function HomeRentInfo ({phoneNumber,mortagatePrice,rentPrice,sellerName,last_updated}:rentInfoProps) {
+export default function HomeRentInfo ({phoneNumber,mortagatePrice,rentPrice,sellerName,last_updated,houseId,user_id,favoriteId,token}:rentInfoProps) {
 
 
     return (
@@ -51,9 +55,13 @@ export default function HomeRentInfo ({phoneNumber,mortagatePrice,rentPrice,sell
 
                     </div>
 
-                     <div className='w-[50%] max-xl:w-full flex flex-row   items-center p-2 gap-2'>
-                         <button style={{backgroundImage:"url('/ico/detailPage/message-ico.png')"}} className="w-10 h-10 bg-[length:100%_100%]"></button>
+
+                     <div className='w-[50%]  max-xl:w-full flex flex-row   items-center p-1 gap-2'>
+                        <ButtonFav token={token} user_id={user_id} favoriteId={favoriteId} houseId={houseId} />
+                         {/* <button style={{backgroundImage:"url('/ico/detailPage/message-ico.png')"}} className="w-10 h-10 bg-[length:100%_100%]"></button> */}
+                         <div className="w-[300px]">
                          <SubmitBt subLabel={`شماره تماس : ${phoneNumber}`} />
+                         </div>
                         </div> 
                 </div>
 
