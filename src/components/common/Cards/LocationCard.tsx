@@ -15,7 +15,7 @@ interface props {
 
 const LocationCard= ({id,name,redirect,image,count}:props) => {
   return (
-    <Link key={id} href={redirect ?? ""}  className='flex flex-col gap-5 border border-zinc-300 rounded-3xl p-3'>
+    <Link key={id} href={String(redirect) ?? ""}  className='flex flex-col gap-5 border border-zinc-300 rounded-3xl p-3'>
         <Image src={image} alt='?' className='w-[380px]' height={200} width={300}></Image>
         <div className='flex flex-row justify-between p-5'>
             <p className='text-[20px] font-bold'>{name}</p>

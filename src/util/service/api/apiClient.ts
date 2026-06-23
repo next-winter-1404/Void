@@ -35,7 +35,7 @@ export class ApiClient {
     method: string,
     url: string,
     body?: unknown,
-    options?: { next?: NextFetchRequestConfig; cache?: RequestCache }
+    // options?: { next?: NextFetchRequestConfig; cache?: RequestCache }
   ): Promise<T> {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
@@ -49,8 +49,8 @@ export class ApiClient {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
-      cache: options?.cache ?? (method === "GET" ? "force-cache" : "no-store"),
-      next: options?.next,
+      // cache: options?.cache ?? (method === "GET" ? "force-cache" : "no-store"),
+      // next: options?.next,
     });
 
     return this.handleResponse<T>(res, url, method);
@@ -111,8 +111,12 @@ export class ApiClient {
   }
 
 
-  get<T>(url: string, options?: { next?: NextFetchRequestConfig }) {
-  return this.request<T>("GET", url, undefined, options);
+//   get<T>(url: string, options?: { next?: NextFetchRequestConfig }) {
+//   return this.request<T>("GET", url, undefined, options);
+// }
+
+get<T>(url: string) {
+  return this.request<T>("GET", url, undefined);
 }
 
   post<T>(url: string, body?: unknown) {

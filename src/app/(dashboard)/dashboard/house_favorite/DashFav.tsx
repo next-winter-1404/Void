@@ -212,7 +212,7 @@ export default function DashFav({ user_id }: { user_id: string }) {
       </div>
 
       
-      <div className="flex items-center gap-1 mt-4 justify-start flex-wrap" dir="ltr">
+      {/* <div className="flex items-center gap-1 mt-4 justify-start flex-wrap" dir="ltr">
         {pages.map((p, i) => (
           <button
             key={i}
@@ -228,7 +228,7 @@ export default function DashFav({ user_id }: { user_id: string }) {
             {p}
           </button>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

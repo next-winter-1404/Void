@@ -111,7 +111,7 @@ const Dashsidebar = () => {
                 <Image src={Fav} alt='Fav' width={20} height={20} />
               </SideBarButton>
 
-              <SideBarButton href="/dashboard/buyerPayment_managment" className='flex flex-row justify-end items-center'>
+              <SideBarButton href="/dashboard/buyerPayment" className='flex flex-row justify-end items-center'>
                 پرداخت ها
                 <Image src={Desk} alt='Desk' width={20} height={20} />
               </SideBarButton>

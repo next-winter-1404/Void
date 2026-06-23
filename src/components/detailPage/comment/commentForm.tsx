@@ -18,7 +18,7 @@ export default function commentForm(){
          console.log("response",state)
           if(state?.success){
              toast_errorHandling(Number(state.status),"نظر ثبت شد");
-            //  setTimeout(()=>window.location.reload(),1000)
+             setTimeout(()=>window.location.reload(),2000)
           }
           
     },[state])
